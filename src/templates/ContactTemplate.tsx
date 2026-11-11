@@ -1,62 +1,43 @@
 "use client";
-import { useState, type FormEvent } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { contactSchema, submitContact, type ContactInput } from "@/content/contact";
 import { Button, Container, Field } from "@/design-system/primitives";
 import { Hero } from "@/design-system/composites";
-import s from "./templates.module.css";
-
-type Errors = Partial<Record<"nome" | "email" | "empresa", string>>;
-
-function validate(d: FormData): Errors {
-  const e: Errors = {};
-  if (!String(d.get("nome") ?? "").trim()) e.nome = "Preencha seu nome.";
-  const email = String(d.get("email") ?? "").trim();
-  if (!email) e.email = "Preencha seu e-mail.";
-  else if (!/^\S+@\S+\.\S+$/.test(email)) e.email = "Use um e-mail no formato nome@empresa.com.";
-  if (!String(d.get("empresa") ?? "").trim()) e.empresa = "Preencha o nome da empresa.";
-  return e;
-}
 
 /**
+ * Contact (template). react-hook-form + Zod for validation, TanStack Query mutation for submit.
  * WHEN the visitor submits with errors, THEN each field shows its error as text
- * AND focus moves to the first invalid field. Prototype: nothing is sent.
+ * AND focus moves to the first invalid field (shouldFocusError). Prototype: nothing is sent.
  */
 export function ContactTemplate() {
-  const [errors, setErrors] = useState<Errors>({});
-  const [state, setState] = useState<"idle" | "sending" | "done">("idle");
-
-  async function onSubmit(ev: FormEvent<HTMLFormElement>) {
-    ev.preventDefault();
-    const form = ev.currentTarget;
-    const e = validate(new FormData(form));
-    setErrors(e);
-    const first = Object.keys(e)[0];
-    if (first) {
-      form.querySelector<HTMLInputElement>(`[name="${first}"]`)?.focus();
-      return;
-    }
-    setState("sending");
-    await new Promise((r) => setTimeout(r, 600));
-    setState("done");
-  }
+  const { register, handleSubmit, formState: { errors } } = useForm<ContactInput>({
+    resolver: zodResolver(contactSchema),
+    shouldFocusError: true,
+    mode: "onSubmit",
+  });
+  const mutation = useMutation({ mutationFn: submitContact });
 
   return (
     <>
       <Hero align="start" title="Fale com a Loop" subtitle="Lorem ipsum dolor sit amet. Respondemos em até [A DEFINIR] dias úteis." />
       <Container>
-        <form className={s.form} noValidate onSubmit={onSubmit}>
-          <Field label="Nome" name="nome" autoComplete="name" required error={errors.nome} />
-          <Field label="E-mail corporativo" name="email" type="email" autoComplete="email" required error={errors.email} />
-          <Field label="Empresa" name="empresa" autoComplete="organization" required error={errors.empresa} />
-          <Field label="Cargo" name="cargo" autoComplete="organization-title" hint="Opcional" />
-          <Field label="Qual é o desafio?" name="mensagem" multiline hint="Opcional" />
-          <Button type="submit" loading={state === "sending"} className={s.submit}>
-            {state === "sending" ? "Enviando…" : "Enviar mensagem"}
+        <form className="grid max-w-[560px] gap-4" noValidate onSubmit={handleSubmit((d) => mutation.mutate(d))}>
+          <Field label="Nome" autoComplete="name" required error={errors.nome?.message} {...register("nome")} />
+          <Field label="E-mail corporativo" type="email" autoComplete="email" required error={errors.email?.message} {...register("email")} />
+          <Field label="Empresa" autoComplete="organization" required error={errors.empresa?.message} {...register("empresa")} />
+          <Field label="Cargo" autoComplete="organization-title" hint="Opcional" {...register("cargo")} />
+          <Field label="Qual é o desafio?" multiline hint="Opcional" error={errors.mensagem?.message} {...register("mensagem")} />
+          <Button type="submit" loading={mutation.isPending} className="justify-self-start">
+            {mutation.isPending ? "Enviando…" : "Enviar mensagem"}
           </Button>
           <div role="status" aria-live="polite">
-            {state === "done" ? <p className={s.ok}>Mensagem pronta. Neste protótipo nada foi enviado.</p> : null}
+            {mutation.isSuccess ? <p className="rounded-md bg-success p-4 text-success-foreground">Mensagem pronta. Neste protótipo nada foi enviado.</p> : null}
+            {mutation.isError ? <p className="rounded-md bg-destructive/10 p-4 text-destructive">Não foi possível enviar. Tente de novo.</p> : null}
           </div>
         </form>
-        <p className={s.note}>Protótipo: o formulário ainda não envia dados.</p>
+        <p className="mt-6 mb-16 text-sm text-muted-foreground">Protótipo: o formulário ainda não envia dados.</p>
       </Container>
     </>
   );

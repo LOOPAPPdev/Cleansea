@@ -1,12 +1,21 @@
 import type { ComponentProps, ElementType } from "react";
-import s from "./primitives.module.css";
+import { cn } from "@/lib/utils";
 
-/** Centres content at --container width with the responsive gutter. */
+/** Centres content at the site container width with the responsive gutter and safe-area insets. */
 export function Container({ as: Tag = "div", narrow, className, ...rest }: { as?: ElementType; narrow?: boolean } & ComponentProps<"div">) {
-  return <Tag className={[s.container, narrow && s.narrow, className].filter(Boolean).join(" ")} {...rest} />;
+  return (
+    <Tag
+      className={cn(
+        "mx-auto w-full px-[max(var(--space-gutter),env(safe-area-inset-left,0px))]",
+        narrow ? "max-w-[calc(var(--space-measure)+2*var(--space-gutter))]" : "max-w-site",
+        className,
+      )}
+      {...rest}
+    />
+  );
 }
 
-/** Vertical rhythm for page sections. */
+/** Vertical rhythm between page sections. */
 export function Section({ className, ...rest }: ComponentProps<"section">) {
-  return <section className={[s.section, className].filter(Boolean).join(" ")} {...rest} />;
+  return <section className={cn("py-(--space-section)", className)} {...rest} />;
 }

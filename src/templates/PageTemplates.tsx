@@ -25,7 +25,7 @@ export function PricingTemplate() {
   );
 }
 
-const tag = (i: number) => <Badge tone={(["accent", "green", "purple"] as const)[i % 3]}>Lorem</Badge>;
+const tag = (i: number) => <Badge tone={(["accent", "success", "warn"] as const)[i % 3]}>Lorem</Badge>;
 const tagged = (n: number, base: string, label?: string) => links(n, base, label).map((l, i) => ({ ...l, tag: tag(i) }));
 
 export function DirectoryTemplate() {
@@ -86,8 +86,8 @@ export function AboutTemplate() {
       <OrgGrid
         title="Liderança"
         people={[
-          { role: "Sócio fundador", name: "Nome 1", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "green" },
-          { role: "Sócia fundadora", name: "Nome 2", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "purple" },
+          { role: "Sócio fundador", name: "Nome 1", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "primary" },
+          { role: "Sócia fundadora", name: "Nome 2", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "success" },
           { role: "Diretora de operações", name: "Nome 3", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet" },
         ]}
       />
