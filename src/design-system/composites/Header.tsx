@@ -32,7 +32,7 @@ export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: stri
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 pt-[env(safe-area-inset-top)] backdrop-blur-md">
       <div className="mx-auto flex min-h-(--header-height) max-w-site items-center gap-2 px-(--space-gutter) min-[360px]:gap-4">
         <Link href="/solucoes" className="mr-auto inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap text-[1.0625rem] font-semibold tracking-tight min-[360px]:text-xl lg:mr-4">
-          <span aria-hidden="true" className="size-6 rounded-full border-[5px] border-primary" />
+          <span aria-hidden="true" className="size-6 rounded-full border-[5px] border-foreground" />
           Loop Consultoria
         </Link>
 
@@ -47,7 +47,7 @@ export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: stri
                     <ul className="grid min-w-60 gap-0.5 p-2">
                       {g.children.map((c) => (
                         <li key={c.href + c.label}>
-                          <NavigationMenuLink render={<Link href={c.href} />} aria-current={current(c.href)} className="aria-[current=page]:text-primary-strong">
+                          <NavigationMenuLink render={<Link href={c.href} />} aria-current={current(c.href)} className="aria-[current=page]:bg-surface-sunken">
                             {c.label}
                           </NavigationMenuLink>
                         </li>
@@ -57,7 +57,7 @@ export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: stri
                 </NavigationMenuItem>
               ) : (
                 <NavigationMenuItem key={g.label}>
-                  <NavigationMenuLink render={<Link href={g.href!} />} aria-current={current(g.href!)} className={cn(navigationMenuTriggerStyle(), "aria-[current=page]:text-primary-strong")}>
+                  <NavigationMenuLink render={<Link href={g.href!} />} aria-current={current(g.href!)} className={cn(navigationMenuTriggerStyle(), "aria-[current=page]:bg-surface-sunken")}>
                     {g.label}
                   </NavigationMenuLink>
                 </NavigationMenuItem>
@@ -85,7 +85,7 @@ export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: stri
                         <ul className="pb-2">
                           {g.children.map((c) => (
                             <li key={c.href + c.label}>
-                              <Link href={c.href} onClick={() => setOpen(false)} aria-current={current(c.href)} className="flex min-h-11 items-center rounded-md px-3 text-foreground hover:bg-surface aria-[current=page]:bg-surface aria-[current=page]:text-primary-strong">
+                              <Link href={c.href} onClick={() => setOpen(false)} aria-current={current(c.href)} className="flex min-h-11 items-center rounded-md px-3 text-foreground hover:bg-surface aria-[current=page]:bg-surface aria-[current=page]:bg-surface-sunken">
                                 {c.label}
                               </Link>
                             </li>
@@ -95,7 +95,7 @@ export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: stri
                     </AccordionItem>
                   ) : (
                     <div key={g.label} className="border-b border-border">
-                      <Link href={g.href!} onClick={() => setOpen(false)} aria-current={current(g.href!)} className="flex min-h-14 items-center text-lg font-medium aria-[current=page]:text-primary-strong">
+                      <Link href={g.href!} onClick={() => setOpen(false)} aria-current={current(g.href!)} className="flex min-h-14 items-center text-lg font-medium aria-[current=page]:bg-surface-sunken">
                         {g.label}
                       </Link>
                     </div>

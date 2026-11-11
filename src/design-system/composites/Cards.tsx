@@ -6,26 +6,26 @@ import { Card, Container, IconTile, Section } from "../primitives";
 import { cn } from "@/lib/utils";
 import { cardDesc, cardTitle, grid, grid3, h2 } from "./styles";
 
-/** Tone → classes. Tint ground, pane bars and label ink all come from tokens. */
-const TONE: Record<Tone, { ground: string; bar: string; ink: string }> = {
-  primary: { ground: "bg-[linear-gradient(160deg,var(--primary),color-mix(in_srgb,var(--primary)_18%,var(--background))_70%)]", bar: "bg-primary/45", ink: "text-primary-strong" },
-  success: { ground: "bg-[linear-gradient(160deg,var(--success),color-mix(in_srgb,var(--success)_30%,var(--background))_70%)]", bar: "bg-success-strong/40", ink: "text-success-strong" },
-  ink: { ground: "bg-[linear-gradient(160deg,var(--foreground),color-mix(in_srgb,var(--foreground)_25%,var(--background))_70%)]", bar: "bg-foreground/35", ink: "text-foreground" },
-  surface: { ground: "bg-[linear-gradient(160deg,var(--surface-sunken),var(--surface)_70%)]", bar: "bg-muted-foreground/35", ink: "text-foreground" },
+/** Tone → classes. Flat tint + thin border + white pane, as in the reference diagram. */
+const TONE: Record<Tone, { ground: string; bar: string }> = {
+  lavender: { ground: "bg-tint-lavender border-tint-lavender-border", bar: "bg-tint-lavender-border/70" },
+  sage: { ground: "bg-tint-sage border-tint-sage-border", bar: "bg-tint-sage-border/70" },
+  neutral: { ground: "bg-surface border-border", bar: "bg-border-strong/40" },
+  white: { ground: "bg-surface-raised border-border", bar: "bg-surface-sunken" },
 };
 
 /** Card with a tinted illustration (LOOP-CMP-004). The label repeats the title, so tone is never the only cue. */
 export function IllustratedCard({ item }: { item: CardItem }) {
-  const t = TONE[item.tone] ?? TONE.surface;
+  const t = TONE[item.tone] ?? TONE.neutral;
   return (
     <Link href={item.href} className="group block rounded-lg text-inherit no-underline">
-      <div role="img" aria-label={`Ilustração: ${item.title}`} className={cn("relative aspect-square overflow-hidden rounded-lg", t.ground)}>
-        <div className="absolute top-[21%] right-0 bottom-0 left-[21%] rounded-tl-sm bg-background/75 transition-transform duration-500 ease-standard group-hover:-translate-x-1 group-hover:-translate-y-1">
+      <div role="img" aria-label={`Ilustração: ${item.title}`} className={cn("relative aspect-square overflow-hidden rounded-lg border", t.ground)}>
+        <div className="absolute top-[21%] right-0 bottom-0 left-[21%] rounded-tl-sm border-t border-l border-border bg-surface-raised transition-transform duration-500 ease-standard group-hover:-translate-x-1 group-hover:-translate-y-1">
           {[0, 1, 2, 3].map((i) => (
             <span key={i} className={cn("absolute left-[12%] h-[10%] rounded-[3px]", t.bar)} style={{ top: `${14 + i * 18}%`, width: `${40 + ((i * 23) % 50)}%` }} />
           ))}
         </div>
-        <span aria-hidden="true" className={cn("absolute bottom-[7%] left-[7%] max-w-[86%] rounded-sm bg-surface-raised px-2 py-1.5 text-[clamp(1.125rem,2.2vw,1.75rem)] leading-none font-medium tracking-tight [overflow-wrap:anywhere]", t.ink)}>
+        <span aria-hidden="true" className="absolute bottom-[7%] left-[7%] max-w-[86%] rounded-sm border border-border bg-surface-raised px-2 py-1.5 text-[clamp(1.125rem,2.2vw,1.75rem)] leading-none font-medium tracking-tight text-foreground [overflow-wrap:anywhere]">
           {item.title}
         </span>
       </div>
@@ -60,10 +60,10 @@ export function MediaCardRow({ id, title, items }: { id: string; title: string; 
         <div className={grid3}>
           {items.map((it) => (
             <Link key={it.href} href={it.href} className="block rounded-lg">
-              <div role="img" aria-label={`Exemplo de ${it.title}`} className="grid aspect-square place-items-center rounded-lg bg-[linear-gradient(150deg,var(--surface),color-mix(in_srgb,var(--primary)_55%,var(--background)))] p-[12%]">
-                <div className="w-full rounded-[14px] bg-surface-raised p-3.5 text-sm text-muted-foreground shadow-lg">
+              <div role="img" aria-label={`Exemplo de ${it.title}`} className="grid aspect-square place-items-center rounded-lg border border-tint-lavender-border bg-tint-lavender p-[12%]">
+                <div className="w-full rounded-[14px] border border-border bg-surface-raised p-3.5 text-sm text-muted-foreground">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  <span className="mt-3 flex justify-between text-primary-strong"><span>+ Base de conhecimento</span><span aria-hidden="true">↑</span></span>
+                  <span className="mt-3 flex justify-between text-foreground"><span>+ Base de conhecimento</span><span aria-hidden="true">↑</span></span>
                 </div>
               </div>
               <h3 className={cardTitle}>{it.title}</h3>
@@ -85,7 +85,7 @@ export function FeatureCards({ title, items }: { title: string; items: { title: 
         <div className={grid3}>
           {items.map((it, i) => (
             <Card key={it.title}>
-              <IconTile tone="primary">{String(i + 1).padStart(2, "0")}</IconTile>
+              <IconTile tone="neutral">{String(i + 1).padStart(2, "0")}</IconTile>
               <h3 className="mt-6 mb-2 text-xl leading-snug font-medium">{it.title}</h3>
               <p className={cardDesc}>{it.body}</p>
             </Card>

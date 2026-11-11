@@ -20,6 +20,6 @@ function Swatches() {
   );
 }
 
-const meta: Meta = { title: "Foundations/Colour tokens (60-20-10-5-5)", component: Swatches, parameters: { layout: "padded" } };
+const meta: Meta = { title: "Foundations/Colour tokens (neutral-first)", component: Swatches, parameters: { layout: "padded" } };
 export default meta;
 export const All: StoryObj = {};

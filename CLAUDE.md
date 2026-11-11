@@ -111,7 +111,7 @@ Follow this checklist for each task:
 | Framework | Next.js 16 (App Router) + React 19 + TypeScript strict |
 | Runtime | Cloudflare Workers via OpenNext (`open-next.config.ts`, static-assets incremental cache) |
 | Design system | shadcn/ui (style `base-nova`) on **Base UI** + **Tailwind CSS v4**, owned code in `src/design-system/ui` |
-| Tokens | `src/design-system/tokens/tokens.json` → `scripts/tokens.mjs` → `tokens.css` (rule 60-20-10-5-5, light + dark) |
+| Tokens | `src/design-system/tokens/tokens.json` → `scripts/tokens.mjs` → `tokens.css` (neutral-first identity, light + dark) |
 | Interaction | Motion (`motion/react`, reduced motion respected), TanStack Query |
 | Validation | Zod (+ react-hook-form for forms) |
 | Quality | Vitest + Testing Library, Playwright (+ axe-core), Storybook 10 (+ a11y, themes) |
@@ -129,7 +129,7 @@ Use ONE visual library (shadcn/ui on Base UI). Do not add MUI, Mantine or Radix 
 | `npm run test:e2e` | Playwright: 21 routes × 5 projects (320/390/820/1440 + dark), header, forms, axe WCAG 2.1 AA |
 | `npm run test:workers` | Build for Workers, populate cache, request every route on the Workers runtime |
 | `npm run storybook` / `npm run build-storybook` | Component docs and visual review |
-| `npm run deploy` | Deploy to Cloudflare. **ONLY with explicit approval.** |
+| `npm run deploy` | Manual deploy. Normally not needed: **every push to `main` deploys automatically** (Cloudflare Workers Builds runs `npm test`, then `npm run deploy`). Push to `main` only with approval. |
 
 ## Architecture: 4 levels (a lower level never imports a higher one)
 | Level | Path | Contains | May import |
@@ -146,10 +146,11 @@ Use ONE visual library (shadcn/ui on Base UI). Do not add MUI, Mantine or Radix 
 Rules:
 - Pages MUST NOT contain layout CSS or copy. They pass content to a template.
 - Components MUST use Tailwind utilities mapped to tokens (`bg-background`, `bg-surface`, `text-primary-strong`, `border-border` …). Raw hex values in components are NOT allowed.
-- Colour rule 60-20-10-5-5: background 60 % · surface 20 % · foreground 10 % · primary 5 % · success 5 %.
-  - Purple TEXT MUST use `text-primary-strong` (`#7055F6` is only 4.39:1 on the background).
-  - Success is a fill (`bg-success text-success-foreground`); icons/borders use `success-strong`.
-  - Cards on the background MUST have `border-border` (surface vs background is 1.05:1).
+- Colour identity is **neutral-first** (approved reference: "Arquitetura operacional" diagram, see `docs/tokens.md`): white `background` 60 % · gray `surface` 20 % · black `foreground` 10 % · `tint-sage` / `tint-lavender` grounds with their thin borders 10 %.
+  - Primary buttons are black (`bg-primary`). No saturated fills or gradients on cards, buttons or sections.
+  - Brand purple `#7055F6` only as focus ring (`ring`) and brand marks; link text uses `text-primary-strong`.
+  - Green `#BEFBB6` only as success status fill (`bg-success text-success-foreground`).
+  - White nodes (`bg-surface-raised`) sit on gray or tinted grounds; cards on the white background need `border-border`.
 - A new visual value goes into `tokens.json` first (light AND dark), then `npm run tokens`, then `npm run contrast`.
 - Change navigation or home sections in `site-map.json`, not in components.
 - Prerendered routes need the incremental cache: keep `open-next.config.ts` and run `npm run test:workers` after adding SSG routes.

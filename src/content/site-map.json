@@ -229,49 +229,49 @@
       {
        "title": "Estratégia",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "primary",
+       "tone": "lavender",
        "href": "/solucoes/areas/estrategia"
       },
       {
        "title": "Dados",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "success",
+       "tone": "sage",
        "href": "/solucoes/areas/dados"
       },
       {
        "title": "Comercial",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "ink",
+       "tone": "neutral",
        "href": "/solucoes/areas/comercial"
       },
       {
        "title": "Marketing",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "surface",
+       "tone": "white",
        "href": "/solucoes/areas/marketing"
       },
       {
        "title": "Operações",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "primary",
+       "tone": "lavender",
        "href": "/solucoes/areas/operacoes"
       },
       {
        "title": "Engenharia",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "success",
+       "tone": "sage",
        "href": "/solucoes/areas/engenharia"
       },
       {
        "title": "Design",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "ink",
+       "tone": "neutral",
        "href": "/solucoes/areas/design"
       },
       {
        "title": "Jurídico",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "surface",
+       "tone": "white",
        "href": "/solucoes/areas/juridico"
       }
      ]
@@ -285,49 +285,49 @@
       {
        "title": "Segurança",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "success",
+       "tone": "sage",
        "href": "/solucoes/setores/seguranca"
       },
       {
        "title": "Financeiro",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "ink",
+       "tone": "neutral",
        "href": "/solucoes/setores/financeiro"
       },
       {
        "title": "Saúde",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "surface",
+       "tone": "white",
        "href": "/solucoes/setores/saude"
       },
       {
        "title": "Direito",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "primary",
+       "tone": "lavender",
        "href": "/solucoes/setores/direito"
       },
       {
        "title": "Varejo",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "success",
+       "tone": "sage",
        "href": "/solucoes/setores/varejo"
       },
       {
        "title": "Governo",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "ink",
+       "tone": "neutral",
        "href": "/solucoes/setores/governo"
       },
       {
        "title": "Educação",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "surface",
+       "tone": "white",
        "href": "/solucoes/setores/educacao"
       },
       {
        "title": "Ciências",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "primary",
+       "tone": "lavender",
        "href": "/solucoes/setores/ciencias"
       }
      ]
@@ -341,19 +341,19 @@
       {
        "title": "Conteúdo",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "primary",
+       "tone": "lavender",
        "href": "/solucoes/casos/conteudo"
       },
       {
        "title": "Pesquisa",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "primary",
+       "tone": "lavender",
        "href": "/solucoes/casos/pesquisa"
       },
       {
        "title": "Agentes",
        "desc": "Lorem ipsum dolor sit amet, consectetur.",
-       "tone": "primary",
+       "tone": "lavender",
        "href": "/solucoes/casos/agentes"
       }
      ]

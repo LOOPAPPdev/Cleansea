@@ -6,12 +6,17 @@ describe("tokens.json", () => {
   it("matches the schema", () => {
     expect(() => tokensSchema.parse(tokens)).not.toThrow();
   });
-  it("keeps the 60-20-10-5-5 base colours", () => {
-    expect(tokens.primitives.white["100"]).toBe("#F3F3F7");
-    expect(tokens.primitives.gray["100"]).toBe("#EEECF9");
-    expect(tokens.primitives.black["900"]).toBe("#2C293D");
-    expect(tokens.primitives.purple["500"]).toBe("#7055F6");
-    expect(tokens.primitives.green["300"]).toBe("#BEFBB6");
+  it("matches the approved neutral-first reference colours", () => {
+    const sem = tokens.semantic as Record<string, { light: string }>;
+    const p = tokens.primitives as Record<string, Record<string, string>>;
+    const resolve = (v: string) => { const m = /^\{([a-z]+)\.(\d+)\}$/.exec(v); return m ? p[m[1]][m[2]] : v; };
+    expect(resolve(sem.background.light)).toBe("#FCFCFC");
+    expect(resolve(sem.surface.light)).toBe("#F2F2F2");
+    expect(resolve(sem.foreground.light)).toBe("#000000");
+    expect(resolve(sem["tint-sage"].light)).toBe("#E3E7E8");
+    expect(resolve(sem["tint-lavender"].light)).toBe("#E6E5EB");
+    expect(resolve(sem.brand.light)).toBe("#7055F6");
+    expect(resolve(sem.success.light)).toBe("#BEFBB6");
   });
   it("every contrast pair names real semantic tokens", () => {
     const keys = Object.keys(tokens.semantic);

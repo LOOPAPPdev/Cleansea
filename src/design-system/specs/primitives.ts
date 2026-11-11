@@ -6,16 +6,9 @@ export const primitivesSpecs = [
     "id": "LOOP-PRM-001",
     "name": "Button",
     "level": "primitive",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Action button with Loop variants and a loading state.",
-    "tokens": [
-      "primary",
-      "primary-hover",
-      "primary-foreground",
-      "foreground",
-      "surface",
-      "ring"
-    ],
+    "tokens": ["primary", "primary-hover", "primary-foreground", "foreground", "surface", "surface-sunken", "ring"],
     "variants": {
       "variant": [
         "primary",
@@ -142,18 +135,9 @@ export const primitivesSpecs = [
     "id": "LOOP-PRM-003",
     "name": "Badge",
     "level": "primitive",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Short status or category label.",
-    "tokens": [
-      "surface-sunken",
-      "foreground",
-      "primary",
-      "primary-strong",
-      "success",
-      "success-foreground",
-      "warning",
-      "warning-foreground"
-    ],
+    "tokens": ["surface-sunken", "foreground", "tint-lavender", "primary", "success", "success-foreground", "warning", "warning-foreground"],
     "variants": {
       "tone": [
         "neutral",
@@ -296,15 +280,9 @@ export const primitivesSpecs = [
     "id": "LOOP-PRM-006",
     "name": "IconTile",
     "level": "primitive",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "44px square for an icon or step index.",
-    "tokens": [
-      "primary",
-      "primary-foreground",
-      "success",
-      "success-foreground",
-      "surface-sunken"
-    ],
+    "tokens": ["primary", "primary-foreground", "success", "success-foreground", "surface-sunken"],
     "variants": {},
     "props": [
       {

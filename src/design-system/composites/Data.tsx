@@ -69,7 +69,7 @@ export function Steps({ title, items }: { title: string; items: { title: string;
         <h2 className={h2}>{title}</h2>
         <ol className="grid gap-3 [counter-reset:s]">
           {items.map((it) => (
-            <li key={it.title} className="grid grid-cols-[auto_1fr] gap-x-4 rounded-lg border border-border bg-surface p-6 [counter-increment:s] before:row-span-2 before:font-mono before:text-[0.9375rem] before:font-semibold before:text-primary-strong before:content-[counter(s,decimal-leading-zero)]">
+            <li key={it.title} className="grid grid-cols-[auto_1fr] gap-x-4 rounded-lg border border-border bg-surface p-6 [counter-increment:s] before:row-span-2 before:font-mono before:text-[0.9375rem] before:font-semibold before:text-muted-foreground before:content-[counter(s,decimal-leading-zero)]">
               <strong>{it.title}</strong>
               <span className="text-muted-foreground">{it.body}</span>
             </li>
@@ -88,9 +88,9 @@ export function PlanCards({ plans }: { plans: Plan[] }) {
       <Container>
         <div className={grid3}>
           {plans.map((p) => (
-            <article key={p.name} className={cn("flex flex-col gap-3 rounded-xl border p-8", p.highlight ? "border-primary-strong bg-primary/8" : "border-border")}>
+            <article key={p.name} className={cn("flex flex-col gap-3 rounded-xl border p-8", p.highlight ? "border-tint-lavender-border bg-tint-lavender" : "border-border bg-surface-raised")}>
               <h2 className="text-xl font-semibold">{p.name}</h2>
-              {p.highlight ? <Badge tone="accent">Mais escolhido</Badge> : null}
+              {p.highlight ? <Badge tone="outline">Mais escolhido</Badge> : null}
               <p className="text-4xl leading-[1.1] font-semibold tabular-nums">{p.price}</p>
               <p className="text-foreground">{p.body}</p>
               <ul className="mb-4 flex-1 list-disc pl-5">{p.features.map((f) => <li key={f}>{f}</li>)}</ul>
@@ -131,14 +131,14 @@ export function ComparisonTable({ caption, columns, rows }: { caption: string; c
 }
 
 /** Leadership / org cards (LOOP-CMP-019). Tone = border colour, always paired with the role text. */
-export function OrgGrid({ title, people }: { title: string; people: { role: string; name: string; focus: string; areas: string; tone?: "primary" | "success" }[] }) {
+export function OrgGrid({ title, people }: { title: string; people: { role: string; name: string; focus: string; areas: string; tone?: "lavender" | "sage" }[] }) {
   return (
     <Section>
       <Container>
         <h2 className={h2}>{title}</h2>
         <div className={grid3}>
           {people.map((p) => (
-            <article key={p.name} className={cn("rounded-lg border-[1.5px] p-6", p.tone === "primary" ? "border-primary-strong" : p.tone === "success" ? "border-success-strong" : "border-border")}>
+            <article key={p.name} className={cn("rounded-lg border-[1.5px] p-6", p.tone === "lavender" ? "border-tint-lavender-border bg-tint-lavender" : p.tone === "sage" ? "border-tint-sage-border bg-tint-sage" : "border-border")}>
               <p className={eyebrow}>{p.role}</p>
               <h3 className="mb-1 text-2xl font-semibold">{p.name}</h3>
               <p className="font-medium">{p.focus}</p>
