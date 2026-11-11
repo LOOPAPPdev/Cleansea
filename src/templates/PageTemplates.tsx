@@ -1,6 +1,6 @@
-import { LOREM, LOREM_LONG } from "@/content";
-import { Badge } from "@/design-system/primitives";
-import { Breadcrumb, ComparisonTable, CtaBand, Faq, FeatureCards, Hero, LinkCards, OrgGrid, PlanCards, Prose, Steps } from "@/design-system/composites";
+import { brand, LOREM, LOREM_LONG } from "@/content";
+import { Badge, Container, Section } from "@/design-system/primitives";
+import { BrandValues, Breadcrumb, ComparisonTable, CtaBand, Faq, FeatureCards, Hero, LinkCards, OrgGrid, PlanCards, Prose, Steps } from "@/design-system/composites";
 import { FAQ, SALES, features, links, prose } from "./shared";
 
 export function PricingTemplate() {
@@ -74,6 +74,12 @@ export function AboutTemplate() {
     <>
       <Hero eyebrow="Saiba mais" title="Nossa missão é lorem ipsum dolor sit amet" subtitle={LOREM_LONG} />
       <Prose blocks={[{ h: "Como a Loop se organiza", p: [LOREM_LONG, LOREM] }]} />
+      <Section aria-labelledby="h-valores">
+        <Container>
+          <h2 id="h-valores" className="mb-8 text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1] font-medium tracking-[-0.025em]">Valores</h2>
+          <BrandValues values={brand.values} />
+        </Container>
+      </Section>
       <LinkCards
         title="Empresa"
         items={[

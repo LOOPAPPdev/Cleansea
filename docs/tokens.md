@@ -1,7 +1,8 @@
-# Colour tokens — neutral-first identity (v3)
+# Colour tokens — neutral-first identity (v4)
 
 **Source of truth:** `src/design-system/tokens/tokens.json` → `npm run tokens` → `tokens.css`.
-**Checked:** `npm run contrast` (WCAG 2.1, 22 pairs × light and dark).
+**Checked:** `npm run contrast` (WCAG 2.1: 29 pairs × light and dark, plus 12 themes × text and accent).
+**Guideline:** `docs/brand-guidelines.md` (7 modules).
 **Reference:** the "Arquitetura operacional — LOOP / CLEANSEA" diagram approved by Loop on 11 Nov 2026. Colours were measured from it.
 
 ## 1. Distribution
@@ -46,3 +47,10 @@ Neutral dark: `#0F0F10` background, `#1A1A1B` surface, `#F5F5F5` text, sage `#1E
   <span className="rounded-pill bg-warning px-3 text-warning-foreground">Proposta</span>
 </section>
 ```
+
+## 6. Scales, themes, type and data viz (v4)
+- **10-step scales** `neutral`, `sage`, `lavender`, `warm` (050 → 900) in `primitives`; approved colours are exact anchors (e.g. sage 100 `#E3E7E8`, 400 `#ABB6B8`).
+- **Themes** `tokens.json › themes`: `{family}-{light|mid|dark}` → `ground`, `text`, `accent`; CSS classes `.theme-*`; Tailwind `bg-theme-ground text-theme-text bg-theme-accent` via `ThemeSurface`.
+- **Typography** `tokens.json › typography`: 13 steps (`m2`…`10`), size doubles every 5 steps; CSS `--type-size-*`, Tailwind `text-step-*` (line height and tracking included).
+- **Data viz** semantic tokens `chart-1 … chart-6`, `chart-grid`, `chart-axis` (light and dark).
+- `src/lib/utils.ts` registers `text-step-*` as a font-size group for `cn`, so it is not dropped next to a text colour.

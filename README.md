@@ -60,13 +60,13 @@ CLAUDE.md         operating rules + repository rules for agents
 
 ## Routes
 
-`/solucoes` (home) · `/solucoes/areas/[slug]` (+ `/workflows`) · `/solucoes/setores/[slug]` · `/solucoes/casos/[slug]` · `/por-que-loop/[segmento]` · `/planos` · `/parceiros` (+ `/[slug]`) · `/aprender` · `/guias/[slug]` · `/sobre` · `/principios` · `/carreiras` · `/carreiras/busca` · `/carreiras/[slug]` · `/seguranca` · `/residencia` · `/noticias` (+ `/[slug]`) · `/contato` · `/privacidade` · `/termos` · `/cookies` · `/integracoes`.
+`/solucoes` (home) · `/solucoes/areas/[slug]` (+ `/workflows`) · `/solucoes/setores/[slug]` · `/solucoes/casos/[slug]` · `/por-que-loop/[segmento]` · `/planos` · `/parceiros` (+ `/[slug]`) · `/aprender` · `/guias/[slug]` · `/sobre` · `/principios` · `/carreiras` · `/carreiras/busca` · `/carreiras/[slug]` · `/seguranca` · `/residencia` · `/noticias` (+ `/[slug]`) · `/contato` · `/privacidade` · `/termos` · `/cookies` · `/integracoes` · `/design-system`.
 
 Navigation and home sections are driven by `src/content/site-map.json`.
 
 ## Design tokens
 
-Neutral-first identity: white `#FCFCFC` · gray `#F2F2F2` · black `#000000` · sage `#E3E7E8` and lavender `#E6E5EB` tints with thin borders. Brand purple `#7055F6` only for focus and links; green `#BEFBB6` only for success. See `docs/tokens.md`.
+Neutral-first identity: white `#FCFCFC` · gray `#F2F2F2` · black `#000000` · sage `#E3E7E8` and lavender `#E6E5EB` tints with thin borders. Brand purple `#7055F6` only for focus and links; green `#BEFBB6` only for success. See `docs/tokens.md` and the brand guideline `docs/brand-guidelines.md` (live at `/design-system`).
 
 ## Deploy
 

@@ -14,7 +14,8 @@ export type HomeSection =
   | { id: string; component: "CardGrid" | "MediaCardRow"; title: string; columns: number; items: CardItem[] }
   | { id: string; component: "SectionIntro"; title: string; subtitle: string }
   | { id: string; component: "FeatureMedia"; title: string; body: string; media?: string; cta?: Cta }
-  | { id: string; component: "CtaBand"; title: string; ctas: Cta[] };
+  | { id: string; component: "CtaBand"; title: string; ctas: Cta[] }
+  | { id: string; component: "Architecture"; title: string };
 
 type Raw = {
   copyLimits: Record<string, { max: number; lines?: number }>;
@@ -40,3 +41,13 @@ export const findBySlug = (list: CardItem[], slug: string) => list.find((i) => s
 export const LOREM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 export const LOREM_LONG =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+/* ---------- Brand guideline content (src/content/brand.json) ---------- */
+import brandRaw from "./brand.json";
+
+export type ChartSeries = { name: string; values: number[] };
+export type ChartItem = { name: string; value: number };
+export type ArchitectureGroup = { title: string; tone: "sage" | "lavender"; icon?: string; nodes: string[] };
+type RawBrand = typeof brandRaw;
+export type Brand = Omit<RawBrand, "architecture"> & { architecture: Omit<RawBrand["architecture"], "groups"> & { groups: ArchitectureGroup[] } };
+export const brand = brandRaw as Brand;

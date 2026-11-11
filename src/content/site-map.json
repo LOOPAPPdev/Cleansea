@@ -365,11 +365,9 @@
      "subtitle": "Lorem ipsum dolor sit amet elit sed."
     },
     {
-     "id": "dados",
-     "component": "FeatureMedia",
-     "title": "Lorem ipsum dados conectados",
-     "body": "Lorem ipsum dolor sit amet, respostas com fonte citada.",
-     "status": "verified"
+     "id": "arquitetura",
+     "component": "Architecture",
+     "title": "Arquitetura operacional"
     },
     {
      "id": "integracoes",
@@ -567,6 +565,21 @@
     "Requisitos",
     "Candidatar"
    ]
+  },
+  "/design-system": {
+   "template": "DesignSystem",
+   "status": "verified",
+   "sections": [
+    "Hero",
+    "Valores",
+    "Marca",
+    "Cores",
+    "Tipografia",
+    "Ícones",
+    "Fotografia",
+    "Dados",
+    "Componentes"
+   ]
   }
  },
  "footer": {
@@ -635,6 +648,10 @@
      {
       "label": "Notícias",
       "href": "/noticias"
+     },
+     {
+      "label": "Design system",
+      "href": "/design-system"
      }
     ]
    },

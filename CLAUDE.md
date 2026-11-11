@@ -126,7 +126,7 @@ Use ONE visual library (shadcn/ui on Base UI). Do not add MUI, Mantine or Radix 
 | `npm run tokens` | Regenerate `tokens.css` from `tokens.json` (never edit `tokens.css`) |
 | `npm run contrast` | WCAG contrast check of every token pair, light and dark |
 | `npm test` | Vitest: spec governance, tokens, primitives, schemas |
-| `npm run test:e2e` | Playwright: 21 routes × 5 projects (320/390/820/1440 + dark), header, forms, axe WCAG 2.1 AA |
+| `npm run test:e2e` | Playwright: 22 routes × 5 projects (320/390/820/1440 + dark), header, forms, axe WCAG 2.1 AA |
 | `npm run test:workers` | Build for Workers, populate cache, request every route on the Workers runtime |
 | `npm run storybook` / `npm run build-storybook` | Component docs and visual review |
 | `npm run deploy` | Manual deploy. Normally not needed: **every push to `main` deploys automatically** (Cloudflare Workers Builds runs `npm test`, then `npm run deploy`). Push to `main` only with approval. |
@@ -136,12 +136,12 @@ Use ONE visual library (shadcn/ui on Base UI). Do not add MUI, Mantine or Radix 
 |---|---|---|---|
 | Tokens | `src/design-system/tokens/` | `tokens.json` (source), `tokens.css` (generated), `schema.ts`, `tokens.ts` | — |
 | shadcn source | `src/design-system/ui/` | Base UI components owned and adapted to Loop (44px targets, tokens) | tokens, `@/lib/utils` |
-| 1 Primitive | `src/design-system/primitives/` | Button, ButtonLink, Badge, Card, Container/Section, Field, IconTile | ui, tokens |
-| 2 Composite | `src/design-system/composites/` | Header, Footer, Hero, CardGrid, … (20) | primitives, ui, `@/content` types |
-| 3 Template | `src/templates/` | 18 page templates | composites, primitives, content |
+| 1 Primitive | `src/design-system/primitives/` | Button, ButtonLink, Badge, Card, Container/Section, Field, IconTile, Heading, Text, Icon, Logo, ThemeSurface | ui, tokens |
+| 2 Composite | `src/design-system/composites/` | Header, Footer, Hero, CardGrid, … · SegmentedTabs, TierDiagram, ModulePanel · charts (Bar, Column, Line, Area, Donut, ChartFrame) · docs (ColorScale, ThemeGrid, ContrastTable, TypeScale, IconGrid, LogoUsage, DoDont, BrandValues, SpecBlock) — 38 | primitives, ui, `@/content` types |
+| 3 Template | `src/templates/` | 19 page templates (incl. `DesignSystemTemplate` → `/design-system`) | composites, primitives, content |
 | 4 Product UI | `src/product/` | Loop SaaS screens (empty) | all of the above |
 | Routes | `src/app/` | thin `page.tsx`: params → content → template | templates, content |
-| Content | `src/content/` | `site-map.json` (navigation, routes, copy, limits), `contact.ts` (Zod schema) | — |
+| Content | `src/content/` | `site-map.json` (navigation, routes, copy, limits), `brand.json` (values, guideline rules, architecture, sample data), `contact.ts` (Zod schema) | — |
 
 Rules:
 - Pages MUST NOT contain layout CSS or copy. They pass content to a template.
@@ -151,6 +151,11 @@ Rules:
   - Brand purple `#7055F6` only as focus ring (`ring`) and brand marks; link text uses `text-primary-strong`.
   - Green `#BEFBB6` only as success status fill (`bg-success text-success-foreground`).
   - White nodes (`bg-surface-raised`) sit on gray or tinted grounds; cards on the white background need `border-border`.
+- Brand guideline (7 modules: values, logo, colour, typography, iconography, photography, data viz): `docs/brand-guidelines.md`, live at `/design-system`. Only Loop values; never copy another brand's colours, fonts, logo or text.
+  - Type sizes only from the modular scale (`text-step-*` or `Heading`/`Text`): size doubles every 5 steps.
+  - Icons only through `Icon` (Lucide, 16/20/24, stroke rule). Logo only through `Logo` (min size, clearance, black/white).
+  - Charts only through the chart components: ≤ 6 series in `chart-1…6` order, zero-based bars, title + source + data table.
+  - Emphasis blocks use `ThemeSurface` themes; new themes go into `tokens.json › themes` and must pass `npm run contrast`.
 - A new visual value goes into `tokens.json` first (light AND dark), then `npm run tokens`, then `npm run contrast`.
 - Change navigation or home sections in `site-map.json`, not in components.
 - Prerendered routes need the incremental cache: keep `open-next.config.ts` and run `npm run test:workers` after adding SSG routes.
@@ -170,4 +175,4 @@ Rules:
 6. `npm run lint`, `typecheck`, `contrast`, `test`, `build`, `test:e2e` pass (`test:workers` when routes change).
 7. Visually consistent with the other components.
 
-Details: `docs/component-quality.md` · tokens: `docs/tokens.md` · site map: `docs/site-architecture.md`.
+Details: `docs/component-quality.md` · tokens: `docs/tokens.md` · brand: `docs/brand-guidelines.md` · site map: `docs/site-architecture.md`.

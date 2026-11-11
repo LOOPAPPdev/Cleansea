@@ -3,3 +3,4 @@ export { IndustryTemplate, SegmentTemplate, TeamTemplate, UseCaseTemplate, Workf
 export { AboutTemplate, ArticleTemplate, CareersTemplate, DirectoryTemplate, HubTemplate, JobPostTemplate, ListingTemplate, PricingTemplate, ProfileTemplate, ProgramTemplate } from "./PageTemplates";
 export { JobSearchTemplate } from "./JobSearchTemplate";
 export { ContactTemplate } from "./ContactTemplate";
+export { DesignSystemTemplate } from "./DesignSystemTemplate";
