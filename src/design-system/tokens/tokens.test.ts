@@ -25,4 +25,21 @@ describe("tokens.json", () => {
       expect(keys).toContain(bg);
     }
   });
+  it("type scale doubles every 5 steps", () => {
+    const st = tokens.typography.steps as Record<string, { px: number }>;
+    expect(st["5"].px).toBeCloseTo(st["0"].px * 2, 0);
+    expect(st["10"].px).toBeCloseTo(st["5"].px * 2, 0);
+    expect(st["0"].px).toBe(16);
+  });
+  it("has 12 themes (4 families × light/mid/dark)", () => {
+    expect(Object.keys(tokens.themes)).toHaveLength(12);
+  });
+  it("10-step scales get darker step by step", () => {
+    const p = tokens.primitives as Record<string, Record<string, string>>;
+    const lum = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).reduce((a, b) => a + b, 0);
+    for (const f of ["neutral", "sage", "lavender", "warm"]) {
+      const v = ["050", "100", "200", "300", "400", "500", "600", "700", "800", "900"].map((k) => lum(p[f][k]));
+      for (let i = 1; i < v.length; i++) expect(v[i], `${f} step ${i}`).toBeLessThan(v[i - 1]);
+    }
+  });
 });
