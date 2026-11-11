@@ -80,8 +80,8 @@ export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: stri
                 {groups.map((g) =>
                   g.children ? (
                     <AccordionItem key={g.label} value={g.label} className="border-b border-border">
-                      <AccordionTrigger className="text-lg">{g.label}</AccordionTrigger>
-                      <AccordionContent>
+                      <AccordionTrigger className="text-lg hover:no-underline">{g.label}</AccordionTrigger>
+                      <AccordionContent className="[&_a]:no-underline">
                         <ul className="pb-2">
                           {g.children.map((c) => (
                             <li key={c.href + c.label}>

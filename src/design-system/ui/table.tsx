@@ -3,11 +3,18 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+/**
+ * Loop change: the scroll container is the element that scrolls, so it carries the
+ * accessible name and keyboard focus (axe: scrollable-region-focusable). Pass `label`.
+ */
+function Table({ className, label, containerClassName, ...props }: React.ComponentProps<"table"> & { label?: string; containerClassName?: string }) {
   return (
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto"
+      role={label ? "region" : undefined}
+      aria-label={label}
+      tabIndex={label ? 0 : undefined}
+      className={cn("relative w-full overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring", containerClassName)}
     >
       <table
         data-slot="table"

@@ -21,13 +21,25 @@
 		"zod": "^4.6.7"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "4.14.0",
 		"@playwright/test": "^1.63.0",
+		"@storybook/addon-a11y": "10.6.4",
+		"@storybook/addon-docs": "10.6.4",
+		"@storybook/addon-themes": "10.6.4",
+		"@storybook/nextjs-vite": "10.6.4",
+		"@testing-library/jest-dom": "^7.0.1",
+		"@testing-library/react": "^16.3.3",
+		"@testing-library/user-event": "^14.6.9",
 		"@types/node": "24.10.1",
 		"@types/react": "19.2.7",
 		"@types/react-dom": "19.2.3",
 		"eslint": "9.39.2",
 		"eslint-config-next": "16.0.11",
+		"jsdom": "^31.0.0",
+		"storybook": "10.6.4",
 		"typescript": "5.9.3",
+		"vite-tsconfig-paths": "^6.1.1",
+		"vitest": "^5.1.0",
 		"wrangler": "4.136.1"
 	},
 	"private": true,
@@ -44,6 +56,9 @@
 		"test": "vitest run",
 		"test:e2e": "playwright test",
 		"tokens": "node scripts/tokens.mjs",
-		"contrast": "node scripts/tokens.mjs --check"
+		"contrast": "node scripts/tokens.mjs --check",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build -o storybook-static",
+		"test:workers": "opennextjs-cloudflare build && opennextjs-cloudflare populateCache local && node scripts/smoke-workers.mjs"
 	}
 }

@@ -109,8 +109,7 @@ export function ComparisonTable({ caption, columns, rows }: { caption: string; c
     <Section>
       <Container>
         <h2 className={h2}>{caption}</h2>
-        <div role="region" aria-label={caption} tabIndex={0} className="overflow-x-auto rounded-lg border border-border">
-          <Table className="min-w-[560px] text-[0.9375rem]">
+        <Table label={caption} containerClassName="rounded-lg border border-border" className="min-w-[560px] text-[0.9375rem]">
             <TableHeader>
               <TableRow>
                 <TableHead scope="col" className="h-12 px-4">Recurso</TableHead>
@@ -126,7 +125,6 @@ export function ComparisonTable({ caption, columns, rows }: { caption: string; c
               ))}
             </TableBody>
           </Table>
-        </div>
       </Container>
     </Section>
   );
