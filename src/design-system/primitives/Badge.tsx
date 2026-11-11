@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
-import s from "./primitives.module.css";
+import { Badge as UIBadge } from "../ui/badge";
 
-export type BadgeTone = "neutral" | "accent" | "green" | "purple" | "warn";
+export type BadgeTone = "neutral" | "accent" | "primary" | "success" | "warn" | "outline";
+/** Short status/category label. success = green fill with dark ink; warn = Protótipo/Proposta. */
 export function Badge({ tone = "neutral", children }: { tone?: BadgeTone; children: ReactNode }) {
-  return <span className={`${s.badge} ${s[`badge_${tone}`]}`}>{children}</span>;
+  return <UIBadge variant={tone}>{children}</UIBadge>;
 }

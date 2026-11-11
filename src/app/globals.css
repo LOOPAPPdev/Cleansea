@@ -1,3 +1,93 @@
-/* Order matters: tokens → base → (component CSS modules load per component). */
+/* Order: Tailwind → animation utilities → shadcn base → Loop tokens (generated) → theme mapping → base. */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 @import "../design-system/tokens/tokens.css";
-@import "../design-system/tokens/base.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Map shadcn/Tailwind names to Loop tokens. Components use these utilities only
+   (bg-background, bg-card, text-primary-strong …), never raw hex values. */
+@theme inline {
+  --font-sans: var(--family-sans);
+  --font-mono: var(--family-mono);
+  --font-heading: var(--family-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface-raised);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-strong: var(--primary-strong);
+  --color-secondary: var(--surface);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--surface-sunken);
+  --color-accent-foreground: var(--foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-strong: var(--success-strong);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--border-strong);
+  --color-ring: var(--ring);
+
+  --radius: var(--radius-md);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-pill: var(--radius-pill);
+
+  --spacing-target: var(--target-min);
+  --container-site: var(--space-container);
+  --container-measure: var(--space-measure);
+  --ease-standard: var(--motion-ease);
+
+  --breakpoint-sm: 40rem;   /* 640px */
+  --breakpoint-md: 56.25rem; /* 900px */
+  --breakpoint-lg: 68.75rem; /* 1100px — header switches to desktop */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-height) + 16px);
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  main:focus {
+    outline: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition: none !important;
+      animation: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

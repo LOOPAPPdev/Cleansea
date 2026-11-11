@@ -205,3 +205,11 @@ next-env.d.ts
 # OpenNext / Cloudflare build output
 .open-next/
 .dev.vars*
+
+# Playwright
+/test-results/
+/playwright-report/
+
+# Storybook
+/storybook-static/
+*storybook.log

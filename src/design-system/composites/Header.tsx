@@ -1,136 +1,111 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { MenuIcon } from "lucide-react";
 import type { NavGroup } from "@/content";
 import { ButtonLink } from "../primitives";
-import s from "./Header.module.css";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "../ui/navigation-menu";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { cn } from "@/lib/utils";
 
 /**
- * Responsive site header.
- * - ≥1100px: inline groups; groups with children open a dropdown panel.
- * - <1100px: a "Menu" button opens a full-width panel; groups expand in place.
- * Behaviour: Esc closes and returns focus; click outside closes; route change
- * closes; body scroll is locked while the mobile panel is open.
+ * Site header (LOOP-CMP-001).
+ * ≥1100px: Base UI NavigationMenu with dropdown panels.
+ * <1100px: "Menu" button opens a Base UI Sheet (modal dialog): focus trap, Esc closes,
+ * focus returns to the trigger, page scroll locked. Groups expand in an Accordion.
+ * The sheet closes on any link activation and on route change.
  */
 export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: string; href: string } }) {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openGroup, setOpenGroup] = useState<number | null>(null);
-  const rootRef = useRef<HTMLElement>(null);
-  const menuBtnRef = useRef<HTMLButtonElement>(null);
-
-  // Close everything on navigation (adjust state during render, not in an effect).
+  const [open, setOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
     setLastPath(pathname);
-    setMobileOpen(false);
-    setOpenGroup(null);
+    setOpen(false);
   }
-
-  // Esc + click outside.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      if (openGroup !== null) {
-        const btn = rootRef.current?.querySelector<HTMLButtonElement>(`[data-group="${openGroup}"]`);
-        setOpenGroup(null);
-        btn?.focus();
-      } else if (mobileOpen) {
-        setMobileOpen(false);
-        menuBtnRef.current?.focus();
-      }
-    };
-    const onClick = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) {
-        setOpenGroup(null);
-        setMobileOpen(false);
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("click", onClick);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("click", onClick);
-    };
-  }, [openGroup, mobileOpen]);
-
-  // Lock page scroll behind the mobile panel.
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
-
   // Section anchors (/solucoes#areas) are never "the current page".
-  const isCurrent = (href: string) => !href.includes("#") && pathname === href;
+  const current = (href: string) => (!href.includes("#") && pathname === href ? "page" : undefined);
 
   return (
-    <header ref={rootRef} className={s.header}>
-      <div className={s.bar}>
-        <Link href="/solucoes" className={s.brand}>
-          <span className={s.mark} aria-hidden="true" />
+    <header className="sticky top-0 z-40 border-b border-border bg-background/90 pt-[env(safe-area-inset-top)] backdrop-blur-md">
+      <div className="mx-auto flex min-h-(--header-height) max-w-site items-center gap-2 px-(--space-gutter) min-[360px]:gap-4">
+        <Link href="/solucoes" className="mr-auto inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap text-[1.0625rem] font-semibold tracking-tight min-[360px]:text-xl lg:mr-4">
+          <span aria-hidden="true" className="size-6 rounded-full border-[5px] border-primary" />
           Loop Consultoria
         </Link>
 
-        <button
-          ref={menuBtnRef}
-          type="button"
-          className={s.menuButton}
-          aria-expanded={mobileOpen}
-          aria-controls="site-nav"
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          <span className={s.burger} data-open={mobileOpen} aria-hidden="true" />
-          {mobileOpen ? "Fechar" : "Menu"}
-        </button>
-
-        <nav id="site-nav" aria-label="Principal" className={s.nav} data-open={mobileOpen}>
-          <ul className={s.groups}>
-            {groups.map((g, i) =>
+        {/* Desktop */}
+        <NavigationMenu className="hidden flex-1 justify-start lg:flex" aria-label="Principal">
+          <NavigationMenuList>
+            {groups.map((g) =>
               g.children ? (
-                <li key={g.label} className={s.group}>
-                  <button
-                    type="button"
-                    data-group={i}
-                    className={s.groupButton}
-                    aria-expanded={openGroup === i}
-                    aria-controls={`nav-panel-${i}`}
-                    onClick={() => setOpenGroup((cur) => (cur === i ? null : i))}
-                  >
-                    {g.label}
-                    <svg className={s.chevron} width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-                      <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                  </button>
-                  <ul id={`nav-panel-${i}`} className={s.panel} hidden={openGroup !== i}>
-                    {g.children.map((c) => (
-                      <li key={c.href + c.label}>
-                        <Link href={c.href} className={s.panelLink} aria-current={isCurrent(c.href) ? "page" : undefined}>
-                          {c.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
+                <NavigationMenuItem key={g.label}>
+                  <NavigationMenuTrigger>{g.label}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid min-w-60 gap-0.5 p-2">
+                      {g.children.map((c) => (
+                        <li key={c.href + c.label}>
+                          <NavigationMenuLink render={<Link href={c.href} />} aria-current={current(c.href)} className="aria-[current=page]:text-primary-strong">
+                            {c.label}
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
               ) : (
-                <li key={g.label} className={s.group}>
-                  <Link href={g.href!} className={s.groupButton} aria-current={isCurrent(g.href!) ? "page" : undefined}>
+                <NavigationMenuItem key={g.label}>
+                  <NavigationMenuLink render={<Link href={g.href!} />} aria-current={current(g.href!)} className={cn(navigationMenuTriggerStyle(), "aria-[current=page]:text-primary-strong")}>
                     {g.label}
-                  </Link>
-                </li>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
               ),
             )}
-          </ul>
-          <div className={s.mobileCta}>
-            <ButtonLink href={cta.href}>{cta.label}</ButtonLink>
-          </div>
-        </nav>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <ButtonLink href={cta.href} className="hidden lg:inline-flex">{cta.label}</ButtonLink>
 
-        <div className={s.desktopCta}>
-          <ButtonLink href={cta.href}>{cta.label}</ButtonLink>
-        </div>
+        {/* Mobile */}
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger className="inline-flex h-11 items-center gap-2 rounded-pill border border-border bg-background px-3 text-sm font-medium min-[360px]:px-4 lg:hidden">
+            <MenuIcon className="size-4" aria-hidden="true" />
+            Menu
+          </SheetTrigger>
+          <SheetContent side="right" className="w-full gap-0 overflow-y-auto pb-[calc(2rem+env(safe-area-inset-bottom))] data-[side=right]:sm:max-w-md">
+            <SheetTitle className="flex min-h-(--header-height) items-center px-(--space-gutter) text-lg">Menu</SheetTitle>
+            <nav aria-label="Principal" className="flex flex-col gap-6 px-(--space-gutter)">
+              <Accordion>
+                {groups.map((g) =>
+                  g.children ? (
+                    <AccordionItem key={g.label} value={g.label} className="border-b border-border">
+                      <AccordionTrigger className="text-lg hover:no-underline">{g.label}</AccordionTrigger>
+                      <AccordionContent className="[&_a]:no-underline">
+                        <ul className="pb-2">
+                          {g.children.map((c) => (
+                            <li key={c.href + c.label}>
+                              <Link href={c.href} onClick={() => setOpen(false)} aria-current={current(c.href)} className="flex min-h-11 items-center rounded-md px-3 text-foreground hover:bg-surface aria-[current=page]:bg-surface aria-[current=page]:text-primary-strong">
+                                {c.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ) : (
+                    <div key={g.label} className="border-b border-border">
+                      <Link href={g.href!} onClick={() => setOpen(false)} aria-current={current(g.href!)} className="flex min-h-14 items-center text-lg font-medium aria-[current=page]:text-primary-strong">
+                        {g.label}
+                      </Link>
+                    </div>
+                  ),
+                )}
+              </Accordion>
+              <ButtonLink href={cta.href} onClick={() => setOpen(false)} className="w-full">{cta.label}</ButtonLink>
+            </nav>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );

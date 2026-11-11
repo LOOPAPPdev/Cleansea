@@ -65,8 +65,8 @@ Each link is a requirement: **WHEN the user activates the link, THEN the router 
 | 4 | Setores | CardGrid, 4 col | 8 IllustratedCard | white |
 | 5 | Casos de uso | MediaCardRow, 3 col | 3 MediaCard | white |
 | 6 | Confiança | SectionIntro (centred) | title, subtitle | white |
-| 7 | Integrações | FeatureMedia | 1:1 media + title + body + CTA | blue-gray tint |
-| 8 | Segurança | FeatureMedia | badges media + title + body + CTA | green tint |
+| 7 | Integrações | FeatureMedia | 1:1 media + title + body + CTA | surface + primary tint |
+| 8 | Segurança | FeatureMedia | badges media + title + body + CTA | success tint |
 | 9 | Final CTA | CtaBand | title + CTA | `surface` panel |
 | 6b | Dados conectados | FeatureMedia | answers with cited sources | white |
 | 10 | Footer | Footer | 3 link columns + legal | white |
@@ -77,16 +77,16 @@ Each link is a requirement: **WHEN the user activates the link, THEN the router 
 |---|---|---|---|
 | Navbar | ✅ v0.1 | logo · search IconButton · 2 menus (DropdownMenu, bundle) · Button primary | `bg`, `text` |
 | Hero | 🆕 | h1 · p · 2 Buttons (primary black, secondary `surface`) | `text`, `surface` |
-| IllustratedCard | 🆕 | 1:1 media (tint ground + inner panel + label chip) · title · desc | `<tone>-tint`, `<tone>`, `radius-card` |
+| IllustratedCard | 🆕 | 1:1 media (tint ground + inner panel + label chip) · title · desc | `primary` · `success` · `foreground` · `surface` tones, `radius-lg` |
 | CardGrid | 🆕 | section title + grid `repeat(auto-fit,minmax(240px,1fr))` | `space-6` |
-| MediaCard | 🆕 | 1:1 media with floating UI mock · title · desc | `blue-tint`, `surface-raised` |
+| MediaCard | 🆕 | 1:1 media with floating UI mock · title · desc | `surface`, `primary`, `surface-raised` |
 | SectionIntro | 🆕 | centred h2 + p, max 40ch | — |
 | FeatureMedia | 🆕 | wide media (radius 24) · h3 · p · Button | tints |
 | CtaBand | 🆕 | `surface` panel · h2 · Button | `surface` |
 | StatTiles, TierDiagram, OrgCard, Toc, ArticleCard, NewsRow, Field, Accordion | ✅ | — | — |
 | Timeline, JobList, StepFlow | 🆕 (About / Careers / UseCase) | — | — |
 
-**Tone rotation for cards:** blue → purple → green → slate. The label chip is white with the tone's solid text colour (contrast ≥ 4.5:1). The label MUST repeat the card title, so colour is never the only cue.
+**Tone rotation for cards:** primary → success → ink → surface. The label chip uses `surface-raised` with the tone’s text-safe colour (`primary-strong`, `success-strong`, `foreground`; ≥ 4.5:1). The label MUST repeat the card title, so colour is never the only cue.
 
 ## 4. Copy limits
 

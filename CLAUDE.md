@@ -106,33 +106,67 @@ Follow this checklist for each task:
 # Part II — This repository
 
 ## Stack
-Next.js 16 (App Router) on Cloudflare Workers via OpenNext. TypeScript strict. CSS Modules + design tokens (no Tailwind classes in components).
+| Concern | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router) + React 19 + TypeScript strict |
+| Runtime | Cloudflare Workers via OpenNext (`open-next.config.ts`, static-assets incremental cache) |
+| Design system | shadcn/ui (style `base-nova`) on **Base UI** + **Tailwind CSS v4**, owned code in `src/design-system/ui` |
+| Tokens | `src/design-system/tokens/tokens.json` → `scripts/tokens.mjs` → `tokens.css` (rule 60-20-10-5-5, light + dark) |
+| Interaction | Motion (`motion/react`, reduced motion respected), TanStack Query |
+| Validation | Zod (+ react-hook-form for forms) |
+| Quality | Vitest + Testing Library, Playwright (+ axe-core), Storybook 10 (+ a11y, themes) |
 
-Commands: `npm run dev` · `npm run build` · `npm run lint` · `npm run typecheck` · `npm run test:ui` (needs `npm start` running) · `npm run preview` (Workers runtime locally) · `npm run deploy` (ONLY with explicit approval).
+Use ONE visual library (shadcn/ui on Base UI). Do not add MUI, Mantine or Radix directly.
 
-## Architecture: 4 layers (a lower layer never imports a higher one)
-| Layer | Path | Contains | May import |
+## Commands
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Local dev |
+| `npm run build` / `npm run lint` / `npm run typecheck` | Build and static checks |
+| `npm run tokens` | Regenerate `tokens.css` from `tokens.json` (never edit `tokens.css`) |
+| `npm run contrast` | WCAG contrast check of every token pair, light and dark |
+| `npm test` | Vitest: spec governance, tokens, primitives, schemas |
+| `npm run test:e2e` | Playwright: 21 routes × 5 projects (320/390/820/1440 + dark), header, forms, axe WCAG 2.1 AA |
+| `npm run test:workers` | Build for Workers, populate cache, request every route on the Workers runtime |
+| `npm run storybook` / `npm run build-storybook` | Component docs and visual review |
+| `npm run deploy` | Deploy to Cloudflare. **ONLY with explicit approval.** |
+
+## Architecture: 4 levels (a lower level never imports a higher one)
+| Level | Path | Contains | May import |
 |---|---|---|---|
-| 1 Tokens | `src/design-system/tokens/` | `tokens.css` (colours, type, spacing, radius, motion), `base.css`, `tokens.ts` (breakpoints, tones), `tokens.json` | — |
-| 2 Primitives | `src/design-system/primitives/` | Button, ButtonLink, Badge, Card, Container, Section, Field, IconTile | tokens |
-| 3 Composites | `src/design-system/composites/` | Header, Footer, Hero, CardGrid, IllustratedCard, MediaCardRow, FeatureCards, LinkCards, SectionIntro, FeatureMedia, CtaBand, Quote, StatTiles, Faq, Breadcrumb, Steps, PlanCards, ComparisonTable, OrgGrid, Prose | primitives, tokens, `@/content` types |
-| 4 Templates | `src/templates/` | Home, Team, Workflows, Industry, UseCase, Segment, Pricing, Directory, Profile, Hub, Article, About, Careers, JobSearch, JobPost, Program, Listing, Contact | composites, primitives, content |
-| Routes | `src/app/` | thin `page.tsx` files: read params → pick content → render a template | templates, content |
-| Content | `src/content/site-map.json` + `index.ts` | navigation, routes, home copy, copy limits (source of truth) | — |
+| Tokens | `src/design-system/tokens/` | `tokens.json` (source), `tokens.css` (generated), `schema.ts`, `tokens.ts` | — |
+| shadcn source | `src/design-system/ui/` | Base UI components owned and adapted to Loop (44px targets, tokens) | tokens, `@/lib/utils` |
+| 1 Primitive | `src/design-system/primitives/` | Button, ButtonLink, Badge, Card, Container/Section, Field, IconTile | ui, tokens |
+| 2 Composite | `src/design-system/composites/` | Header, Footer, Hero, CardGrid, … (20) | primitives, ui, `@/content` types |
+| 3 Template | `src/templates/` | 18 page templates | composites, primitives, content |
+| 4 Product UI | `src/product/` | Loop SaaS screens (empty) | all of the above |
+| Routes | `src/app/` | thin `page.tsx`: params → content → template | templates, content |
+| Content | `src/content/` | `site-map.json` (navigation, routes, copy, limits), `contact.ts` (Zod schema) | — |
 
 Rules:
 - Pages MUST NOT contain layout CSS or copy. They pass content to a template.
-- Components MUST NOT hard-code copy, links or colours. Copy and links come from `src/content`; colours from tokens.
-- A new visual value goes into `tokens.css` first (light and dark), then is used by name.
+- Components MUST use Tailwind utilities mapped to tokens (`bg-background`, `bg-surface`, `text-primary-strong`, `border-border` …). Raw hex values in components are NOT allowed.
+- Colour rule 60-20-10-5-5: background 60 % · surface 20 % · foreground 10 % · primary 5 % · success 5 %.
+  - Purple TEXT MUST use `text-primary-strong` (`#7055F6` is only 4.39:1 on the background).
+  - Success is a fill (`bg-success text-success-foreground`); icons/borders use `success-strong`.
+  - Cards on the background MUST have `border-border` (surface vs background is 1.05:1).
+- A new visual value goes into `tokens.json` first (light AND dark), then `npm run tokens`, then `npm run contrast`.
 - Change navigation or home sections in `site-map.json`, not in components.
+- Prerendered routes need the incremental cache: keep `open-next.config.ts` and run `npm run test:workers` after adding SSG routes.
+
+## Component governance (MUST)
+- Every exported component has a spec in `src/design-system/specs/{primitives,composites,templates}.ts` (`defineSpec`, schema `src/design-system/spec.schema.ts`): id `LOOP-PRM|CMP|TPL|PRD-###`, level, version, summary, tokens, variants, props, states, responsive rules, a11y criteria, tests, dependsOn.
+- `npm test` fails when a component has no spec, a spec uses an unknown token, a dependency is missing, or a listed test file does not exist.
+- Changing a component's API or behaviour: bump its spec `version` (semver).
+- New interactive component: add a Storybook story and a Vitest or Playwright test.
 
 ## Definition of done for a component (all MUST pass)
-1. Responsive at 320, 390, 820 and 1440 px. No horizontal overflow, no overlap, labels do not wrap in the header.
-2. Uses tokens only (grep for `#` hex in `.module.css`: only the IllustratedCard label (white chip + its ink colours) is allowed).
+1. Responsive at 320, 390, 820 and 1440 px. No horizontal overflow, no overlap, header labels do not wrap.
+2. Tokens only (Tailwind token utilities); works in light and dark.
 3. States: hover, focus-visible, active, disabled, loading (where it triggers an action), error (where it takes input).
-4. Accessibility: native elements, visible focus, targets ≥ 44px, `aria-expanded` / `aria-pressed` / `aria-current` / `aria-invalid` where relevant, Esc closes overlays and returns focus.
-5. Single responsibility; props typed; no side effects outside the component.
-6. `npm run lint`, `npm run typecheck`, `npm run build` and `npm run test:ui` pass.
-7. Visually consistent with the other components (same radii, spacing, type scale).
+4. Accessibility: Base UI / native elements, visible focus, targets ≥ 44px, correct aria state, Esc closes overlays and returns focus, axe reports no WCAG 2.1 AA violations.
+5. Single responsibility; typed props; valid spec.
+6. `npm run lint`, `typecheck`, `contrast`, `test`, `build`, `test:e2e` pass (`test:workers` when routes change).
+7. Visually consistent with the other components.
 
-Details and examples: `docs/component-quality.md`. Site map and copy limits: `docs/site-architecture.md`.
+Details: `docs/component-quality.md` · tokens: `docs/tokens.md` · site map: `docs/site-architecture.md`.
