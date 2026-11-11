@@ -86,7 +86,7 @@ Each link is a requirement: **WHEN the user activates the link, THEN the router 
 | StatTiles, TierDiagram, OrgCard, Toc, ArticleCard, NewsRow, Field, Accordion | ✅ | — | — |
 | Timeline, JobList, StepFlow | 🆕 (About / Careers / UseCase) | — | — |
 
-**Tone rotation for cards:** primary → success → ink → surface. The label chip uses `surface-raised` with the tone’s text-safe colour (`primary-strong`, `success-strong`, `foreground`; ≥ 4.5:1). The label MUST repeat the card title, so colour is never the only cue.
+**Tone rotation for cards:** lavender → sage → neutral → white (flat tint + thin border). The label chip is white with black text. The label MUST repeat the card title, so colour is never the only cue.
 
 ## 4. Copy limits
 

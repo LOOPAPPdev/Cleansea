@@ -17,9 +17,9 @@ export function SectionIntro({ title, subtitle }: { title: string; subtitle: str
 
 type Media = "integrations" | "badges" | "data";
 const MEDIA: Record<Media, { ground: string; dots: string[]; big: number; alt: string }> = {
-  integrations: { ground: "bg-[linear-gradient(120deg,var(--surface),color-mix(in_srgb,var(--primary)_22%,var(--background)))]", dots: ["CRM", "ERP", "Loop", "BI", "Docs"], big: 2, alt: "Ferramentas conectadas à Loop" },
-  badges: { ground: "bg-[linear-gradient(140deg,color-mix(in_srgb,var(--success)_55%,var(--background)),var(--surface))]", dots: ["ISO", "LGPD", "SOC"], big: -1, alt: "Selos de conformidade" },
-  data: { ground: "bg-surface", dots: ["Dados", "Fonte", "Citação"], big: 1, alt: "Respostas com fonte citada" },
+  integrations: { ground: "bg-tint-sage border-tint-sage-border", dots: ["CRM", "ERP", "Loop", "BI", "Docs"], big: 2, alt: "Ferramentas conectadas à Loop" },
+  badges: { ground: "bg-tint-lavender border-tint-lavender-border", dots: ["ISO", "LGPD", "SOC"], big: -1, alt: "Selos de conformidade" },
+  data: { ground: "bg-surface border-border", dots: ["Dados", "Fonte", "Citação"], big: 1, alt: "Respostas com fonte citada" },
 };
 
 /** Wide media + heading + body + optional CTA (LOOP-CMP-010). */
@@ -28,9 +28,9 @@ export function FeatureMedia({ title, body, media = "data", cta }: { title: stri
   return (
     <Section>
       <Container className="max-w-[1088px]">
-        <div role="img" aria-label={m.alt} className={cn("flex aspect-[16/10] items-center justify-center gap-[clamp(8px,3vw,40px)] overflow-hidden rounded-xl border border-border", m.ground)}>
+        <div role="img" aria-label={m.alt} className={cn("flex aspect-[16/10] items-center justify-center gap-[clamp(8px,3vw,40px)] overflow-hidden rounded-xl border", m.ground)}>
           {m.dots.map((d, i) => (
-            <span key={d} aria-hidden="true" className={cn("grid aspect-square place-items-center rounded-full bg-surface-raised text-[clamp(0.75rem,1.6vw,1.25rem)] font-semibold shadow-lg", i === m.big ? "w-[clamp(84px,18vw,240px)]" : "w-[clamp(56px,11vw,150px)]")}>
+            <span key={d} aria-hidden="true" className={cn("grid aspect-square place-items-center rounded-full border border-border bg-surface-raised text-[clamp(0.75rem,1.6vw,1.25rem)] font-semibold", i === m.big ? "w-[clamp(84px,18vw,240px)]" : "w-[clamp(56px,11vw,150px)]")}>
               {d}
             </span>
           ))}

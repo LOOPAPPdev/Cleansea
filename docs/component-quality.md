@@ -51,7 +51,7 @@ function Header() {
 ## 3. Levels and governance
 
 ```
-Tokens          tokens.json → tokens.css (60-20-10-5-5, light + dark)
+Tokens          tokens.json → tokens.css (neutral-first identity, light + dark)
 shadcn source   src/design-system/ui (Base UI, owned and adapted)
 1 Primitive     Button, Badge, Card, Container, Field, IconTile
 2 Composite     Header, Footer, Hero, CardGrid, FeatureMedia, Faq …

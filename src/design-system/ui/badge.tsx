@@ -11,7 +11,7 @@ const badgeVariants = cva(
         default: "bg-surface-sunken text-foreground",
         neutral: "bg-surface-sunken text-foreground",
         primary: "bg-primary text-primary-foreground",
-        accent: "bg-primary/12 text-primary-strong",
+        accent: "bg-tint-lavender text-foreground",
         success: "bg-success text-success-foreground",
         warn: "bg-warning text-warning-foreground",
         outline: "border-border-strong text-foreground",

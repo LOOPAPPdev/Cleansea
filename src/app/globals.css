@@ -7,7 +7,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Map shadcn/Tailwind names to Loop tokens. Components use these utilities only
-   (bg-background, bg-card, text-primary-strong …), never raw hex values. */
+   (bg-background, bg-surface, bg-tint-sage, text-muted-foreground …), never raw hex values. */
 @theme inline {
   --font-sans: var(--family-sans);
   --font-mono: var(--family-mono);
@@ -30,6 +30,12 @@
   --color-secondary-foreground: var(--foreground);
   --color-muted: var(--surface);
   --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-tint-sage: var(--tint-sage);
+  --color-tint-sage-border: var(--tint-sage-border);
+  --color-tint-lavender: var(--tint-lavender);
+  --color-tint-lavender-border: var(--tint-lavender-border);
+  --color-brand: var(--brand);
   --color-accent: var(--surface-sunken);
   --color-accent-foreground: var(--foreground);
   --color-success: var(--success);

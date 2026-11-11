@@ -66,4 +66,8 @@ Navigation and home sections are driven by `src/content/site-map.json`.
 
 ## Design tokens
 
-Rule 60-20-10-5-5: background `#F3F3F7` · surface `#EEECF9` · text `#2C293D` · primary `#7055F6` · success `#BEFBB6`, with a derived dark theme. See `docs/tokens.md`.
+Neutral-first identity: white `#FCFCFC` · gray `#F2F2F2` · black `#000000` · sage `#E3E7E8` and lavender `#E6E5EB` tints with thin borders. Brand purple `#7055F6` only for focus and links; green `#BEFBB6` only for success. See `docs/tokens.md`.
+
+## Deploy
+
+Every push to `main` deploys to Cloudflare Workers automatically (Workers Builds: `npm test` → `npm run deploy`). Live: https://loop-cleansea.adm-loop-app.workers.dev

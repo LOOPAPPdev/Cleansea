@@ -6,17 +6,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-001",
     "name": "Header",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Responsive site header: NavigationMenu ≥1100px, Sheet below.",
-    "tokens": [
-      "background",
-      "border",
-      "foreground",
-      "primary",
-      "primary-strong",
-      "surface",
-      "ring"
-    ],
+    "tokens": ["background", "border", "foreground", "surface", "surface-sunken", "ring"],
     "variants": {},
     "props": [
       {
@@ -166,18 +158,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-004",
     "name": "IllustratedCard",
     "level": "composite",
-    "version": "2.0.0",
-    "summary": "Linked card with a tinted illustration; label repeats the title.",
-    "tokens": [
-      "primary",
-      "primary-strong",
-      "success",
-      "success-strong",
-      "foreground",
-      "surface",
-      "surface-raised",
-      "background"
-    ],
+    "version": "3.0.0",
+    "summary": "Linked card with a flat tinted illustration (lavender, sage, neutral, white); label repeats the title.",
+    "tokens": ["tint-lavender", "tint-lavender-border", "tint-sage", "tint-sage-border", "surface", "surface-raised", "surface-sunken", "border", "foreground"],
     "variants": {},
     "props": [
       {
@@ -256,15 +239,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-006",
     "name": "MediaCardRow",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Three large media cards with a floating UI mock.",
-    "tokens": [
-      "surface",
-      "primary",
-      "primary-strong",
-      "surface-raised",
-      "muted-foreground"
-    ],
+    "tokens": ["tint-lavender", "tint-lavender-border", "surface-raised", "border", "muted-foreground", "foreground"],
     "variants": {},
     "props": [
       {
@@ -308,14 +285,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-007",
     "name": "FeatureCards",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Numbered capability cards.",
-    "tokens": [
-      "surface",
-      "border",
-      "primary",
-      "primary-foreground"
-    ],
+    "tokens": ["surface", "border", "surface-sunken", "foreground"],
     "variants": {},
     "props": [
       {
@@ -440,15 +412,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-010",
     "name": "FeatureMedia",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Wide media, heading, body and optional CTA.",
-    "tokens": [
-      "surface",
-      "primary",
-      "success",
-      "surface-raised",
-      "border"
-    ],
+    "tokens": ["tint-sage", "tint-sage-border", "tint-lavender", "tint-lavender-border", "surface", "surface-raised", "border"],
     "variants": {},
     "props": [
       {
@@ -695,14 +661,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-016",
     "name": "Steps",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Ordered process.",
-    "tokens": [
-      "surface",
-      "border",
-      "primary-strong",
-      "muted-foreground"
-    ],
+    "tokens": ["surface", "border", "muted-foreground"],
     "variants": {},
     "props": [
       {
@@ -737,13 +698,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-017",
     "name": "PlanCards",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Pricing cards; highlight uses the primary tint and border.",
-    "tokens": [
-      "border",
-      "primary",
-      "primary-strong"
-    ],
+    "tokens": ["border", "surface-raised", "tint-lavender", "tint-lavender-border"],
     "variants": {},
     "props": [
       {
@@ -823,14 +780,9 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-019",
     "name": "OrgGrid",
     "level": "composite",
-    "version": "2.0.0",
-    "summary": "Leadership cards; tone colours the border.",
-    "tokens": [
-      "border",
-      "primary-strong",
-      "success-strong",
-      "muted-foreground"
-    ],
+    "version": "3.0.0",
+    "summary": "Leadership cards; tone = lavender or sage tint with its border.",
+    "tokens": ["border", "tint-lavender", "tint-lavender-border", "tint-sage", "tint-sage-border", "muted-foreground"],
     "variants": {},
     "props": [
       {

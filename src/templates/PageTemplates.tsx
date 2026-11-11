@@ -86,8 +86,8 @@ export function AboutTemplate() {
       <OrgGrid
         title="Liderança"
         people={[
-          { role: "Sócio fundador", name: "Nome 1", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "primary" },
-          { role: "Sócia fundadora", name: "Nome 2", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "success" },
+          { role: "Sócio fundador", name: "Nome 1", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "lavender" },
+          { role: "Sócia fundadora", name: "Nome 2", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet", tone: "sage" },
           { role: "Diretora de operações", name: "Nome 3", focus: "Lorem ipsum", areas: "Dolor · Sit · Amet" },
         ]}
       />
