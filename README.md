@@ -16,34 +16,46 @@ npm run dev
 
 Open http://localhost:3000 (redirects to `/solucoes`).
 
+## Stack
+
+Next.js 16 + React 19 + TypeScript · shadcn/ui on Base UI + Tailwind CSS v4 · Motion · TanStack Query · Zod · Vitest · Playwright + axe · Storybook 10 · Cloudflare Workers (OpenNext).
+
 ## Scripts
 
 | Script | What it does |
 |---|---|
 | `npm run dev` | Local dev server |
 | `npm run build` | Production build (Next.js) |
-| `npm run lint` | ESLint (Next core-web-vitals + TypeScript) |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm run test:ui` | Playwright acceptance check: 21 routes × 4 viewports, header and form behaviour. Run `npm run build && npm start` first; set `BASE_URL` if not on port 3000. Needs `playwright` with Chromium (`npx playwright install chromium`). |
-| `npm run preview` | Build with OpenNext and run in the local Workers runtime |
+| `npm run lint` · `npm run typecheck` | ESLint · `tsc --noEmit` |
+| `npm run tokens` | Generate `tokens.css` from `tokens.json` |
+| `npm run contrast` | WCAG contrast check of all token pairs (light + dark) |
+| `npm test` | Vitest: component spec governance, tokens, primitives, schemas |
+| `npm run test:e2e` | Playwright: 21 routes × 5 projects, header, forms, axe WCAG 2.1 AA (starts the server itself; run `npm run build` first) |
+| `npm run test:workers` | OpenNext build + local cache + every route on the Workers runtime |
+| `npm run storybook` · `npm run build-storybook` | Component docs (a11y + light/dark themes) |
+| `npm run preview` | OpenNext build in the local Workers runtime |
 | `npm run deploy` | Build and deploy to Cloudflare (worker `loop-cleansea`) |
+
+First Playwright run on a new machine: `npx playwright install chromium`.
 
 ## Structure
 
 ```
 src/
   design-system/
-    tokens/       Layer 1 — tokens.css, base.css, tokens.ts, tokens.json
-    primitives/   Layer 2 — Button, Badge, Card, Container, Field, IconTile
-    composites/   Layer 3 — Header, Footer, Hero, CardGrid, FeatureMedia, Faq …
-  templates/      Layer 4 — Home, Team, Industry, Pricing, About, Contact …
-  content/        site-map.json (source of truth) + typed accessors
-  app/            routes (thin page.tsx files)
-docs/
-  site-architecture.md   sitemap, templates, copy and layout limits
-  component-quality.md   quality criteria, header example, acceptance tests
-scripts/ui-check.mjs     acceptance check
-CLAUDE.md                operating rules + repository rules for agents
+    tokens/       tokens.json (source) → tokens.css (generated), schema.ts
+    ui/           shadcn/ui source on Base UI, adapted to Loop
+    primitives/   Level 1 — Button, Badge, Card, Container, Field, IconTile
+    composites/   Level 2 — Header, Footer, Hero, CardGrid, FeatureMedia, Faq …
+    specs/        component specs (governance), spec.schema.ts
+    stories/      Storybook stories
+  templates/      Level 3 — Home, Team, Industry, Pricing, About, Contact …
+  product/        Level 4 — Loop SaaS screens (empty)
+  content/        site-map.json (source of truth), contact.ts (Zod)
+  app/            routes (thin page.tsx files), providers.tsx
+e2e/              Playwright acceptance tests
+docs/             tokens.md, component-quality.md, site-architecture.md
+CLAUDE.md         operating rules + repository rules for agents
 ```
 
 ## Routes
@@ -54,4 +66,4 @@ Navigation and home sections are driven by `src/content/site-map.json`.
 
 ## Design tokens
 
-Palette: white · blue-gray · green · purple · blue, with light and dark themes (`prefers-color-scheme`). See `src/design-system/tokens/tokens.css`.
+Rule 60-20-10-5-5: background `#F3F3F7` · surface `#EEECF9` · text `#2C293D` · primary `#7055F6` · success `#BEFBB6`, with a derived dark theme. See `docs/tokens.md`.
