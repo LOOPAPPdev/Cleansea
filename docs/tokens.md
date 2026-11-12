@@ -1,7 +1,7 @@
-# Colour tokens — neutral-first identity (v4)
+# Colour tokens — neutral-first identity (v4.1)
 
 **Source of truth:** `src/design-system/tokens/tokens.json` → `npm run tokens` → `tokens.css`.
-**Checked:** `npm run contrast` (WCAG 2.1: 29 pairs × light and dark, plus 12 themes × text and accent).
+**Checked:** `npm run contrast` (WCAG 2.1: 31 pairs × light and dark × 3 schemes, plus 12 themes × text and accent).
 **Guideline:** `docs/brand-guidelines.md` (7 modules).
 **Reference:** the "Arquitetura operacional — LOOP / CLEANSEA" diagram approved by Loop on 11 Nov 2026. Colours were measured from it.
 
@@ -54,3 +54,26 @@ Neutral dark: `#0F0F10` background, `#1A1A1B` surface, `#F5F5F5` text, sage `#1E
 - **Typography** `tokens.json › typography`: 13 steps (`m2`…`10`), size doubles every 5 steps; CSS `--type-size-*`, Tailwind `text-step-*` (line height and tracking included).
 - **Data viz** semantic tokens `chart-1 … chart-6`, `chart-grid`, `chart-axis` (light and dark).
 - `src/lib/utils.ts` registers `text-step-*` as a font-size group for `cn`, so it is not dropped next to a text colour.
+
+## 7. Foundation (v4.1) — base + accent → layers
+**Method:** the Minimal theme for Obsidian by Steph Ango (MIT, github.com/kepano/obsidian-minimal). Only the structure is adopted; the values are Loop's.
+**Source:** `tokens.json › foundation` → `src/design-system/tokens/foundation.mjs` (shared by `scripts/tokens.mjs` and the TypeScript code).
+
+```
+scheme (light | dark) = { base: [h, s, l], accent: [h, s, l] }
+layer                 = source (base | accent) + [Δs, Δl]   (hue stays the source hue)
+semantic token        = "{layer.bg1}"                         (resolved per mode and scheme)
+```
+
+| Layer | From | Semantic tokens |
+|---|---|---|
+| `raised` · `bg1` · `bg2` · `bg3` | base | surface-raised · background · surface (= base) · surface-sunken |
+| `ui1` · `ui2` · `ui3` | base | chart-grid · (quote/table rule) · border-strong |
+| `tx1` · `tx2` · `tx3` · `tx4` | base | foreground, primary · muted-foreground · subtle-foreground, chart-axis · primary-hover |
+| `ax1` · `ax2` · `ax3` · `hl1` | accent | primary-strong · primary-strong-hover · brand, ring (= accent) · selection |
+
+- **Neutral** (default) reproduces every approved v4 colour exactly (`tokens.test.ts` asserts it). No visual change.
+- **Schemes** `sage`, `lavender`: same offsets on a tinted base. Apply `.scheme-sage` / `.scheme-lavender` to `<html>` or any region; light and dark follow the page mode. Every scheme passes every contrast pair.
+- **Deviation from Minimal:** Minimal's faint text (`tx3`) is decorative and fails AA. Loop's `tx3` stays ≥ 4.5:1; text layers drop 6 points of saturation so tinted schemes stay AA.
+- **Reading** (`scale.reading`): width 40rem · line height 1.6 · paragraph spacing 1.25rem · heading spacing 2em · list indent 1.5em · 1px rule. Used by `Prose`.
+- **To add a scheme:** add it to `foundation.schemes` (light and dark base/accent), run `npm run tokens` and `npm run contrast`.

@@ -30,7 +30,7 @@ Next.js 16 + React 19 + TypeScript · shadcn/ui on Base UI + Tailwind CSS v4 · 
 | `npm run tokens` | Generate `tokens.css` from `tokens.json` |
 | `npm run contrast` | WCAG contrast check of all token pairs (light + dark) |
 | `npm test` | Vitest: component spec governance, tokens, primitives, schemas |
-| `npm run test:e2e` | Playwright: 21 routes × 5 projects, header, forms, axe WCAG 2.1 AA (starts the server itself; run `npm run build` first) |
+| `npm run test:e2e` | Playwright: 22 routes × 5 projects, header, forms, axe WCAG 2.1 AA (starts the server itself; run `npm run build` first) |
 | `npm run test:workers` | OpenNext build + local cache + every route on the Workers runtime |
 | `npm run storybook` · `npm run build-storybook` | Component docs (a11y + light/dark themes) |
 | `npm run preview` | OpenNext build in the local Workers runtime |
@@ -66,7 +66,7 @@ Navigation and home sections are driven by `src/content/site-map.json`.
 
 ## Design tokens
 
-Neutral-first identity: white `#FCFCFC` · gray `#F2F2F2` · black `#000000` · sage `#E3E7E8` and lavender `#E6E5EB` tints with thin borders. Brand purple `#7055F6` only for focus and links; green `#BEFBB6` only for success. See `docs/tokens.md` and the brand guideline `docs/brand-guidelines.md` (live at `/design-system`).
+Foundation: one base and one accent colour (HSL) generate every neutral and accent layer, following the method of the [Minimal theme for Obsidian](https://github.com/kepano/obsidian-minimal) (MIT). Schemes: neutral (default), sage, lavender (`.scheme-*`). Neutral-first identity: white `#FCFCFC` · gray `#F2F2F2` · black `#000000` · sage `#E3E7E8` and lavender `#E6E5EB` tints with thin borders. Brand purple `#7055F6` only for focus and links; green `#BEFBB6` only for success. See `docs/tokens.md` and the brand guideline `docs/brand-guidelines.md` (live at `/design-system`).
 
 ## Deploy
 

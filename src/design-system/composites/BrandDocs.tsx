@@ -58,8 +58,8 @@ export function ThemeGrid() {
 export function ContrastTable() {
   const sem = tokens.semantic as Record<string, { light: string; dark: string }>;
   const rows = (tokens.contrast as [string, string, number][]).map(([fg, bg, min]) => {
-    const l = contrastRatio(resolveToken(sem[fg].light), resolveToken(sem[bg].light));
-    const d = contrastRatio(resolveToken(sem[fg].dark), resolveToken(sem[bg].dark));
+    const l = contrastRatio(resolveToken(sem[fg].light, "light"), resolveToken(sem[bg].light, "light"));
+    const d = contrastRatio(resolveToken(sem[fg].dark, "dark"), resolveToken(sem[bg].dark, "dark"));
     return { fg, bg, min, l, d };
   });
   return (

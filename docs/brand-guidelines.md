@@ -8,7 +8,7 @@
 |---|---|---|---|
 | 1 | Values | 5 values: name · meaning · three descriptors | `brand.json › values` (texts `[A DEFINIR]`) |
 | 2 | Logo | Logomark (ring), logotype, lockup, avatar; min sizes; clearance; colour; placement; what to avoid | `Logo` primitive, `brand.json › logo` |
-| 3 | Colour | Neutral-first identity; 10-step scales; 12 themes; contrast table | `tokens.json`, `docs/tokens.md` |
+| 3 | Colour | Foundation (base + accent → layers, schemes); neutral-first identity; 10-step scales; 12 themes; contrast table | `tokens.json`, `docs/tokens.md` |
 | 4 | Typography | Inter; modular scale (size doubles every 5 steps); line-height and tracking rules; weights | `tokens.json › typography`, `Heading` / `Text` |
 | 5 | Iconography | Lucide; 16 px grid; sizes 16/20/24; stroke 1.5/2; alignment with text | `Icon` primitive |
 | 6 | Photography | 4 principles + what to avoid; placeholders until photos are approved | `brand.json › photography` |
@@ -28,6 +28,7 @@ Five values, each with a one-sentence meaning and three guide words. **Status:**
 | Avoid | Two colours; stretching or rotating; outlines, shadows, effects; changing the mark/name relation; busy images behind; below minimum size |
 
 ## 3. Colour
+- **Foundation:** one base colour and one accent colour (HSL) generate every background, line, text and accent layer (method of the Minimal theme for Obsidian, MIT). Schemes: Neutro (default), Sálvia, Lavanda. See `docs/tokens.md §7`.
 - **Distribution:** white 60 % · gray 20 % · black 10 % · sage/lavender tints 10 %. Brand purple `#7055F6` only for focus and links (`#5A44C5`); green `#BEFBB6` only for success.
 - **Scales:** neutral, sage, lavender and warm, 10 steps each (050 → 900), generated in OKLCH from the approved colours (which stay exact anchors) and checked to darken step by step.
 - **Themes:** light / mid / dark for each family (12). Use them for moments of emphasis (`ThemeSurface`). Text ≥ 4.5:1 and accent ≥ 3:1 on every theme ground (`npm run contrast`).

@@ -813,16 +813,21 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-020",
     "name": "Prose",
     "level": "composite",
-    "version": "2.0.0",
-    "summary": "Long-form text blocks at reading measure.",
+    "version": "3.0.0",
+    "summary": "Long-form reading view (foundation reading rules from the Minimal method): 40rem width, 1.6 line height, paragraph spacing, quiet headings, lists, quote.",
     "tokens": [
-      "foreground"
+      "foreground",
+      "muted-foreground",
+      "subtle-foreground",
+      "border-strong",
+      "primary-strong",
+      "primary-strong-hover"
     ],
     "variants": {},
     "props": [
       {
         "name": "blocks",
-        "type": "{h, p[]}[]",
+        "type": "{h, p[], list?, quote?}[]",
         "required": true,
         "description": "Sections"
       }
@@ -831,12 +836,15 @@ export const compositesSpecs = [
       "default"
     ],
     "responsive": [
-      "720px measure"
+      "40rem reading width (scale.reading.width)",
+      "320px: no horizontal overflow"
     ],
     "a11y": [
-      "h2 per block"
+      "Each block is a section labelled by its h2",
+      "Lists are real <ul>; quote is <blockquote>"
     ],
     "tests": [
+      "src/design-system/composites/Foundation.test.tsx",
       "e2e/layout.spec.ts"
     ],
     "dependsOn": [
@@ -1669,6 +1677,84 @@ export const compositesSpecs = [
       "h3 per value"
     ],
     "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-039",
+    "name": "FoundationLayers",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Foundation layers of one scheme (Minimal method): base and accent HSL, each layer's offset, light and dark value, usage.",
+    "tokens": [
+      "border",
+      "surface",
+      "muted-foreground"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "scheme",
+        "type": "string",
+        "required": false,
+        "description": "Scheme name from tokens.json › foundation.schemes (default: neutral)"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: table scrolls inside a focusable region; no page overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Table with caption, column and row headers",
+      "Scroll region is focusable and labelled",
+      "Hex value always shown as text next to the swatch"
+    ],
+    "tests": [
+      "src/design-system/composites/Foundation.test.tsx",
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-040",
+    "name": "SchemePreview",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "The same interface rendered in every foundation scheme; each card applies .scheme-* so semantic utilities switch layers.",
+    "tokens": [
+      "surface",
+      "surface-raised",
+      "surface-sunken",
+      "foreground",
+      "muted-foreground",
+      "subtle-foreground",
+      "primary",
+      "primary-foreground",
+      "primary-strong",
+      "primary-strong-hover",
+      "border"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default",
+      "hover"
+    ],
+    "responsive": [
+      "320px / 390px: one column",
+      "820px+: three columns"
+    ],
+    "a11y": [
+      "Every scheme passes all contrast pairs (npm run contrast)",
+      "Link target ≥ 44px",
+      "h3 per scheme"
+    ],
+    "tests": [
+      "src/design-system/composites/Foundation.test.tsx",
       "e2e/layout.spec.ts"
     ],
     "dependsOn": []
