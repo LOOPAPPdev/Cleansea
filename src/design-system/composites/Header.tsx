@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { MenuIcon } from "lucide-react";
 import type { NavGroup } from "@/content";
-import { ButtonLink } from "../primitives";
+import { ButtonLink, Logo } from "../primitives";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
@@ -31,9 +31,8 @@ export function Header({ groups, cta }: { groups: NavGroup[]; cta: { label: stri
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 pt-[env(safe-area-inset-top)] backdrop-blur-md">
       <div className="mx-auto flex min-h-(--header-height) max-w-site items-center gap-2 px-(--space-gutter) min-[360px]:gap-4">
-        <Link href="/solucoes" className="mr-auto inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap text-[1.0625rem] font-semibold tracking-tight min-[360px]:text-xl lg:mr-4">
-          <span aria-hidden="true" className="size-6 rounded-full border-[5px] border-foreground" />
-          Loop Consultoria
+        <Link href="/solucoes" className="mr-auto inline-flex min-h-11 items-center rounded-sm lg:mr-4">
+          <Logo variant="lockup" height={22} />
         </Link>
 
         {/* Desktop */}

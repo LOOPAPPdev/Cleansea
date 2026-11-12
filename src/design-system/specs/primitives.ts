@@ -346,4 +346,289 @@ export const primitivesSpecs = [
     ],
     "dependsOn": []
   }),
+  defineSpec({
+    "id": "LOOP-PRM-008",
+    "name": "Heading",
+    "level": "primitive",
+    "version": "1.0.0",
+    "summary": "Heading with semantic level and a type-scale step for size.",
+    "tokens": [
+      "foreground",
+      "muted-foreground",
+      "subtle-foreground"
+    ],
+    "variants": {
+      "weight": [
+        "regular",
+        "medium",
+        "semibold"
+      ],
+      "tone": [
+        "default",
+        "muted",
+        "subtle"
+      ]
+    },
+    "props": [
+      {
+        "name": "level",
+        "type": "1 | 2 | 3 | 4",
+        "required": false,
+        "description": "HTML heading level"
+      },
+      {
+        "name": "step",
+        "type": "TypeStep",
+        "required": false,
+        "description": "Size on the modular scale"
+      },
+      {
+        "name": "weight",
+        "type": "regular | medium | semibold",
+        "required": false,
+        "description": "Weight"
+      },
+      {
+        "name": "tone",
+        "type": "default | muted | subtle",
+        "required": false,
+        "description": "Colour"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Level follows document outline; size does not change semantics"
+    ],
+    "tests": [
+      "src/design-system/primitives/Brand.test.tsx"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-PRM-009",
+    "name": "Text",
+    "level": "primitive",
+    "version": "1.0.0",
+    "summary": "Body text on the modular type scale (default 16 px).",
+    "tokens": [
+      "foreground",
+      "muted-foreground",
+      "subtle-foreground"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "as",
+        "type": "ElementType",
+        "required": false,
+        "description": "Rendered element"
+      },
+      {
+        "name": "step",
+        "type": "TypeStep",
+        "required": false,
+        "description": "Size"
+      },
+      {
+        "name": "tone",
+        "type": "default | muted | subtle",
+        "required": false,
+        "description": "Colour"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Muted/subtle tones stay ≥ 4.5:1 on background and surface"
+    ],
+    "tests": [
+      "src/design-system/primitives/Brand.test.tsx",
+      "src/design-system/tokens/tokens.test.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-PRM-010",
+    "name": "Icon",
+    "level": "primitive",
+    "version": "1.0.0",
+    "summary": "Lucide icon on the 16 px grid; stroke 1.5 at 16/20 px, 2 at 24 px.",
+    "tokens": [
+      "foreground",
+      "muted-foreground"
+    ],
+    "variants": {
+      "size": [
+        "16",
+        "20",
+        "24"
+      ]
+    },
+    "props": [
+      {
+        "name": "icon",
+        "type": "LucideIcon",
+        "required": true,
+        "description": "Glyph"
+      },
+      {
+        "name": "size",
+        "type": "16 | 20 | 24",
+        "required": false,
+        "description": "Size"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "description": "Accessible name when the icon stands alone"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Decorative by default (aria-hidden)",
+      "With label: role=img + aria-label"
+    ],
+    "tests": [
+      "src/design-system/primitives/Brand.test.tsx"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-PRM-011",
+    "name": "Logo",
+    "level": "primitive",
+    "version": "1.0.0",
+    "summary": "Loop logo: logomark, logotype, lockup or avatar; black or white only; min size and clearance enforced.",
+    "tokens": [
+      "foreground",
+      "background",
+      "border"
+    ],
+    "variants": {
+      "variant": [
+        "lockup",
+        "logomark",
+        "logotype",
+        "avatar"
+      ],
+      "tone": [
+        "default",
+        "inverse"
+      ]
+    },
+    "props": [
+      {
+        "name": "variant",
+        "type": "lockup | logomark | logotype | avatar",
+        "required": false,
+        "description": "Form"
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "required": false,
+        "description": "Mark height (clamped to minimum)"
+      },
+      {
+        "name": "tone",
+        "type": "default | inverse",
+        "required": false,
+        "description": "Black on light or white on dark"
+      },
+      {
+        "name": "clearance",
+        "type": "boolean",
+        "required": false,
+        "description": "Adds the clearance area (half the mark height)"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "role=img with the brand name",
+      "Never below the minimum size"
+    ],
+    "tests": [
+      "src/design-system/primitives/Brand.test.tsx"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-PRM-012",
+    "name": "ThemeSurface",
+    "level": "primitive",
+    "version": "1.0.0",
+    "summary": "Applies a light / mid / dark theme (neutral, sage, lavender, warm) to a region.",
+    "tokens": [
+      "background"
+    ],
+    "variants": {
+      "theme": [
+        "neutral-light",
+        "neutral-mid",
+        "neutral-dark",
+        "sage-light",
+        "sage-mid",
+        "sage-dark",
+        "lavender-light",
+        "lavender-mid",
+        "lavender-dark",
+        "warm-light",
+        "warm-mid",
+        "warm-dark"
+      ]
+    },
+    "props": [
+      {
+        "name": "theme",
+        "type": "ThemeName",
+        "required": true,
+        "description": "One of 12 themes"
+      },
+      {
+        "name": "as",
+        "type": "ElementType",
+        "required": false,
+        "description": "Rendered element"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Theme text ≥ 4.5:1 and accent ≥ 3:1 on ground (npm run contrast)"
+    ],
+    "tests": [
+      "src/design-system/primitives/Brand.test.tsx",
+      "src/design-system/tokens/tokens.test.ts"
+    ],
+    "dependsOn": []
+  }),
 ];

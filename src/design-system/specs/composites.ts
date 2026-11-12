@@ -6,7 +6,7 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-001",
     "name": "Header",
     "level": "composite",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "summary": "Responsive site header: NavigationMenu ≥1100px, Sheet below.",
     "tokens": ["background", "border", "foreground", "surface", "surface-sunken", "ring"],
     "variants": {},
@@ -47,15 +47,13 @@ export const compositesSpecs = [
       "e2e/header.spec.ts",
       "e2e/layout.spec.ts"
     ],
-    "dependsOn": [
-      "ButtonLink"
-    ]
+    "dependsOn": ["ButtonLink", "Logo"]
   }),
   defineSpec({
     "id": "LOOP-CMP-002",
     "name": "Footer",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Link columns from site-map.json plus legal line.",
     "tokens": [
       "surface",
@@ -88,9 +86,7 @@ export const compositesSpecs = [
     "tests": [
       "e2e/layout.spec.ts"
     ],
-    "dependsOn": [
-      "Container"
-    ]
+    "dependsOn": ["Container", "Logo"]
   }),
   defineSpec({
     "id": "LOOP-CMP-003",
@@ -846,5 +842,835 @@ export const compositesSpecs = [
     "dependsOn": [
       "Container"
     ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-021",
+    "name": "SegmentedTabs",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Equal-width pill tabs (reference style) on Base UI Tabs.",
+    "tokens": [
+      "surface-sunken",
+      "foreground",
+      "subtle-foreground",
+      "ring"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "tabs",
+        "type": "{label, content}[]",
+        "required": true,
+        "description": "Tabs"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "description": "Accessible name of the tab list"
+      },
+      {
+        "name": "defaultIndex",
+        "type": "number",
+        "required": false,
+        "description": "Initially selected tab"
+      }
+    ],
+    "states": [
+      "default",
+      "hover",
+      "focus-visible",
+      "selected"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "role=tablist/tab/tabpanel from Base UI",
+      "Arrow keys move between tabs",
+      "Targets 44 px"
+    ],
+    "tests": [
+      "e2e/components.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-022",
+    "name": "TierDiagram",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Architecture diagram: actor → sage group → lavender group → integrations, as the approved reference (nodes in 2 columns from 640 px).",
+    "tokens": [
+      "surface",
+      "surface-raised",
+      "border",
+      "tint-sage",
+      "tint-sage-border",
+      "tint-lavender",
+      "tint-lavender-border",
+      "muted-foreground"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "data",
+        "type": "TierDiagramData",
+        "required": true,
+        "description": "Layers from brand.json"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "description": "Figure name"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "<figure> + ordered list: reads top to bottom without the picture",
+      "Icons decorative"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts",
+      "e2e/components.spec.ts"
+    ],
+    "dependsOn": [
+      "Icon"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-023",
+    "name": "ModulePanel",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "White panel with eyebrow, title and status badge (reference frame).",
+    "tokens": [
+      "background",
+      "border",
+      "muted-foreground",
+      "warning",
+      "warning-foreground"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "required": false,
+        "description": "Kicker"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Heading"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Status badge text"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Section labelled by its title"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": [
+      "Badge"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-024",
+    "name": "BarChart",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Horizontal bars with direct value labels (one series).",
+    "tokens": [
+      "chart-1",
+      "chart-2",
+      "chart-3",
+      "chart-4",
+      "chart-5",
+      "chart-6",
+      "chart-grid",
+      "chart-axis",
+      "surface-raised",
+      "border",
+      "foreground"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Chart title"
+      },
+      {
+        "name": "items",
+        "type": "ChartItem[]",
+        "required": true,
+        "description": "Data"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "description": "Unit"
+      },
+      {
+        "name": "source",
+        "type": "string",
+        "required": false,
+        "description": "Data source"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Data table for screen readers",
+      "Zero-based axis"
+    ],
+    "tests": [
+      "src/design-system/composites/Charts.test.tsx"
+    ],
+    "dependsOn": [
+      "ChartFrame"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-025",
+    "name": "ColumnChart",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Grouped columns, ≤ 6 series, gap = half bar width.",
+    "tokens": [
+      "chart-1",
+      "chart-2",
+      "chart-3",
+      "chart-4",
+      "chart-5",
+      "chart-6",
+      "chart-grid",
+      "chart-axis",
+      "surface-raised",
+      "border"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Chart title"
+      },
+      {
+        "name": "labels",
+        "type": "string[]",
+        "required": true,
+        "description": "Categories"
+      },
+      {
+        "name": "series",
+        "type": "ChartSeries[]",
+        "required": true,
+        "description": "Series (≤ 6)"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "description": "Unit"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Data table for screen readers",
+      "Zero-based axis",
+      "Legend + fixed colour order"
+    ],
+    "tests": [
+      "src/design-system/composites/Charts.test.tsx"
+    ],
+    "dependsOn": [
+      "ChartFrame"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-026",
+    "name": "LineChart",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Lines with optional markers or area fill, ≤ 6 series.",
+    "tokens": [
+      "chart-1",
+      "chart-2",
+      "chart-3",
+      "chart-4",
+      "chart-5",
+      "chart-6",
+      "chart-grid",
+      "chart-axis",
+      "surface-raised",
+      "border"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Chart title"
+      },
+      {
+        "name": "labels",
+        "type": "string[]",
+        "required": true,
+        "description": "Points"
+      },
+      {
+        "name": "series",
+        "type": "ChartSeries[]",
+        "required": true,
+        "description": "Series (≤ 6)"
+      },
+      {
+        "name": "markers",
+        "type": "boolean",
+        "required": false,
+        "description": "Show points"
+      },
+      {
+        "name": "area",
+        "type": "boolean",
+        "required": false,
+        "description": "Fill under lines"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Data table for screen readers"
+    ],
+    "tests": [
+      "src/design-system/composites/Charts.test.tsx"
+    ],
+    "dependsOn": [
+      "ChartFrame"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-027",
+    "name": "AreaChart",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Line chart with filled areas.",
+    "tokens": [
+      "chart-1",
+      "chart-2",
+      "chart-3",
+      "chart-4",
+      "chart-5",
+      "chart-6",
+      "chart-grid",
+      "chart-axis",
+      "surface-raised",
+      "border"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Chart title"
+      },
+      {
+        "name": "labels",
+        "type": "string[]",
+        "required": true,
+        "description": "Points"
+      },
+      {
+        "name": "series",
+        "type": "ChartSeries[]",
+        "required": true,
+        "description": "Series (≤ 6)"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Data table for screen readers"
+    ],
+    "tests": [
+      "src/design-system/composites/Charts.test.tsx"
+    ],
+    "dependsOn": [
+      "LineChart"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-028",
+    "name": "DonutChart",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Parts of one whole, ≤ 6 slices, legend with values.",
+    "tokens": [
+      "chart-1",
+      "chart-2",
+      "chart-3",
+      "chart-4",
+      "chart-5",
+      "chart-6",
+      "chart-grid",
+      "chart-axis",
+      "surface-raised",
+      "border"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Chart title"
+      },
+      {
+        "name": "items",
+        "type": "ChartItem[]",
+        "required": true,
+        "description": "Slices (≤ 6)"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "description": "Unit"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Data table for screen readers",
+      "Values in legend, not colour only"
+    ],
+    "tests": [
+      "src/design-system/composites/Charts.test.tsx"
+    ],
+    "dependsOn": [
+      "ChartFrame"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-029",
+    "name": "ChartFrame",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Chart wrapper: title, legend, drawing, source and accessible data table.",
+    "tokens": [
+      "surface-raised",
+      "border",
+      "muted-foreground",
+      "chart-1",
+      "chart-2",
+      "chart-3",
+      "chart-4",
+      "chart-5",
+      "chart-6"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Caption"
+      },
+      {
+        "name": "table",
+        "type": "{columns, rows}",
+        "required": true,
+        "description": "Accessible data"
+      },
+      {
+        "name": "legend",
+        "type": "string[]",
+        "required": false,
+        "description": "Series names"
+      },
+      {
+        "name": "source",
+        "type": "string",
+        "required": false,
+        "description": "Source"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "figure labelled by figcaption",
+      "sr-only table with th scope"
+    ],
+    "tests": [
+      "src/design-system/composites/Charts.test.tsx"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-030",
+    "name": "SpecBlock",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Renders a component spec (Storybook and /design-system).",
+    "tokens": [
+      "border",
+      "muted-foreground",
+      "destructive"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Component name"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Table with row headers; scrolls in its own box"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-031",
+    "name": "ColorScale",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "10-step colour scale with hex and AA text colour per step.",
+    "tokens": [
+      "border"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "family",
+        "type": "neutral | sage | lavender | warm",
+        "required": true,
+        "description": "Scale"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "description": "Heading"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Text on each swatch chosen for best contrast"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts",
+      "src/design-system/tokens/tokens.test.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-032",
+    "name": "ThemeGrid",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "The 12 light / mid / dark themes with measured contrast.",
+    "tokens": [
+      "border"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Each tile shows its contrast ratios as text"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts",
+      "src/design-system/tokens/tokens.test.ts"
+    ],
+    "dependsOn": [
+      "ThemeSurface"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-033",
+    "name": "ContrastTable",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Every checked contrast pair, light and dark.",
+    "tokens": [
+      "border",
+      "surface"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default",
+      "focus-visible"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Scroll region focusable and labelled",
+      "th scope"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-034",
+    "name": "TypeScale",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Specimen of the modular type scale (13 steps).",
+    "tokens": [
+      "border",
+      "muted-foreground"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Sizes as text next to the sample"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts",
+      "src/design-system/tokens/tokens.test.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-035",
+    "name": "IconGrid",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Icon sizes and strokes on the 16 px grid.",
+    "tokens": [
+      "border",
+      "surface",
+      "surface-raised",
+      "chart-grid"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Icons labelled"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": [
+      "Icon"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-036",
+    "name": "LogoUsage",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Logo variants, minimum sizes, clearance and negative version.",
+    "tokens": [
+      "border",
+      "surface",
+      "surface-raised",
+      "foreground",
+      "background"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Logo has role=img and name"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": [
+      "Logo"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-037",
+    "name": "DoDont",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Do / avoid lists for guideline rules.",
+    "tokens": [
+      "border",
+      "surface-raised",
+      "success",
+      "success-foreground",
+      "warning",
+      "warning-foreground",
+      "muted-foreground"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "doItems",
+        "type": "string[]",
+        "required": false,
+        "description": "Recommended"
+      },
+      {
+        "name": "avoid",
+        "type": "string[]",
+        "required": false,
+        "description": "To avoid"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "Each list is a labelled section; icons decorative"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": [
+      "Icon"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-038",
+    "name": "BrandValues",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Brand values: name, meaning and three descriptors.",
+    "tokens": [
+      "border",
+      "surface-raised",
+      "muted-foreground",
+      "subtle-foreground"
+    ],
+    "variants": {},
+    "props": [
+      {
+        "name": "values",
+        "type": "{name, meaning, descriptors}[]",
+        "required": true,
+        "description": "Values"
+      }
+    ],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "320px: no horizontal overflow",
+      "390px / 820px / 1440px: reflows without overlap"
+    ],
+    "a11y": [
+      "h3 per value"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
   }),
 ];

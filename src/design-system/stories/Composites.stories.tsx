@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { areas, footerColumns, nav } from "@/content";
 import { CardGrid, ComparisonTable, CtaBand, Faq, Footer, Header, Hero, PlanCards, StatTiles } from "../composites";
-import { SpecBlock } from "../SpecBlock";
+import { SpecBlock } from "../composites";
 
 const meta: Meta = { title: "Composites", parameters: { layout: "fullscreen" } };
 export default meta;

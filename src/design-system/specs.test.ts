@@ -39,7 +39,7 @@ describe("component specs (governance)", () => {
   });
 
   it("every exported component has a spec (no unspecified components)", () => {
-    const helpers = new Set(["Section", "SectionHeading"]); // documented inside Container / CardGrid specs
+    const helpers = new Set(["Section", "SectionHeading", "strokeFor", "niceMax"]); // documented inside Container / CardGrid specs
     const all = [...exported(primitives), ...exported(composites), ...exported(templates)].filter((n) => !helpers.has(n));
     expect(all.filter((n) => !names.has(n))).toEqual([]);
   });

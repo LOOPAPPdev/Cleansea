@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Badge, Button, ButtonLink, Card, Field, IconTile } from "../primitives";
-import { SpecBlock } from "../SpecBlock";
+import { SpecBlock } from "../composites";
 
 const meta: Meta<typeof Button> = {
   title: "Primitives/Button",

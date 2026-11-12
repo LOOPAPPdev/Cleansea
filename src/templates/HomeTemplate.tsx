@@ -1,5 +1,7 @@
 import { homeSections } from "@/content";
 import { CardGrid, CtaBand, FeatureMedia, Hero, MediaCardRow, SectionIntro } from "@/design-system/composites";
+import { Container, Section } from "@/design-system/primitives";
+import { ArchitecturePanel } from "./ArchitecturePanel";
 
 const MEDIA: Record<string, "integrations" | "badges" | "data"> = { integracoes: "integrations", seguranca: "badges", dados: "data" };
 
@@ -19,6 +21,12 @@ export function HomeTemplate() {
             return <SectionIntro key={sec.id} title={sec.title} subtitle={sec.subtitle} />;
           case "FeatureMedia":
             return <FeatureMedia key={sec.id} title={sec.title} body={sec.body} media={MEDIA[sec.id] ?? "data"} cta={sec.cta} />;
+          case "Architecture":
+            return (
+              <Section key={sec.id} id={sec.id} aria-label={sec.title}>
+                <Container className="max-w-[1088px]"><ArchitecturePanel /></Container>
+              </Section>
+            );
           case "CtaBand":
             return <CtaBand key={sec.id} title={sec.title} cta={sec.ctas[0]} />;
         }

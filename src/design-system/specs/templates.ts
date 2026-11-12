@@ -6,7 +6,7 @@ export const templatesSpecs = [
     "id": "LOOP-TPL-001",
     "name": "HomeTemplate",
     "level": "template",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Home (/solucoes): renders site-map.json sections in order.",
     "tokens": [
       "background",
@@ -27,20 +27,13 @@ export const templatesSpecs = [
     "tests": [
       "e2e/layout.spec.ts"
     ],
-    "dependsOn": [
-      "Hero",
-      "CardGrid",
-      "MediaCardRow",
-      "SectionIntro",
-      "FeatureMedia",
-      "CtaBand"
-    ]
+    "dependsOn": ["Hero", "CardGrid", "MediaCardRow", "SectionIntro", "FeatureMedia", "CtaBand", "ModulePanel", "SegmentedTabs", "TierDiagram"]
   }),
   defineSpec({
     "id": "LOOP-TPL-002",
     "name": "TeamTemplate",
     "level": "template",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Area page.",
     "tokens": [
       "background",
@@ -61,16 +54,7 @@ export const templatesSpecs = [
     "tests": [
       "e2e/layout.spec.ts"
     ],
-    "dependsOn": [
-      "Breadcrumb",
-      "Hero",
-      "FeatureCards",
-      "FeatureMedia",
-      "StatTiles",
-      "Quote",
-      "Faq",
-      "CtaBand"
-    ]
+    "dependsOn": ["Breadcrumb", "Hero", "FeatureCards", "FeatureMedia", "StatTiles", "Quote", "Faq", "CtaBand", "ColumnChart"]
   }),
   defineSpec({
     "id": "LOOP-TPL-003",
@@ -366,7 +350,7 @@ export const templatesSpecs = [
     "id": "LOOP-TPL-012",
     "name": "AboutTemplate",
     "level": "template",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "About (Saiba mais).",
     "tokens": [
       "background",
@@ -387,13 +371,7 @@ export const templatesSpecs = [
     "tests": [
       "e2e/layout.spec.ts"
     ],
-    "dependsOn": [
-      "Hero",
-      "Prose",
-      "LinkCards",
-      "OrgGrid",
-      "CtaBand"
-    ]
+    "dependsOn": ["Hero", "Prose", "LinkCards", "OrgGrid", "CtaBand", "BrandValues"]
   }),
   defineSpec({
     "id": "LOOP-TPL-013",
@@ -584,6 +562,53 @@ export const templatesSpecs = [
       "Hero",
       "Field",
       "Button"
+    ]
+  }),
+  defineSpec({
+    "id": "LOOP-TPL-019",
+    "name": "DesignSystemTemplate",
+    "level": "template",
+    "version": "1.0.0",
+    "summary": "Living brand guideline and component registry (/design-system).",
+    "tokens": [
+      "background",
+      "foreground"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "Sticky in-page nav scrolls horizontally on phones",
+      "Charts 2 columns ≥ 1100 px, 1 below"
+    ],
+    "a11y": [
+      "One <h1>",
+      "In-page nav landmark",
+      "Every section labelled"
+    ],
+    "tests": [
+      "e2e/layout.spec.ts",
+      "e2e/components.spec.ts"
+    ],
+    "dependsOn": [
+      "Hero",
+      "BrandValues",
+      "LogoUsage",
+      "DoDont",
+      "ColorScale",
+      "ThemeGrid",
+      "ContrastTable",
+      "TypeScale",
+      "IconGrid",
+      "ColumnChart",
+      "LineChart",
+      "AreaChart",
+      "BarChart",
+      "DonutChart",
+      "SpecBlock",
+      "Text"
     ]
   }),
 ];

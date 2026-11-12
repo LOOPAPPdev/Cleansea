@@ -4,3 +4,8 @@ export { Hero } from "./Hero";
 export { CardGrid, FeatureCards, IllustratedCard, LinkCards, MediaCardRow, SectionHeading } from "./Cards";
 export { CtaBand, FeatureMedia, Quote, SectionIntro } from "./Feature";
 export { Breadcrumb, ComparisonTable, Faq, OrgGrid, PlanCards, Prose, StatTiles, Steps, type Plan } from "./Data";
+export { SegmentedTabs, type SegmentedTab } from "./SegmentedTabs";
+export { ModulePanel, TierDiagram, type TierDiagramData, type TierGroup } from "./TierDiagram";
+export { AreaChart, BarChart, ChartFrame, ColumnChart, DonutChart, LineChart, MAX_SERIES, niceMax } from "./Charts";
+export { BrandValues, ColorScale, ContrastTable, DoDont, IconGrid, LogoUsage, ThemeGrid, TypeScale } from "./BrandDocs";
+export { SpecBlock } from "./SpecBlock";

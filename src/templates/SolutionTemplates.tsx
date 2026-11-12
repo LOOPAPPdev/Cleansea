@@ -1,5 +1,6 @@
-import { areas, type CardItem } from "@/content";
-import { Breadcrumb, CardGrid, CtaBand, Faq, FeatureCards, FeatureMedia, Hero, Quote, StatTiles } from "@/design-system/composites";
+import { areas, brand, type CardItem } from "@/content";
+import { Breadcrumb, CardGrid, ColumnChart, CtaBand, Faq, FeatureCards, FeatureMedia, Hero, Quote, StatTiles } from "@/design-system/composites";
+import { Container, Section } from "@/design-system/primitives";
 import { FAQ, QUOTE, SALES, STATS, features } from "./shared";
 
 const LOREM = "Lorem ipsum dolor sit amet.";
@@ -12,6 +13,11 @@ export function TeamTemplate({ item }: { item: CardItem }) {
       <FeatureCards title="Lorem ipsum dolor" items={features(3)} />
       <FeatureMedia media="integrations" title="Conectores lorem ipsum" body={LOREM} cta={{ label: "Ver parceiros", href: "/parceiros" }} />
       <StatTiles items={STATS} />
+      <Section className="pt-0">
+        <Container className="max-w-[880px]">
+          <ColumnChart title={brand.sampleCharts.monthly.title} source={brand.sampleCharts.monthly.source} labels={brand.sampleCharts.monthly.labels} series={brand.sampleCharts.monthly.series} unit={brand.sampleCharts.monthly.unit} />
+        </Container>
+      </Section>
       <Quote {...QUOTE} />
       <Faq items={FAQ} />
       <CtaBand title="Lorem ipsum dolor sit amet consectetur" cta={SALES} />
