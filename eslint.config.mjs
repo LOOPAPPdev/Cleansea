@@ -8,5 +8,5 @@ export default defineConfig([
 	...nextTs,
 	// `{ node, ...props }` drops react-markdown's AST prop before spreading props onto DOM elements.
 	{ rules: { "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }] } },
-	globalIgnores(["vendor/**", ".next/**", ".open-next/**", "storybook-static/**", "test-results/**", "playwright-report/**", "node_modules/**", "next-env.d.ts", "cloudflare-env.d.ts", "env.d.ts"]),
+	globalIgnores(["vendor/**", ".wrangler/**", ".next/**", ".open-next/**", "storybook-static/**", "test-results/**", "playwright-report/**", "node_modules/**", "next-env.d.ts", "cloudflare-env.d.ts", "env.d.ts"]),
 ]);

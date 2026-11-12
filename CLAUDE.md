@@ -154,6 +154,7 @@ Rules:
   - White nodes (`bg-surface-raised`) sit on gray or tinted grounds; cards on the white background need `border-border`.
 - Brand guideline (7 modules: values, logo, colour, typography, iconography, photography, data viz): `docs/brand-guidelines.md`, live at `/design-system`. Only Loop values; never copy another brand's colours, fonts, logo or text.
   - Type sizes only from the modular scale (`text-step-*` or `Heading`/`Text`): size doubles every 5 steps.
+  - Three families: Anton = display titles only (Hero `h1`, `Heading display`; capitals, one weight, never bold) · Inter = text and UI · monospace = tags, badges, IDs, code. Defined in `tokens.json › typography.families`.
   - Icons only through `Icon` (Lucide, 16/20/24, stroke rule). Logo only through `Logo` (min size, clearance, black/white).
   - Charts only through the chart components: ≤ 6 series in `chart-1…6` order, zero-based bars, title + source + data table.
   - Emphasis blocks use `ThemeSurface` themes; new themes go into `tokens.json › themes` and must pass `npm run contrast`.

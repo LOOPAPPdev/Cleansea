@@ -3,7 +3,7 @@ import { brand, vault } from "@/content";
 import { Container, Section, Text } from "@/design-system/primitives";
 import {
   AreaChart, BarChart, BrandValues, ColorScale, ColumnChart, ContrastTable, DoDont, DonutChart, FoundationLayers, Hero, IconGrid, LineChart, MarkdownView, MinimalSource, ObsidianVars,
-  LogoUsage, SchemePreview, SpecBlock, ThemeGrid, TypeScale,
+  LogoUsage, SchemePreview, SpecBlock, ThemeGrid, TypeFamilies, TypeScale,
 } from "@/design-system/composites";
 import { allSpecs } from "@/design-system/specs";
 import { ArchitecturePanel } from "./ArchitecturePanel";
@@ -35,7 +35,7 @@ export function DesignSystemTemplate() {
   const levels = ["primitive", "composite", "template", "product"] as const;
   return (
     <>
-      <Hero align="start" eyebrow="Design system · v4.2" title="Manual da marca Loop" subtitle="Valores, marca, fundação, cores, tipografia, ícones, fotografia, dados e o registro de todos os componentes." />
+      <Hero align="start" eyebrow="Design system · v4.3" title="Manual da marca Loop" subtitle="Valores, marca, fundação, cores, tipografia, ícones, fotografia, dados e o registro de todos os componentes." />
       <Container as="nav" aria-label="Neste manual" className="sticky top-(--header-height) z-30 -mb-px border-b border-border bg-background/95 backdrop-blur">
         <ul className="flex gap-1 overflow-x-auto py-2">
           {SECTIONS.map(([id, label]) => (
@@ -83,7 +83,8 @@ export function DesignSystemTemplate() {
         <div><h3 className="mb-3 text-step-1 font-medium">Contraste (WCAG 2.1 AA)</h3><ContrastTable /></div>
       </Block>
 
-      <Block id="tipografia" n="5.0" title="Tipografia" intro="Uma família, Inter. Escala modular: o tamanho dobra a cada 5 passos (16 → 32 → 64 px).">
+      <Block id="tipografia" n="5.0" title="Tipografia" intro="Três famílias com papéis fixos: Anton para títulos de display (caixa-alta, um peso), Inter para texto e interface, monospace para tags e códigos. Escala modular: o tamanho dobra a cada 5 passos (16 → 32 → 64 px).">
+        <TypeFamilies />
         <TypeScale />
         <DoDont doItems={brand.typography.rules} avoid={brand.typography.avoid} />
       </Block>

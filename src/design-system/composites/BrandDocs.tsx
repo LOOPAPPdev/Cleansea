@@ -1,7 +1,7 @@
 import { Check, Cloud, Database, GitBranch, Monitor, Search, Server, Users, X, type LucideIcon } from "lucide-react";
 import tokens from "../tokens/tokens.json";
 import { bestText, contrastRatio, resolveToken } from "../tokens/contrast";
-import { Icon, Logo, LOGO_MIN_WIDTH, ThemeSurface, themeNames, type ThemeName } from "../primitives";
+import { DISPLAY, Icon, Logo, LOGO_MIN_WIDTH, ThemeSurface, themeNames, type ThemeName } from "../primitives";
 import { cn } from "@/lib/utils";
 
 const prims = tokens.primitives as Record<string, Record<string, string>>;
@@ -186,6 +186,34 @@ export function BrandValues({ values }: { values: { name: string; meaning: strin
           <h3 className="text-step-2 font-medium">{v.name}</h3>
           <p className="text-muted-foreground">{v.meaning}</p>
           <p className="mt-auto text-step-m1 text-subtle-foreground">{v.descriptors.join(" · ")}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** The three type families and their roles: display (Anton), text (Inter), mono (tags) (LOOP-CMP-044). */
+export function TypeFamilies() {
+  const fam = tokens.typography.families as Record<string, { name: string; weight: number | string; case: string; use: string; source: string }>;
+  const sample: Record<string, { cls: string; text: string }> = {
+    display: { cls: cn("text-step-7", DISPLAY), text: "Vendas virtuais" },
+    text: { cls: "text-step-3 font-medium", text: "Consultoria full stack" },
+    mono: { cls: "font-mono text-step-0", text: "#diagnostico · LOOP-CMP-041" },
+  };
+  const role: Record<string, string> = { display: "Display", text: "Texto", mono: "Tags e códigos" };
+  return (
+    <ul className="grid gap-3 md:grid-cols-3">
+      {Object.entries(fam).map(([k, f]) => (
+        <li key={k} className="flex min-w-0 flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+          <p className="text-step-m1 text-subtle-foreground">{role[k] ?? k}</p>
+          <p className={cn(sample[k]?.cls, "[overflow-wrap:anywhere]")}>{sample[k]?.text}</p>
+          <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-step-m1">
+            <dt className="text-subtle-foreground">Família</dt><dd className="font-medium">{f.name}</dd>
+            <dt className="text-subtle-foreground">Peso</dt><dd>{f.weight}</dd>
+            <dt className="text-subtle-foreground">Caixa</dt><dd>{f.case}</dd>
+            <dt className="text-subtle-foreground">Uso</dt><dd className="text-muted-foreground">{f.use}</dd>
+            <dt className="text-subtle-foreground">Fonte</dt><dd className="text-muted-foreground">{f.source}</dd>
+          </dl>
         </li>
       ))}
     </ul>

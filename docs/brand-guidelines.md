@@ -9,7 +9,7 @@
 | 1 | Values | 5 values: name · meaning · three descriptors | `brand.json › values` (texts `[A DEFINIR]`) |
 | 2 | Logo | Logomark (ring), logotype, lockup, avatar; min sizes; clearance; colour; placement; what to avoid | `Logo` primitive, `brand.json › logo` |
 | 3 | Colour | Foundation (base + accent → layers, schemes); neutral-first identity; 10-step scales; 12 themes; contrast table | `tokens.json`, `docs/tokens.md` |
-| 4 | Typography | Inter; modular scale (size doubles every 5 steps); line-height and tracking rules; weights | `tokens.json › typography`, `Heading` / `Text` |
+| 4 | Typography | Anton (display) · Inter (text) · monospace (tags); modular scale (size doubles every 5 steps); line-height and tracking rules; weights | `tokens.json › typography`, `Heading` / `Text` |
 | 5 | Iconography | Lucide; 16 px grid; sizes 16/20/24; stroke 1.5/2; alignment with text | `Icon` primitive |
 | 6 | Photography | 4 principles + what to avoid; placeholders until photos are approved | `brand.json › photography` |
 | 7 | Data visualisation | 6 ordered series; grid, axis; bar, column, line, area, donut; rules | `Charts.tsx`, `brand.json › dataviz` |
@@ -35,7 +35,13 @@ Five values, each with a one-sentence meaning and three guide words. **Status:**
 - **Contrast:** every pair in `tokens.json › contrast`, light and dark, is enforced in CI-style scripts and shown in the `ContrastTable`.
 
 ## 4. Typography
-- Family: **Inter** (400, 500, 600).
+| Role | Family | Use | Rules |
+|---|---|---|---|
+| Display | **Anton** (Google Fonts, OFL) | Page titles (Hero `h1`), `Heading display` | Capitals, one weight (never bold), tracking 0.01em, sizes from the scale |
+| Text | **Inter** (400, 500, 600) | Body, section headings, interface | Sentence case |
+| Mono | System monospace | Tags, badges, IDs, code | As written |
+
+Source of truth: `tokens.json › typography.families` and `scale.family.display`. Change the display face there (one line).
 - Scale: base 16 px, ratio 2^(1/5): **the size doubles every 5 steps** (step 0 = 16 px, step 5 = 32 px, step 10 = 64 px). Utilities `text-step-m2 … text-step-10`.
 - Line height falls as size grows (1.6 for body → 1.05 at step 10); tracking tightens from step 3 up.
 - Avoid: sizes outside the scale; more than two weights in a block; long text in capitals; justified body text.

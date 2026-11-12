@@ -50,13 +50,13 @@ function components(offset: number): Components {
     a: ({ node, className, ...p }) => {
       const cls = String(className ?? "");
       if (cls.includes("tag"))
-        return <a {...p} className="tag rounded-(--tag-radius) border-(length:--tag-border-width) border-(--tag-border-color) px-(--tag-padding-x) py-(--tag-padding-y) align-middle text-(length:--tag-size) text-(--tag-color) no-underline hover:border-(--tag-border-color-hover) hover:text-(--tag-color-hover)" />;
+        return <a {...p} className="tag rounded-(--tag-radius) font-(family-name:--font-monospace) border-(length:--tag-border-width) border-(--tag-border-color) px-(--tag-padding-x) py-(--tag-padding-y) align-middle text-(length:--tag-size) text-(--tag-color) no-underline hover:border-(--tag-border-color-hover) hover:text-(--tag-color-hover)" />;
       return <a {...p} className={cn("text-(--text-accent) underline underline-offset-2 hover:text-(--text-accent-hover)", className)} />;
     },
     span: ({ node, className, ...p }) => {
       const cls = String(className ?? "");
       if (cls.includes("tag"))
-        return <span {...p} className="tag inline-block rounded-(--tag-radius) border-(length:--tag-border-width) border-(--tag-border-color) px-(--tag-padding-x) py-(--tag-padding-y) align-middle text-(length:--tag-size) text-(--tag-color)" />;
+        return <span {...p} className="tag inline-block rounded-(--tag-radius) font-(family-name:--font-monospace) border-(length:--tag-border-width) border-(--tag-border-color) px-(--tag-padding-x) py-(--tag-padding-y) align-middle text-(length:--tag-size) text-(--tag-color)" />;
       if (cls.includes("is-unresolved")) return <span {...p} title="Nota ainda não publicada" className="internal-link is-unresolved text-(--text-muted) underline decoration-dotted underline-offset-2" />;
       return <span {...p} className={className} />;
     },

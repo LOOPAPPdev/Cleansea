@@ -14,11 +14,17 @@ const TONE = { default: "text-foreground", muted: "text-muted-foreground", subtl
 
 type Common = { step?: TypeStep; weight?: keyof typeof WEIGHT; tone?: keyof typeof TONE; className?: string };
 
-/** Heading (LOOP-PRM-008). `level` sets the HTML tag (semantics); `step` sets the size (visual). */
-export function Heading({ level = 2, step, weight = "medium", tone = "default", className, ...rest }: Common & { level?: 1 | 2 | 3 | 4 } & ComponentProps<"h2">) {
+/** Display face (Anton): condensed capitals, one weight. Titles only. */
+export const DISPLAY = "font-display font-normal uppercase tracking-[0.01em] hyphens-auto";
+
+/**
+ * Heading (LOOP-PRM-008). `level` sets the HTML tag (semantics); `step` sets the size (visual).
+ * `display` switches to the display face (Anton, capitals) for page and campaign titles.
+ */
+export function Heading({ level = 2, step, weight = "medium", tone = "default", display = false, className, ...rest }: Common & { level?: 1 | 2 | 3 | 4; display?: boolean } & ComponentProps<"h2">) {
   const Tag = `h${level}` as ElementType;
   const fallback: Record<number, TypeStep> = { 1: "9", 2: "6", 3: "3", 4: "1" };
-  return <Tag className={cn(STEP[step ?? fallback[level]], WEIGHT[weight], TONE[tone], "text-balance", className)} {...rest} />;
+  return <Tag className={cn(STEP[step ?? fallback[level]], display ? DISPLAY : WEIGHT[weight], TONE[tone], "text-balance", className)} {...rest} />;
 }
 
 /** Body text (LOOP-PRM-009). Defaults to step 0 (16 px) with the scale's line height. */

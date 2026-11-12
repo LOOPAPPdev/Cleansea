@@ -45,7 +45,11 @@ export const tokensSchema = z.object({
   themes: z.record(z.string().regex(/^[a-z]+-(light|mid|dark)$/), z.object({ ground: themeRole, text: themeRole, accent: themeRole })),
   /** Modular type scale: size doubles every 5 steps. */
   typography: z.object({
-    family: z.string(), base: z.string(), ratio: z.string(),
+    family: z.string(),
+    /** Three roles: display (titles), text (body/UI), mono (tags, IDs, code). */
+    families: z.object({ display: z.object({ name: z.string(), weight: z.union([z.number(), z.string()]), case: z.string(), tracking: z.string(), use: z.string(), source: z.string() }) })
+      .catchall(z.object({ name: z.string(), weight: z.union([z.number(), z.string()]), case: z.string(), tracking: z.string(), use: z.string(), source: z.string() })),
+    base: z.string(), ratio: z.string(),
     weights: z.record(z.string(), z.number()),
     steps: z.record(z.string().regex(/^(m[12]|[0-9]|10)$/), z.object({ size: z.string(), px: z.number(), lineHeight: z.string(), tracking: z.string() })),
   }),

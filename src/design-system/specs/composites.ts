@@ -92,7 +92,7 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-003",
     "name": "Hero",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Page opener with title, subtitle and CTAs.",
     "tokens": [
       "foreground",
@@ -1763,7 +1763,7 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-041",
     "name": "MarkdownView",
     "level": "composite",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "summary": "Obsidian reading view: renders an Obsidian note (GFM + callouts, ==highlight==, #tags, [[wikilinks]], %%comments%%) with the vendored Minimal variable vocabulary.",
     "tokens": [
       "foreground",
@@ -1890,5 +1890,38 @@ export const compositesSpecs = [
       "e2e/layout.spec.ts"
     ],
     "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-044",
+    "name": "TypeFamilies",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "The three type families and their roles (display Anton, text Inter, mono tags) read from tokens.json › typography.families.",
+    "tokens": [
+      "border",
+      "surface",
+      "subtle-foreground",
+      "muted-foreground"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "One column at 320/390px, three from 900px",
+      "Samples wrap; no horizontal overflow"
+    ],
+    "a11y": [
+      "Sample text is real text",
+      "Description list per family"
+    ],
+    "tests": [
+      "src/design-system/primitives/Brand.test.tsx",
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": [
+      "Heading"
+    ]
   }),
 ];
