@@ -28,9 +28,11 @@ Next.js 16 + React 19 + TypeScript · shadcn/ui on Base UI + Tailwind CSS v4 · 
 | `npm run build` | Production build (Next.js) |
 | `npm run lint` · `npm run typecheck` | ESLint · `tsc --noEmit` |
 | `npm run tokens` | Generate `tokens.css` from `tokens.json` |
+| `npm run minimal` · `npm run minimal:sync` | Extract the vendored Minimal theme variables · re-vendor it from upstream |
+| `npm run vault` | Bundle Obsidian notes (`src/content/vault/*.md`) |
 | `npm run contrast` | WCAG contrast check of all token pairs (light + dark) |
 | `npm test` | Vitest: component spec governance, tokens, primitives, schemas |
-| `npm run test:e2e` | Playwright: 22 routes × 5 projects, header, forms, axe WCAG 2.1 AA (starts the server itself; run `npm run build` first) |
+| `npm run test:e2e` | Playwright: 23 routes × 5 projects, header, forms, axe WCAG 2.1 AA (starts the server itself; run `npm run build` first) |
 | `npm run test:workers` | OpenNext build + local cache + every route on the Workers runtime |
 | `npm run storybook` · `npm run build-storybook` | Component docs (a11y + light/dark themes) |
 | `npm run preview` | OpenNext build in the local Workers runtime |
@@ -51,8 +53,10 @@ src/
     stories/      Storybook stories
   templates/      Level 3 — Home, Team, Industry, Pricing, About, Contact …
   product/        Level 4 — Loop SaaS screens (empty)
-  content/        site-map.json (source of truth), contact.ts (Zod)
+  content/        site-map.json (source of truth), contact.ts (Zod), vault/ (Obsidian notes)
   app/            routes (thin page.tsx files), providers.tsx
+vendor/
+  obsidian-minimal/  Minimal theme for Obsidian (MIT), vendored and pinned — the design system foundation
 e2e/              Playwright acceptance tests
 docs/             tokens.md, component-quality.md, site-architecture.md
 CLAUDE.md         operating rules + repository rules for agents

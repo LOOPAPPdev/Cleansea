@@ -29,6 +29,12 @@ export const tokensSchema = z.object({
       dark: z.object({ base: hsl, accent: hsl }),
     })),
   }),
+  /** Obsidian vocabulary (vendored Minimal): var name → {layer.x} | {semantic.x} | {minimal.--x} | {type.N} | {scale.g.k} | CSS value. */
+  obsidian: z.object({
+    method: z.string(),
+    scope: z.string().startsWith("."),
+    vars: z.record(z.string().regex(/^--[a-z0-9-]+$/), z.string().min(1)),
+  }),
   semantic: z.record(
     z.string().regex(/^[a-z][a-z0-9-]*$/),
     z.object({ share: z.string().optional(), light: value, dark: value, usage: z.string().min(1) }),

@@ -124,9 +124,10 @@ Use ONE visual library (shadcn/ui on Base UI). Do not add MUI, Mantine or Radix 
 | `npm run dev` | Local dev |
 | `npm run build` / `npm run lint` / `npm run typecheck` | Build and static checks |
 | `npm run tokens` | Regenerate `tokens.css` from `tokens.json` (never edit `tokens.css`) |
+| `npm run minimal` · `minimal:sync` · `vault` | Extract Minimal variables · re-vendor upstream · bundle vault notes |
 | `npm run contrast` | WCAG contrast check of every token pair, light and dark |
 | `npm test` | Vitest: spec governance, tokens, primitives, schemas |
-| `npm run test:e2e` | Playwright: 22 routes × 5 projects (320/390/820/1440 + dark), header, forms, axe WCAG 2.1 AA |
+| `npm run test:e2e` | Playwright: 23 routes × 5 projects (320/390/820/1440 + dark), header, forms, axe WCAG 2.1 AA |
 | `npm run test:workers` | Build for Workers, populate cache, request every route on the Workers runtime |
 | `npm run storybook` / `npm run build-storybook` | Component docs and visual review |
 | `npm run deploy` | Manual deploy. Normally not needed: **every push to `main` deploys automatically** (Cloudflare Workers Builds runs `npm test`, then `npm run deploy`). Push to `main` only with approval. |
@@ -137,7 +138,7 @@ Use ONE visual library (shadcn/ui on Base UI). Do not add MUI, Mantine or Radix 
 | Tokens | `src/design-system/tokens/` | `tokens.json` (source), `tokens.css` (generated), `schema.ts`, `tokens.ts` | — |
 | shadcn source | `src/design-system/ui/` | Base UI components owned and adapted to Loop (44px targets, tokens) | tokens, `@/lib/utils` |
 | 1 Primitive | `src/design-system/primitives/` | Button, ButtonLink, Badge, Card, Container/Section, Field, IconTile, Heading, Text, Icon, Logo, ThemeSurface | ui, tokens |
-| 2 Composite | `src/design-system/composites/` | Header, Footer, Hero, CardGrid, … · SegmentedTabs, TierDiagram, ModulePanel · charts (Bar, Column, Line, Area, Donut, ChartFrame) · docs (ColorScale, ThemeGrid, ContrastTable, TypeScale, IconGrid, LogoUsage, DoDont, BrandValues, SpecBlock) — 38 | primitives, ui, `@/content` types |
+| 2 Composite | `src/design-system/composites/` | Header, Footer, Hero, CardGrid, … · SegmentedTabs, TierDiagram, ModulePanel · charts (Bar, Column, Line, Area, Donut, ChartFrame) · docs (ColorScale, ThemeGrid, ContrastTable, TypeScale, IconGrid, LogoUsage, DoDont, BrandValues, SpecBlock, FoundationLayers, SchemePreview, ObsidianVars, MinimalSource) · MarkdownView — 43 | primitives, ui, `@/content` types |
 | 3 Template | `src/templates/` | 19 page templates (incl. `DesignSystemTemplate` → `/design-system`) | composites, primitives, content |
 | 4 Product UI | `src/product/` | Loop SaaS screens (empty) | all of the above |
 | Routes | `src/app/` | thin `page.tsx`: params → content → template | templates, content |
@@ -158,7 +159,8 @@ Rules:
   - Emphasis blocks use `ThemeSurface` themes; new themes go into `tokens.json › themes` and must pass `npm run contrast`.
 - A new visual value goes into `tokens.json` first (light AND dark), then `npm run tokens`, then `npm run contrast`.
 - Foundation (Minimal method): neutral and accent colours derive from `tokens.json › foundation` (base + accent HSL → layers `raised/bg1-3/ui1-3/tx1-4/ax1-3/hl1`). Change the base or add a scheme there, never a single hex in a component. Schemes apply with `.scheme-*`; each must pass `npm run contrast`.
-- Long-form text uses `Prose` (reading rules: 40rem width, `scale.reading`).
+- Obsidian Minimal is vendored in `vendor/obsidian-minimal` (pinned, MIT). Never edit it: run `npm run minimal:sync`, then `npm run minimal` (→ `minimal.json`), then `npm run tokens`. Obsidian variables live in `tokens.json › obsidian.vars` (colours → `{layer.*}`, measures → `{minimal.*}`, sizes → `{type.*}`).
+- Long-form text uses `Prose` (reading rules: `scale.reading`, from Minimal). Obsidian notes go in `src/content/vault/*.md` (frontmatter title, summary, tags), then `npm run vault`; they render with `MarkdownView` at `/guias/<file-name>`.
 - Change navigation or home sections in `site-map.json`, not in components.
 - Prerendered routes need the incremental cache: keep `open-next.config.ts` and run `npm run test:workers` after adding SSG routes.
 

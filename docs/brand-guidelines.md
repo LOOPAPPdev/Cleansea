@@ -28,7 +28,7 @@ Five values, each with a one-sentence meaning and three guide words. **Status:**
 | Avoid | Two colours; stretching or rotating; outlines, shadows, effects; changing the mark/name relation; busy images behind; below minimum size |
 
 ## 3. Colour
-- **Foundation:** one base colour and one accent colour (HSL) generate every background, line, text and accent layer (method of the Minimal theme for Obsidian, MIT). Schemes: Neutro (default), Sálvia, Lavanda. See `docs/tokens.md §7`.
+- **Foundation:** one base colour and one accent colour (HSL) generate every background, line, text and accent layer (Minimal theme for Obsidian, MIT, vendored in `vendor/obsidian-minimal`). Schemes: Neutro (default), Sálvia, Lavanda. Long-form notes render with the Obsidian vocabulary (`MarkdownView`). See `docs/tokens.md §7–8`.
 - **Distribution:** white 60 % · gray 20 % · black 10 % · sage/lavender tints 10 %. Brand purple `#7055F6` only for focus and links (`#5A44C5`); green `#BEFBB6` only for success.
 - **Scales:** neutral, sage, lavender and warm, 10 steps each (050 → 900), generated in OKLCH from the approved colours (which stay exact anchors) and checked to darken step by step.
 - **Themes:** light / mid / dark for each family (12). Use them for moments of emphasis (`ThemeSurface`). Text ≥ 4.5:1 and accent ≥ 3:1 on every theme ground (`npm run contrast`).

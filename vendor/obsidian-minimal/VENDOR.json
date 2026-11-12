@@ -1,0 +1,14 @@
+{
+  "repo": "https://github.com/kepano/obsidian-minimal",
+  "commit": "93321bdc23fc879966e1e3aa0cfeda77012f540f",
+  "date": "2026-10-06",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "manifest.json",
+    "package.json",
+    "theme.css",
+    "src/scss"
+  ]
+}

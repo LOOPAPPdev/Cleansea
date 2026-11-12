@@ -5,7 +5,8 @@ import { ROUTES } from "./routes";
  * Scenario: No horizontal overflow
  *   GIVEN any route  WHEN it loads at 320 / 390 / 820 / 1440 px (light and dark)
  *   THEN the page does not scroll sideways AND there is exactly one <h1>
- *   AND no header label wraps AND no visible link/button is shorter than 32px.
+ *   AND no header label wraps AND no visible link/button is shorter than 32px
+ *   (except inline links inside running text: WCAG 2.5.8 inline exception).
  */
 for (const route of ROUTES) {
   test(`layout ${route}`, async ({ page }) => {
@@ -20,6 +21,7 @@ for (const route of ROUTES) {
         .filter((el) => el.offsetParent !== null && el.getBoundingClientRect().height > 60)
         .map((el) => el.textContent?.trim()),
       small: [...document.querySelectorAll<HTMLElement>("main a, main button, header a, header button")]
+        .filter((el) => getComputedStyle(el).display !== "inline" || !el.closest("p, li, td, blockquote"))
         .filter((el) => { const b = el.getBoundingClientRect(); return el.offsetParent !== null && b.width > 0 && b.height < 32; })
         .map((el) => el.textContent?.trim()),
     }));

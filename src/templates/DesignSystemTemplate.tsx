@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { brand } from "@/content";
+import { brand, vault } from "@/content";
 import { Container, Section, Text } from "@/design-system/primitives";
 import {
-  AreaChart, BarChart, BrandValues, ColorScale, ColumnChart, ContrastTable, DoDont, DonutChart, FoundationLayers, Hero, IconGrid, LineChart,
+  AreaChart, BarChart, BrandValues, ColorScale, ColumnChart, ContrastTable, DoDont, DonutChart, FoundationLayers, Hero, IconGrid, LineChart, MarkdownView, MinimalSource, ObsidianVars,
   LogoUsage, SchemePreview, SpecBlock, ThemeGrid, TypeScale,
 } from "@/design-system/composites";
 import { allSpecs } from "@/design-system/specs";
@@ -35,7 +35,7 @@ export function DesignSystemTemplate() {
   const levels = ["primitive", "composite", "template", "product"] as const;
   return (
     <>
-      <Hero align="start" eyebrow="Design system · v4.1" title="Manual da marca Loop" subtitle="Valores, marca, fundação, cores, tipografia, ícones, fotografia, dados e o registro de todos os componentes." />
+      <Hero align="start" eyebrow="Design system · v4.2" title="Manual da marca Loop" subtitle="Valores, marca, fundação, cores, tipografia, ícones, fotografia, dados e o registro de todos os componentes." />
       <Container as="nav" aria-label="Neste manual" className="sticky top-(--header-height) z-30 -mb-px border-b border-border bg-background/95 backdrop-blur">
         <ul className="flex gap-1 overflow-x-auto py-2">
           {SECTIONS.map(([id, label]) => (
@@ -53,10 +53,23 @@ export function DesignSystemTemplate() {
         <DoDont doItems={[brand.logo.clearance, brand.logo.avatar]} avoid={brand.logo.avoid} />
       </Block>
 
-      <Block id="fundacao" n="3.0" title="Fundação" intro="Método do tema Minimal para Obsidian (Steph Ango, licença MIT): uma cor base e uma cor de destaque, em HSL, geram todas as camadas de fundo, linha, texto e destaque. Um esquema troca só a base; as camadas mantêm seus deslocamentos. Os valores são da Loop, e o esquema Neutro reproduz exatamente as cores aprovadas.">
+      <Block id="fundacao" n="3.0" title="Fundação" intro="Tema Minimal para Obsidian (Steph Ango, licença MIT), incluído como fundação: uma cor base e uma cor de destaque, em HSL, geram todas as camadas de fundo, linha, texto e destaque. Um esquema troca só a base; as camadas mantêm seus deslocamentos. Os valores são da Loop, e o esquema Neutro reproduz exatamente as cores aprovadas.">
         <FoundationLayers />
         <div><h3 className="mb-3 text-step-1 font-medium">Esquemas</h3><SchemePreview /></div>
-        <div><h3 className="mb-3 text-step-1 font-medium">Leitura</h3><Text tone="muted" className="max-w-[64ch]">Textos longos usam o Prose: largura de 40rem, entrelinha 1,6, espaço entre parágrafos, títulos discretos da escala, marcadores de lista suaves e citação com fio fino.</Text><Link className="mt-2 inline-flex min-h-11 items-center text-primary-strong underline underline-offset-2 hover:text-primary-strong-hover" href="/guias/g1">Ver o Prose em um guia</Link></div>
+        <div>
+          <h3 className="mb-3 text-step-1 font-medium">Obsidian Minimal (código-fonte incluído)</h3>
+          <Text tone="muted" className="mb-4 max-w-[64ch]">O repositório do tema está em vendor/obsidian-minimal, fixado num commit. As variáveis do SCSS viram dados (minimal.json, gerado por npm run minimal). O vocabulário do Obsidian vira tokens: as cores seguem as camadas da fundação, as medidas vêm do Minimal e os títulos usam a escala da Loop.</Text>
+          <MinimalSource />
+        </div>
+        <div>
+          <h3 className="mb-3 text-step-1 font-medium">Visualização de leitura (MarkdownView)</h3>
+          <Text tone="muted" className="mb-4 max-w-[64ch]">Notas do cofre (src/content/vault) renderizadas com callouts, tarefas, destaques, tags, wikilinks, tabelas e código. A mesma regra vale para o Prose: largura de 40rem, entrelinha 1,5 e espaçamento do Minimal.</Text>
+          <div className="rounded-xl border border-border bg-background p-4 sm:p-8">
+            <MarkdownView markdown={vault["implantacao-loop"].markdown} headingOffset={3} resolveLink={(t) => (vault[t] ? `/guias/${t}` : undefined)} />
+          </div>
+          <Link className="mt-2 inline-flex min-h-11 items-center text-primary-strong underline underline-offset-2 hover:text-primary-strong-hover" href="/guias/diagnostico-operacional">Ver a nota completa em um guia</Link>
+        </div>
+        <div><h3 className="mb-3 text-step-1 font-medium">Variáveis do Obsidian → Loop</h3><ObsidianVars /></div>
       </Block>
 
       <Block id="cores" n="4.0" title="Cores" intro="Identidade neutra: branco 60 %, cinza 20 %, preto 10 %, tintas sálvia e lavanda 10 %. Escalas de 10 tons, temas claro/médio/escuro e contraste verificado em claro e escuro.">

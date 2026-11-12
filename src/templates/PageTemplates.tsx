@@ -1,6 +1,6 @@
-import { brand, LOREM, LOREM_LONG } from "@/content";
+import { brand, LOREM, LOREM_LONG, vault, type VaultNote } from "@/content";
 import { Badge, Container, Section } from "@/design-system/primitives";
-import { BrandValues, Breadcrumb, ComparisonTable, CtaBand, Faq, FeatureCards, Hero, LinkCards, OrgGrid, PlanCards, Prose, Steps } from "@/design-system/composites";
+import { BrandValues, Breadcrumb, ComparisonTable, CtaBand, Faq, FeatureCards, Hero, LinkCards, MarkdownView, OrgGrid, PlanCards, Prose, Steps } from "@/design-system/composites";
 import { FAQ, SALES, features, links, prose } from "./shared";
 
 export function PricingTemplate() {
@@ -49,22 +49,35 @@ export function ProfileTemplate({ slug }: { slug: string }) {
   );
 }
 
+/** Vault notes published as guides; wikilinks resolve only to notes that exist. */
+const notes = Object.values(vault);
+const noteHref = (slug: string) => `/guias/${slug}`;
+const resolveNote = (target: string) => (vault[target] ? noteHref(target) : undefined);
+
 export function HubTemplate() {
   return (
     <>
       <Hero title="Aprender com a Loop" subtitle={LOREM} />
-      <LinkCards id="guias" title="Guias e relatórios" items={tagged(6, "/guias", "Guia lorem")} />
+      <LinkCards id="guias" title="Guias e relatórios" items={[...notes.map((n, i) => ({ title: n.title, body: n.summary, href: noteHref(n.slug), tag: tag(i) })), ...tagged(6, "/guias", "Guia lorem")].slice(0, 6)} />
       <CtaBand title="Receba novos guias" cta={{ label: "Assinar", href: "/contato" }} />
     </>
   );
 }
 
-export function ArticleTemplate({ title, crumbs }: { title: string; crumbs?: { label: string; href: string }[] }) {
+export function ArticleTemplate({ title, crumbs, note }: { title: string; crumbs?: { label: string; href: string }[]; note?: VaultNote }) {
   return (
     <>
       {crumbs ? <Breadcrumb items={crumbs} /> : null}
-      <Hero align="start" title={title} subtitle={LOREM} />
-      <Prose blocks={prose()} />
+      <Hero align="start" title={note?.title ?? title} subtitle={note?.summary ?? LOREM} />
+      {note ? (
+        <Section>
+          <Container narrow>
+            <MarkdownView markdown={note.markdown} resolveLink={resolveNote} />
+          </Container>
+        </Section>
+      ) : (
+        <Prose blocks={prose()} />
+      )}
     </>
   );
 }

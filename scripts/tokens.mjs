@@ -7,11 +7,12 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { deriveLayers, semanticFor, resolveValue } from "../src/design-system/tokens/foundation.mjs";
+import { deriveLayers, semanticFor, resolveValue, obsidianCss } from "../src/design-system/tokens/foundation.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dir = join(root, "src/design-system/tokens");
 const t = JSON.parse(readFileSync(join(dir, "tokens.json"), "utf8"));
+const minimal = JSON.parse(readFileSync(join(dir, "minimal.json"), "utf8"));
 
 const resolve = (v) => resolveValue(t, v); // primitives only (themes)
 const F = t.foundation;
@@ -57,7 +58,7 @@ if (process.argv.includes("--check")) {
 // ---------- CSS ----------
 const vars = (o) => Object.entries(o).map(([k, v]) => `  --${k}: ${v};`).join("\n");
 const scale = Object.entries(t.scale)
-  .flatMap(([group, vals]) => Object.entries(vals).map(([k, v]) => `  --${group}-${k}: ${v};`))
+  .flatMap(([group, vals]) => Object.entries(vals).map(([k, v]) => `  --${group}-${k}: ${obsidianCss(minimal, v)};`))
   .join("\n");
 const themeCss = Object.entries(themes)
   .map(([k, v]) => `.theme-${k} {\n  --theme-ground: ${v.ground};\n  --theme-text: ${v.text};\n  --theme-accent: ${v.accent};\n}`)
@@ -96,10 +97,14 @@ ${vars(dark).replace(/^/gm, "  ")}
     color-scheme: dark;
   }
 }
+/* Obsidian vocabulary (vendored Minimal ${minimal.source.commit.slice(0, 7)}), scoped to ${t.obsidian.scope}. Colours follow the layers, so schemes and dark mode apply. */
+${t.obsidian.scope} {
+${Object.entries(t.obsidian.vars).map(([k, v]) => `  ${k}: ${obsidianCss(minimal, v)};`).join("\n")}
+}
 /* Schemes (Minimal method): same layer offsets on another base colour. Apply .scheme-* to <html> or to any region. */
 ${schemeCss}
 /* Themes light / mid / dark: fixed colours for moments of emphasis, independent of page mode. */
 ${themeCss}
 `;
 writeFileSync(join(dir, "tokens.css"), css);
-console.log(`tokens.css written: ${Object.keys(light).length} semantic colours × 2 modes, ${Object.keys(F.layers).length} layers × ${schemes.length} schemes, ${Object.keys(themes).length} themes, ${Object.keys(t.typography?.steps ?? {}).length} type steps, ${scale.split("\n").length} scale values`);
+console.log(`tokens.css written: ${Object.keys(light).length} semantic colours × 2 modes, ${Object.keys(F.layers).length} layers × ${schemes.length} schemes, ${Object.keys(t.obsidian.vars).length} Obsidian vars, ${Object.keys(themes).length} themes, ${Object.keys(t.typography?.steps ?? {}).length} type steps, ${scale.split("\n").length} scale values`);
