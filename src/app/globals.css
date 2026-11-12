@@ -26,6 +26,7 @@
   --color-primary-hover: var(--primary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-strong: var(--primary-strong);
+  --color-primary-strong-hover: var(--primary-strong-hover);
   --color-secondary: var(--surface);
   --color-secondary-foreground: var(--foreground);
   --color-muted: var(--surface);
@@ -111,6 +112,7 @@
   --spacing-target: var(--target-min);
   --container-site: var(--space-container);
   --container-measure: var(--space-measure);
+  --container-reading: var(--reading-width);
   --ease-standard: var(--motion-ease);
 
   --breakpoint-sm: 40rem;   /* 640px */
@@ -133,6 +135,9 @@
   }
   h1, h2, h3, h4 {
     text-wrap: balance;
+  }
+  ::selection {
+    background-color: var(--selection);
   }
   :focus-visible {
     outline: 2px solid var(--ring);

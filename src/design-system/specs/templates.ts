@@ -568,7 +568,7 @@ export const templatesSpecs = [
     "id": "LOOP-TPL-019",
     "name": "DesignSystemTemplate",
     "level": "template",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "summary": "Living brand guideline and component registry (/design-system).",
     "tokens": [
       "background",
@@ -596,6 +596,8 @@ export const templatesSpecs = [
       "Hero",
       "BrandValues",
       "LogoUsage",
+      "FoundationLayers",
+      "SchemePreview",
       "DoDont",
       "ColorScale",
       "ThemeGrid",

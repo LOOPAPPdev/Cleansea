@@ -151,17 +151,33 @@ export function OrgGrid({ title, people }: { title: string; people: { role: stri
   );
 }
 
-/** Long-form text blocks (LOOP-CMP-020). */
-export function Prose({ blocks }: { blocks: { h: string; p: string[] }[] }) {
+export type ProseBlock = { h: string; p: string[]; list?: string[]; quote?: string };
+
+/**
+ * Long-form reading view (LOOP-CMP-020). Reading rules from the foundation (Minimal method):
+ * 40rem line width, 1.6 line height, paragraph spacing, quiet headings from the type scale,
+ * faint list markers, a thin quote rule. Tokens: scale.reading.*.
+ */
+export function Prose({ blocks }: { blocks: ProseBlock[] }) {
   return (
     <Section>
       <Container narrow>
-        {blocks.map((b, i) => (
-          <div key={b.h}>
-            <h2 className={cn("mb-4 text-[1.75rem] leading-[1.2] font-medium", i > 0 && "mt-12")}>{b.h}</h2>
-            {b.p.map((t, j) => <p key={j} className="mb-4">{t}</p>)}
-          </div>
-        ))}
+        <div className="mx-auto max-w-reading text-step-0 leading-(--reading-line-height) [&_a]:text-primary-strong [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-primary-strong-hover">
+          {blocks.map((b, i) => (
+            <section key={b.h} aria-labelledby={`prose-${i}`}>
+              <h2 id={`prose-${i}`} className={cn("mb-3 text-step-3 font-semibold", i > 0 && "mt-(--reading-heading-spacing)")}>{b.h}</h2>
+              {b.p.map((t, j) => <p key={j} className="mb-(--reading-p-spacing)">{t}</p>)}
+              {b.list && (
+                <ul className="mb-(--reading-p-spacing) list-disc ps-(--reading-list-indent) marker:text-subtle-foreground [&>li+li]:mt-1">
+                  {b.list.map((t) => <li key={t}>{t}</li>)}
+                </ul>
+              )}
+              {b.quote && (
+                <blockquote className="mb-(--reading-p-spacing) border-s-2 border-border-strong ps-4 text-muted-foreground">{b.quote}</blockquote>
+              )}
+            </section>
+          ))}
+        </div>
       </Container>
     </Section>
   );

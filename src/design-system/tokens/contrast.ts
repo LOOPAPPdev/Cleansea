@@ -1,12 +1,10 @@
 /** WCAG 2.1 contrast helpers shared by docs components and tests (mirrors scripts/tokens.mjs). */
 import tokens from "./tokens.json";
+import { resolveValue, type Mode, type TokensLike } from "./foundation.mjs";
 
-type Prims = Record<string, Record<string, string>>;
-const prims = tokens.primitives as Prims;
-
-export function resolveToken(v: string): string {
-  const m = /^\{([a-z]+)\.([0-9]+)\}$/.exec(v);
-  return m ? prims[m[1]][m[2]] : v;
+/** Resolve "#hex", "{family.step}" or "{layer.name}" (layers depend on mode and scheme). */
+export function resolveToken(v: string, mode: Mode = "light", scheme?: string): string {
+  return resolveValue(tokens as unknown as TokensLike, v, mode, scheme);
 }
 const lum = (hex: string) =>
   [1, 3, 5]

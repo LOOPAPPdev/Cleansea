@@ -12,4 +12,9 @@ export const QUOTE = { text: "Lorem ipsum dolor sit amet, consectetur adipiscing
 export const features = (n: number, prefix = "Lorem ipsum") => Array.from({ length: n }, (_, i) => ({ title: `${prefix} ${i + 1}`, body: LOREM }));
 export const links = (n: number, base: string, label = "Lorem ipsum dolor") =>
   Array.from({ length: n }, (_, i) => ({ title: `${label} ${i + 1}`, body: LOREM, href: `${base}/item-${i + 1}` }));
-export const prose = (n = 3) => Array.from({ length: n }, (_, i) => ({ h: `Lorem ipsum ${i + 1}`, p: [LOREM_LONG, LOREM] }));
+export const prose = (n = 3) =>
+  Array.from({ length: n }, (_, i) => ({
+    h: `Lorem ipsum ${i + 1}`,
+    p: [LOREM_LONG, LOREM],
+    ...(i === 1 ? { list: ["Lorem ipsum dolor sit amet", "Consectetur adipiscing elit", "Sed do eiusmod tempor"], quote: LOREM } : {}),
+  }));

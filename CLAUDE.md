@@ -157,6 +157,8 @@ Rules:
   - Charts only through the chart components: ≤ 6 series in `chart-1…6` order, zero-based bars, title + source + data table.
   - Emphasis blocks use `ThemeSurface` themes; new themes go into `tokens.json › themes` and must pass `npm run contrast`.
 - A new visual value goes into `tokens.json` first (light AND dark), then `npm run tokens`, then `npm run contrast`.
+- Foundation (Minimal method): neutral and accent colours derive from `tokens.json › foundation` (base + accent HSL → layers `raised/bg1-3/ui1-3/tx1-4/ax1-3/hl1`). Change the base or add a scheme there, never a single hex in a component. Schemes apply with `.scheme-*`; each must pass `npm run contrast`.
+- Long-form text uses `Prose` (reading rules: 40rem width, `scale.reading`).
 - Change navigation or home sections in `site-map.json`, not in components.
 - Prerendered routes need the incremental cache: keep `open-next.config.ts` and run `npm run test:workers` after adding SSG routes.
 

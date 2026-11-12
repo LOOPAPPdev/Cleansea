@@ -1,14 +1,15 @@
+import Link from "next/link";
 import { brand } from "@/content";
 import { Container, Section, Text } from "@/design-system/primitives";
 import {
-  AreaChart, BarChart, BrandValues, ColorScale, ColumnChart, ContrastTable, DoDont, DonutChart, Hero, IconGrid, LineChart,
-  LogoUsage, SpecBlock, ThemeGrid, TypeScale,
+  AreaChart, BarChart, BrandValues, ColorScale, ColumnChart, ContrastTable, DoDont, DonutChart, FoundationLayers, Hero, IconGrid, LineChart,
+  LogoUsage, SchemePreview, SpecBlock, ThemeGrid, TypeScale,
 } from "@/design-system/composites";
 import { allSpecs } from "@/design-system/specs";
 import { ArchitecturePanel } from "./ArchitecturePanel";
 
 const SECTIONS = [
-  ["valores", "Valores"], ["marca", "Marca"], ["cores", "Cores"], ["tipografia", "Tipografia"],
+  ["valores", "Valores"], ["marca", "Marca"], ["fundacao", "Fundação"], ["cores", "Cores"], ["tipografia", "Tipografia"],
   ["icones", "Ícones"], ["fotografia", "Fotografia"], ["dados", "Dados"], ["componentes", "Componentes"],
 ] as const;
 
@@ -34,7 +35,7 @@ export function DesignSystemTemplate() {
   const levels = ["primitive", "composite", "template", "product"] as const;
   return (
     <>
-      <Hero align="start" eyebrow="Design system · v4" title="Manual da marca Loop" subtitle="Valores, marca, cores, tipografia, ícones, fotografia, dados e o registro de todos os componentes." />
+      <Hero align="start" eyebrow="Design system · v4.1" title="Manual da marca Loop" subtitle="Valores, marca, fundação, cores, tipografia, ícones, fotografia, dados e o registro de todos os componentes." />
       <Container as="nav" aria-label="Neste manual" className="sticky top-(--header-height) z-30 -mb-px border-b border-border bg-background/95 backdrop-blur">
         <ul className="flex gap-1 overflow-x-auto py-2">
           {SECTIONS.map(([id, label]) => (
@@ -52,7 +53,13 @@ export function DesignSystemTemplate() {
         <DoDont doItems={[brand.logo.clearance, brand.logo.avatar]} avoid={brand.logo.avoid} />
       </Block>
 
-      <Block id="cores" n="3.0" title="Cores" intro="Identidade neutra: branco 60 %, cinza 20 %, preto 10 %, tintas sálvia e lavanda 10 %. Escalas de 10 tons, temas claro/médio/escuro e contraste verificado em claro e escuro.">
+      <Block id="fundacao" n="3.0" title="Fundação" intro="Método do tema Minimal para Obsidian (Steph Ango, licença MIT): uma cor base e uma cor de destaque, em HSL, geram todas as camadas de fundo, linha, texto e destaque. Um esquema troca só a base; as camadas mantêm seus deslocamentos. Os valores são da Loop, e o esquema Neutro reproduz exatamente as cores aprovadas.">
+        <FoundationLayers />
+        <div><h3 className="mb-3 text-step-1 font-medium">Esquemas</h3><SchemePreview /></div>
+        <div><h3 className="mb-3 text-step-1 font-medium">Leitura</h3><Text tone="muted" className="max-w-[64ch]">Textos longos usam o Prose: largura de 40rem, entrelinha 1,6, espaço entre parágrafos, títulos discretos da escala, marcadores de lista suaves e citação com fio fino.</Text><Link className="mt-2 inline-flex min-h-11 items-center text-primary-strong underline underline-offset-2 hover:text-primary-strong-hover" href="/guias/g1">Ver o Prose em um guia</Link></div>
+      </Block>
+
+      <Block id="cores" n="4.0" title="Cores" intro="Identidade neutra: branco 60 %, cinza 20 %, preto 10 %, tintas sálvia e lavanda 10 %. Escalas de 10 tons, temas claro/médio/escuro e contraste verificado em claro e escuro.">
         <div className="grid gap-6 *:min-w-0">
           <ColorScale family="neutral" label="Neutro" />
           <ColorScale family="sage" label="Sálvia" />
@@ -63,17 +70,17 @@ export function DesignSystemTemplate() {
         <div><h3 className="mb-3 text-step-1 font-medium">Contraste (WCAG 2.1 AA)</h3><ContrastTable /></div>
       </Block>
 
-      <Block id="tipografia" n="4.0" title="Tipografia" intro="Uma família, Inter. Escala modular: o tamanho dobra a cada 5 passos (16 → 32 → 64 px).">
+      <Block id="tipografia" n="5.0" title="Tipografia" intro="Uma família, Inter. Escala modular: o tamanho dobra a cada 5 passos (16 → 32 → 64 px).">
         <TypeScale />
         <DoDont doItems={brand.typography.rules} avoid={brand.typography.avoid} />
       </Block>
 
-      <Block id="icones" n="5.0" title="Ícones" intro="Lucide, grade de 16 px, três tamanhos e dois traços.">
+      <Block id="icones" n="6.0" title="Ícones" intro="Lucide, grade de 16 px, três tamanhos e dois traços.">
         <IconGrid />
         <DoDont doItems={brand.iconography.rules} />
       </Block>
 
-      <Block id="fotografia" n="6.0" title="Fotografia" intro={brand.photography.status}>
+      <Block id="fotografia" n="7.0" title="Fotografia" intro={brand.photography.status}>
         <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,220px),1fr))] gap-3">
           {brand.photography.principles.map((p, i) => (
             <li key={p.title} className="flex flex-col gap-3 rounded-lg border border-border bg-surface-raised p-4">
@@ -86,7 +93,7 @@ export function DesignSystemTemplate() {
         <DoDont avoid={brand.photography.avoid} />
       </Block>
 
-      <Block id="dados" n="7.0" title="Visualização de dados" intro="Gráficos sem distorção, com título, fonte e tabela acessível. No máximo 6 séries, sempre na mesma ordem de cores.">
+      <Block id="dados" n="8.0" title="Visualização de dados" intro="Gráficos sem distorção, com título, fonte e tabela acessível. No máximo 6 séries, sempre na mesma ordem de cores.">
         <div className="grid gap-4 *:min-w-0 lg:grid-cols-2">
           <ColumnChart title={c.monthly.title} source={c.monthly.source} labels={c.monthly.labels} series={c.monthly.series} unit={c.monthly.unit} />
           <LineChart title={`${c.monthly.title} — linha`} source={c.monthly.source} labels={c.monthly.labels} series={c.monthly.series} unit={c.monthly.unit} />
@@ -97,7 +104,7 @@ export function DesignSystemTemplate() {
         <DoDont doItems={brand.dataviz.rules} />
       </Block>
 
-      <Block id="componentes" n="8.0" title="Componentes" intro={`${allSpecs.length} componentes registrados em 4 níveis. Cada um tem spec validado por npm test.`}>
+      <Block id="componentes" n="9.0" title="Componentes" intro={`${allSpecs.length} componentes registrados em 4 níveis. Cada um tem spec validado por npm test.`}>
         <ArchitecturePanel />
         {levels.map((lvl) => {
           const list = allSpecs.filter((s) => s.level === lvl);

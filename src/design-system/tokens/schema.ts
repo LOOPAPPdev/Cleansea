@@ -3,8 +3,11 @@ import { z } from "zod";
 /** Zod schema for tokens.json — the single source of truth for design tokens. */
 const hex = z.string().regex(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/, "hex #RRGGBB or #RRGGBBAA");
 const ref = z.string().regex(/^\{[a-z]+\.[0-9]+\}$/, "reference {family.step}");
+const layerRef = z.string().regex(/^\{layer\.[a-z0-9]+\}$/, "reference {layer.name}");
 const themeRole = z.union([hex, ref]);
-const value = z.union([hex, ref]);
+const value = z.union([hex, ref, layerRef]);
+const hsl = z.tuple([z.number().min(0).max(360), z.number().min(0).max(100), z.number().min(0).max(100)]);
+const offset = z.tuple([z.number(), z.number()]);
 
 export const tokensSchema = z.object({
   $schema: z.string().optional(),
@@ -12,6 +15,20 @@ export const tokensSchema = z.object({
   version: z.string(),
   rule: z.string(),
   primitives: z.record(z.string(), z.record(z.string(), hex)),
+  /** Foundation (Minimal method): base + accent HSL per scheme and mode → layers by [Δs, Δl] offsets. */
+  foundation: z.object({
+    method: z.string(),
+    default: z.string(),
+    layers: z.record(z.string().regex(/^[a-z]+[0-9]?$/), z.object({
+      usage: z.string().min(1), from: z.enum(["base", "accent"]), light: offset, dark: offset,
+      alpha: z.string().regex(/^[0-9A-F]{2}$/).optional(),
+    })),
+    schemes: z.record(z.string().regex(/^[a-z]+$/), z.object({
+      label: z.string(),
+      light: z.object({ base: hsl, accent: hsl }),
+      dark: z.object({ base: hsl, accent: hsl }),
+    })),
+  }),
   semantic: z.record(
     z.string().regex(/^[a-z][a-z0-9-]*$/),
     z.object({ share: z.string().optional(), light: value, dark: value, usage: z.string().min(1) }),
