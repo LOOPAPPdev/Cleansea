@@ -51,3 +51,6 @@ export type ArchitectureGroup = { title: string; tone: "sage" | "lavender"; icon
 type RawBrand = typeof brandRaw;
 export type Brand = Omit<RawBrand, "architecture"> & { architecture: Omit<RawBrand["architecture"], "groups"> & { groups: ArchitectureGroup[] } };
 export const brand = brandRaw as Brand;
+
+/** Obsidian vault (src/content/vault/*.md → npm run vault). The file name is the slug and the wikilink target. */
+export { vault, type VaultNote } from "./vault.generated";

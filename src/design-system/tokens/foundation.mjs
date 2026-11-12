@@ -65,3 +65,33 @@ export function resolveValue(tokens, value, mode = "light", scheme = tokens.foun
 export function semanticFor(tokens, mode = "light", scheme = tokens.foundation.default) {
   return Object.fromEntries(Object.entries(tokens.semantic).map(([k, v]) => [k, resolveValue(tokens, v[mode], mode, scheme)]));
 }
+
+/**
+ * Value of a Minimal variable from minimal.json defaults; follows var(--x) chains between defaults.
+ * Returns null when the variable is not a Minimal default.
+ */
+export function minimalValue(minimal, name, depth = 0) {
+  const v = minimal.defaults[name]?.value ?? null;
+  if (v === null || depth > 8) return v;
+  const m = /^var\((--[\w-]+)\)$/.exec(v);
+  return m ? minimalValue(minimal, m[1], depth + 1) ?? v : v;
+}
+
+/**
+ * CSS value for an Obsidian-vocabulary mapping in tokens.json › obsidian.vars (or a scale value):
+ * {layer.x} → var(--layer-x) · {semantic.x} → var(--x) · {type.N} → var(--type-size-N)
+ * {scale.group.key} → var(--group-key) · {minimal.--x} → Minimal's value · anything else → as is.
+ */
+export function obsidianCss(minimal, value) {
+  let m;
+  if ((m = /^\{layer\.([a-z0-9]+)\}$/.exec(value))) return `var(--layer-${m[1]})`;
+  if ((m = /^\{semantic\.([a-z0-9-]+)\}$/.exec(value))) return `var(--${m[1]})`;
+  if ((m = /^\{type\.([a-z0-9]+)\}$/.exec(value))) return `var(--type-size-${m[1]})`;
+  if ((m = /^\{scale\.([a-z]+)\.([a-z0-9-]+)\}$/.exec(value))) return `var(--${m[1]}-${m[2]})`;
+  if ((m = /^\{minimal\.(--[\w-]+)\}$/.exec(value))) {
+    const out = minimalValue(minimal, m[1]);
+    if (out === null) throw new Error(`Minimal has no default for ${m[1]}`);
+    return out;
+  }
+  return value;
+}

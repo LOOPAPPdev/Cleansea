@@ -10,3 +10,6 @@ export function hslToHex(hsl: Hsl): string;
 export function deriveLayers(foundation: Foundation, scheme?: string, mode?: Mode): Record<string, string>;
 export function resolveValue(tokens: TokensLike, value: string, mode?: Mode, scheme?: string): string;
 export function semanticFor(tokens: TokensLike, mode?: Mode, scheme?: string): Record<string, string>;
+export interface MinimalData { source: { repo: string; commit: string; date: string; license: string }; defaults: Record<string, { value: string; file: string }>; light: Record<string, { value: string; file: string }>; dark: Record<string, { value: string; file: string }> }
+export function minimalValue(minimal: MinimalData, name: string): string | null;
+export function obsidianCss(minimal: MinimalData, value: string): string;

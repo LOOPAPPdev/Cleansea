@@ -92,7 +92,7 @@ export const compositesSpecs = [
     "id": "LOOP-CMP-003",
     "name": "Hero",
     "level": "composite",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Page opener with title, subtitle and CTAs.",
     "tokens": [
       "foreground",
@@ -1758,5 +1758,170 @@ export const compositesSpecs = [
       "e2e/layout.spec.ts"
     ],
     "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-041",
+    "name": "MarkdownView",
+    "level": "composite",
+    "version": "1.1.0",
+    "summary": "Obsidian reading view: renders an Obsidian note (GFM + callouts, ==highlight==, #tags, [[wikilinks]], %%comments%%) with the vendored Minimal variable vocabulary.",
+    "tokens": [
+      "foreground",
+      "surface",
+      "border",
+      "tint-sage",
+      "tint-sage-border",
+      "tint-lavender",
+      "tint-lavender-border",
+      "warning",
+      "warning-foreground",
+      "destructive"
+    ],
+    "variants": {
+      "callout": [
+        "note",
+        "tip",
+        "success",
+        "warning",
+        "danger",
+        "quote"
+      ]
+    },
+    "props": [
+      {
+        "name": "markdown",
+        "type": "string",
+        "required": true,
+        "description": "Note source"
+      },
+      {
+        "name": "headingOffset",
+        "type": "number",
+        "required": false,
+        "description": "Rendered level = Markdown level + offset (default 1: one <h1> per page)"
+      },
+      {
+        "name": "resolveLink",
+        "type": "(target) => href | undefined",
+        "required": false,
+        "description": "Wikilink resolver; unresolved links render as dotted text"
+      },
+      {
+        "name": "tagHref",
+        "type": "(tag) => href | undefined",
+        "required": false,
+        "description": "Tag link builder; tags are plain text without it"
+      }
+    ],
+    "states": [
+      "default",
+      "hover"
+    ],
+    "responsive": [
+      "40rem reading width (Minimal --line-width)",
+      "320px: tables and code scroll inside focusable regions; no page overflow"
+    ],
+    "a11y": [
+      "Headings offset so the page keeps one h1",
+      "Callouts are role=note with an accessible name",
+      "Task checkboxes are disabled native inputs with a label",
+      "Inline links are exempt from target size (WCAG 2.5.8 inline exception)",
+      "Colours come from foundation layers (contrast checked per scheme and mode)"
+    ],
+    "tests": [
+      "src/design-system/composites/MarkdownView.test.tsx",
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-042",
+    "name": "ObsidianVars",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Table of the Obsidian variables used by MarkdownView, with their origin (layer, Minimal, scale, Loop) and CSS value.",
+    "tokens": [
+      "border",
+      "surface",
+      "muted-foreground"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "Scrolls inside a focusable, labelled region"
+    ],
+    "a11y": [
+      "Table with caption and headers",
+      "Scroll region is focusable"
+    ],
+    "tests": [
+      "src/design-system/composites/MarkdownView.test.tsx",
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-043",
+    "name": "MinimalSource",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "Facts about the vendored Minimal theme: repository, pinned commit, licence, extracted and mapped variable counts.",
+    "tokens": [
+      "border",
+      "background",
+      "subtle-foreground"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "One column at 320/390px, two from 640px"
+    ],
+    "a11y": [
+      "Description list (dt/dd)"
+    ],
+    "tests": [
+      "src/design-system/composites/MarkdownView.test.tsx",
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": []
+  }),
+  defineSpec({
+    "id": "LOOP-CMP-044",
+    "name": "TypeFamilies",
+    "level": "composite",
+    "version": "1.0.0",
+    "summary": "The three type families and their roles (display Anton, text Inter, mono tags) read from tokens.json › typography.families.",
+    "tokens": [
+      "border",
+      "surface",
+      "subtle-foreground",
+      "muted-foreground"
+    ],
+    "variants": {},
+    "props": [],
+    "states": [
+      "default"
+    ],
+    "responsive": [
+      "One column at 320/390px, three from 900px",
+      "Samples wrap; no horizontal overflow"
+    ],
+    "a11y": [
+      "Sample text is real text",
+      "Description list per family"
+    ],
+    "tests": [
+      "src/design-system/primitives/Brand.test.tsx",
+      "e2e/layout.spec.ts"
+    ],
+    "dependsOn": [
+      "Heading"
+    ]
   }),
 ];

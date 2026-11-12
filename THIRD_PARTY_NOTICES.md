@@ -1,7 +1,7 @@
 # Third-party notices
 
 ## Minimal theme for Obsidian
-The colour foundation (base + accent colour in HSL that derive background, line, text and accent layers; colour schemes; reading-width rules) follows the method of the Minimal theme. No CSS was copied; values are Loop's own.
+The theme source is vendored, unmodified, in `vendor/obsidian-minimal/` (commit recorded in `VENDOR.json`, licence in `vendor/obsidian-minimal/LICENSE`). The design system foundation extracts its CSS variables (`src/design-system/tokens/minimal.json`) and uses its method (base + accent colour in HSL deriving every layer) and Obsidian variable vocabulary. Loop colour values replace Minimal's colours; third-party colour schemes are not used.
 
 Source: https://github.com/kepano/obsidian-minimal
 

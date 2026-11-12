@@ -29,6 +29,12 @@ export const tokensSchema = z.object({
       dark: z.object({ base: hsl, accent: hsl }),
     })),
   }),
+  /** Obsidian vocabulary (vendored Minimal): var name → {layer.x} | {semantic.x} | {minimal.--x} | {type.N} | {scale.g.k} | CSS value. */
+  obsidian: z.object({
+    method: z.string(),
+    scope: z.string().startsWith("."),
+    vars: z.record(z.string().regex(/^--[a-z0-9-]+$/), z.string().min(1)),
+  }),
   semantic: z.record(
     z.string().regex(/^[a-z][a-z0-9-]*$/),
     z.object({ share: z.string().optional(), light: value, dark: value, usage: z.string().min(1) }),
@@ -39,7 +45,11 @@ export const tokensSchema = z.object({
   themes: z.record(z.string().regex(/^[a-z]+-(light|mid|dark)$/), z.object({ ground: themeRole, text: themeRole, accent: themeRole })),
   /** Modular type scale: size doubles every 5 steps. */
   typography: z.object({
-    family: z.string(), base: z.string(), ratio: z.string(),
+    family: z.string(),
+    /** Three roles: display (titles), text (body/UI), mono (tags, IDs, code). */
+    families: z.object({ display: z.object({ name: z.string(), weight: z.union([z.number(), z.string()]), case: z.string(), tracking: z.string(), use: z.string(), source: z.string() }) })
+      .catchall(z.object({ name: z.string(), weight: z.union([z.number(), z.string()]), case: z.string(), tracking: z.string(), use: z.string(), source: z.string() })),
+    base: z.string(), ratio: z.string(),
     weights: z.record(z.string(), z.number()),
     steps: z.record(z.string().regex(/^(m[12]|[0-9]|10)$/), z.object({ size: z.string(), px: z.number(), lineHeight: z.string(), tracking: z.string() })),
   }),

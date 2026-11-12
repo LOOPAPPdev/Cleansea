@@ -4,7 +4,7 @@ export { Card, type CardVariant } from "./Card";
 export { Container, Section } from "./Container";
 export { Field } from "./Field";
 export { IconTile } from "./IconTile";
-export { Heading, Text, typeSteps, type TypeStep } from "./Typography";
+export { DISPLAY, Heading, Text, typeSteps, type TypeStep } from "./Typography";
 export { Icon, strokeFor, type IconSize } from "./Icon";
 export { Logo, LOGO_MIN_WIDTH, type LogoVariant } from "./Logo";
 export { ThemeSurface, themeNames, type ThemeName, type ThemeFamily, type ThemeLevel } from "./ThemeSurface";

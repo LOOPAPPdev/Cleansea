@@ -1,4 +1,4 @@
-# Colour tokens — neutral-first identity (v4.1)
+# Colour tokens — neutral-first identity (v4.2)
 
 **Source of truth:** `src/design-system/tokens/tokens.json` → `npm run tokens` → `tokens.css`.
 **Checked:** `npm run contrast` (WCAG 2.1: 31 pairs × light and dark × 3 schemes, plus 12 themes × text and accent).
@@ -75,5 +75,29 @@ semantic token        = "{layer.bg1}"                         (resolved per mode
 - **Neutral** (default) reproduces every approved v4 colour exactly (`tokens.test.ts` asserts it). No visual change.
 - **Schemes** `sage`, `lavender`: same offsets on a tinted base. Apply `.scheme-sage` / `.scheme-lavender` to `<html>` or any region; light and dark follow the page mode. Every scheme passes every contrast pair.
 - **Deviation from Minimal:** Minimal's faint text (`tx3`) is decorative and fails AA. Loop's `tx3` stays ≥ 4.5:1; text layers drop 6 points of saturation so tinted schemes stay AA.
-- **Reading** (`scale.reading`): width 40rem · line height 1.6 · paragraph spacing 1.25rem · heading spacing 2em · list indent 1.5em · 1px rule. Used by `Prose`.
+- **Reading** (`scale.reading`): values come from Minimal (`{minimal.--line-width}` …): width 40rem · line height 1.5 · paragraph spacing 1.75rem · heading spacing 2em · list indent 2em · 1px rule. Used by `Prose` and `MarkdownView`.
 - **To add a scheme:** add it to `foundation.schemes` (light and dark base/accent), run `npm run tokens` and `npm run contrast`.
+
+## 8. Obsidian Minimal, vendored (v4.2)
+The theme source is part of the repository, not only its method.
+
+```
+vendor/obsidian-minimal/        upstream source (src/scss, theme.css, LICENSE…), pinned in VENDOR.json — never edit
+  └─ npm run minimal            → src/design-system/tokens/minimal.json (170 defaults, light, dark; generated)
+tokens.json › obsidian.vars     Obsidian vocabulary → Loop value
+  └─ npm run tokens             → tokens.css › .markdown-rendered { --text-normal: var(--layer-tx1); --line-width: 40rem; … }
+src/content/vault/*.md          Obsidian notes (frontmatter: title, summary, tags)
+  └─ npm run vault              → src/content/vault.generated.ts (bundled; no filesystem at runtime)
+MarkdownView                    renders a note with that vocabulary → /guias/<note>
+```
+
+| Mapping | Example | Rule |
+|---|---|---|
+| `{layer.x}` | `--text-normal: {layer.tx1}` | Colours always come from foundation layers (schemes, dark mode, contrast check) |
+| `{minimal.--x}` | `--p-spacing: {minimal.--p-spacing}` | Measures, weights, variants come from Minimal |
+| `{type.N}` | `--h1-size: {type.3}` | Heading sizes use the Loop modular scale (Minimal's 1.125em headings are off-scale) |
+| literal / `{scale.*}` | `--callout-radius: {scale.radius.md}` | Values Obsidian keeps in its closed base CSS |
+
+- **Update Minimal:** `npm run minimal:sync [commit]` → `npm run minimal` → `npm run tokens` → `npm test`. A test fails while `minimal.json` is out of date.
+- **Not taken:** Minimal's `color-schemes/` (Nord, Dracula, Solarized… are third-party palettes) and plugin skins.
+- **Deviations:** checkbox fill is black (`tx1`), not the accent; `==highlight==` uses the `warning` tint, not yellow; callouts use Loop tints (note → lavender, tip/success → sage, warning → warm, danger → destructive border).

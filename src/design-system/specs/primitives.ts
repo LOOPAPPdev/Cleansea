@@ -135,7 +135,7 @@ export const primitivesSpecs = [
     "id": "LOOP-PRM-003",
     "name": "Badge",
     "level": "primitive",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "summary": "Short status or category label.",
     "tokens": ["surface-sunken", "foreground", "tint-lavender", "primary", "success", "success-foreground", "warning", "warning-foreground"],
     "variants": {
@@ -350,7 +350,7 @@ export const primitivesSpecs = [
     "id": "LOOP-PRM-008",
     "name": "Heading",
     "level": "primitive",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "summary": "Heading with semantic level and a type-scale step for size.",
     "tokens": [
       "foreground",
@@ -370,6 +370,12 @@ export const primitivesSpecs = [
       ]
     },
     "props": [
+      {
+        "name": "display",
+        "type": "boolean",
+        "required": false,
+        "description": "Display face (Anton, capitals, one weight) for page and campaign titles"
+      },
       {
         "name": "level",
         "type": "1 | 2 | 3 | 4",

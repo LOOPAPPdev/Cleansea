@@ -288,7 +288,7 @@ export const templatesSpecs = [
     "id": "LOOP-TPL-010",
     "name": "HubTemplate",
     "level": "template",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Learning hub.",
     "tokens": [
       "background",
@@ -319,7 +319,7 @@ export const templatesSpecs = [
     "id": "LOOP-TPL-011",
     "name": "ArticleTemplate",
     "level": "template",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "summary": "Generic article / legal page.",
     "tokens": [
       "background",
@@ -341,6 +341,7 @@ export const templatesSpecs = [
       "e2e/layout.spec.ts"
     ],
     "dependsOn": [
+      "MarkdownView",
       "Breadcrumb",
       "Hero",
       "Prose"
@@ -568,7 +569,7 @@ export const templatesSpecs = [
     "id": "LOOP-TPL-019",
     "name": "DesignSystemTemplate",
     "level": "template",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "summary": "Living brand guideline and component registry (/design-system).",
     "tokens": [
       "background",
@@ -593,6 +594,7 @@ export const templatesSpecs = [
       "e2e/components.spec.ts"
     ],
     "dependsOn": [
+      "MarkdownView", "ObsidianVars", "MinimalSource",
       "Hero",
       "BrandValues",
       "LogoUsage",

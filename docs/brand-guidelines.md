@@ -9,7 +9,7 @@
 | 1 | Values | 5 values: name · meaning · three descriptors | `brand.json › values` (texts `[A DEFINIR]`) |
 | 2 | Logo | Logomark (ring), logotype, lockup, avatar; min sizes; clearance; colour; placement; what to avoid | `Logo` primitive, `brand.json › logo` |
 | 3 | Colour | Foundation (base + accent → layers, schemes); neutral-first identity; 10-step scales; 12 themes; contrast table | `tokens.json`, `docs/tokens.md` |
-| 4 | Typography | Inter; modular scale (size doubles every 5 steps); line-height and tracking rules; weights | `tokens.json › typography`, `Heading` / `Text` |
+| 4 | Typography | Anton (display) · Inter (text) · monospace (tags); modular scale (size doubles every 5 steps); line-height and tracking rules; weights | `tokens.json › typography`, `Heading` / `Text` |
 | 5 | Iconography | Lucide; 16 px grid; sizes 16/20/24; stroke 1.5/2; alignment with text | `Icon` primitive |
 | 6 | Photography | 4 principles + what to avoid; placeholders until photos are approved | `brand.json › photography` |
 | 7 | Data visualisation | 6 ordered series; grid, axis; bar, column, line, area, donut; rules | `Charts.tsx`, `brand.json › dataviz` |
@@ -28,14 +28,20 @@ Five values, each with a one-sentence meaning and three guide words. **Status:**
 | Avoid | Two colours; stretching or rotating; outlines, shadows, effects; changing the mark/name relation; busy images behind; below minimum size |
 
 ## 3. Colour
-- **Foundation:** one base colour and one accent colour (HSL) generate every background, line, text and accent layer (method of the Minimal theme for Obsidian, MIT). Schemes: Neutro (default), Sálvia, Lavanda. See `docs/tokens.md §7`.
+- **Foundation:** one base colour and one accent colour (HSL) generate every background, line, text and accent layer (Minimal theme for Obsidian, MIT, vendored in `vendor/obsidian-minimal`). Schemes: Neutro (default), Sálvia, Lavanda. Long-form notes render with the Obsidian vocabulary (`MarkdownView`). See `docs/tokens.md §7–8`.
 - **Distribution:** white 60 % · gray 20 % · black 10 % · sage/lavender tints 10 %. Brand purple `#7055F6` only for focus and links (`#5A44C5`); green `#BEFBB6` only for success.
 - **Scales:** neutral, sage, lavender and warm, 10 steps each (050 → 900), generated in OKLCH from the approved colours (which stay exact anchors) and checked to darken step by step.
 - **Themes:** light / mid / dark for each family (12). Use them for moments of emphasis (`ThemeSurface`). Text ≥ 4.5:1 and accent ≥ 3:1 on every theme ground (`npm run contrast`).
 - **Contrast:** every pair in `tokens.json › contrast`, light and dark, is enforced in CI-style scripts and shown in the `ContrastTable`.
 
 ## 4. Typography
-- Family: **Inter** (400, 500, 600).
+| Role | Family | Use | Rules |
+|---|---|---|---|
+| Display | **Anton** (Google Fonts, OFL) | Page titles (Hero `h1`), `Heading display` | Capitals, one weight (never bold), tracking 0.01em, sizes from the scale |
+| Text | **Inter** (400, 500, 600) | Body, section headings, interface | Sentence case |
+| Mono | System monospace | Tags, badges, IDs, code | As written |
+
+Source of truth: `tokens.json › typography.families` and `scale.family.display`. Change the display face there (one line).
 - Scale: base 16 px, ratio 2^(1/5): **the size doubles every 5 steps** (step 0 = 16 px, step 5 = 32 px, step 10 = 64 px). Utilities `text-step-m2 … text-step-10`.
 - Line height falls as size grows (1.6 for body → 1.05 at step 10); tracking tightens from step 3 up.
 - Avoid: sizes outside the scale; more than two weights in a block; long text in capitals; justified body text.

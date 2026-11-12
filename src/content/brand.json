@@ -1,14 +1,61 @@
 {
-  "meta": { "status": "draft", "note": "Estrutura de manual de marca; textos marcados [A DEFINIR] aguardam a Loop." },
+  "meta": {
+    "status": "draft",
+    "note": "Estrutura de manual de marca; textos marcados [A DEFINIR] aguardam a Loop."
+  },
   "values": [
-    { "name": "[A DEFINIR] Valor 1", "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "descriptors": ["Lorem", "Ipsum", "Dolor"] },
-    { "name": "[A DEFINIR] Valor 2", "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "descriptors": ["Lorem", "Ipsum", "Dolor"] },
-    { "name": "[A DEFINIR] Valor 3", "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "descriptors": ["Lorem", "Ipsum", "Dolor"] },
-    { "name": "[A DEFINIR] Valor 4", "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "descriptors": ["Lorem", "Ipsum", "Dolor"] },
-    { "name": "[A DEFINIR] Valor 5", "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "descriptors": ["Lorem", "Ipsum", "Dolor"] }
+    {
+      "name": "[A DEFINIR] Valor 1",
+      "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "descriptors": [
+        "Lorem",
+        "Ipsum",
+        "Dolor"
+      ]
+    },
+    {
+      "name": "[A DEFINIR] Valor 2",
+      "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "descriptors": [
+        "Lorem",
+        "Ipsum",
+        "Dolor"
+      ]
+    },
+    {
+      "name": "[A DEFINIR] Valor 3",
+      "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "descriptors": [
+        "Lorem",
+        "Ipsum",
+        "Dolor"
+      ]
+    },
+    {
+      "name": "[A DEFINIR] Valor 4",
+      "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "descriptors": [
+        "Lorem",
+        "Ipsum",
+        "Dolor"
+      ]
+    },
+    {
+      "name": "[A DEFINIR] Valor 5",
+      "meaning": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "descriptors": [
+        "Lorem",
+        "Ipsum",
+        "Dolor"
+      ]
+    }
   ],
   "logo": {
-    "minWidthPx": { "lockup": 120, "logomark": 16, "logotype": 96 },
+    "minWidthPx": {
+      "lockup": 120,
+      "logomark": 16,
+      "logotype": 96
+    },
     "clearance": "Área livre mínima em volta do logo = metade da altura do símbolo.",
     "colors": "Preto sobre fundo claro ou branco sobre fundo escuro. Nenhuma outra cor.",
     "placement": "Alinhado à esquerda, no topo ou na base da peça. Não centralizar.",
@@ -24,12 +71,20 @@
   },
   "typography": {
     "rules": [
-      "Uma família: Inter, em três pesos (400, 500, 600).",
+      "Três famílias: Anton (display), Inter (texto, 400/500/600) e monospace (tags e códigos).",
+      "Anton só em títulos de display, sempre em caixa-alta e num só peso.",
       "Tamanhos só da escala modular: o tamanho dobra a cada 5 passos.",
       "Quanto maior o texto, menor a entrelinha e mais fechado o espaçamento.",
-      "Texto corrido com entrelinha generosa (1,5–1,6) e largura de até 72 caracteres."
+      "Texto corrido com entrelinha 1,5 e largura de até 40rem (fundação Minimal)."
     ],
-    "avoid": ["Não usar tamanhos fora da escala.", "Não usar mais de dois pesos no mesmo bloco.", "Não usar caixa-alta em textos longos.", "Não justificar texto corrido."]
+    "avoid": [
+      "Não usar Anton em texto corrido, botões ou subtítulos.",
+      "Não aplicar negrito na Anton (ela tem um peso só).",
+      "Não usar tamanhos fora da escala.",
+      "Não usar mais de dois pesos no mesmo bloco.",
+      "Não usar caixa-alta em textos longos.",
+      "Não justificar texto corrido."
+    ]
   },
   "iconography": {
     "rules": [
@@ -42,12 +97,29 @@
   },
   "photography": {
     "principles": [
-      { "title": "Natural", "text": "Luz natural, pessoas reais em contexto de trabalho, sem poses forçadas." },
-      { "title": "Neutra", "text": "Tons frios e acinzentados, coerentes com a paleta neutra; sem saturação forte." },
-      { "title": "Composição limpa", "text": "Um assunto principal, bastante espaço livre e fundo simples." },
-      { "title": "Detalhe do processo", "text": "Mãos, quadros, telas e documentos contam o trabalho de consultoria." }
+      {
+        "title": "Natural",
+        "text": "Luz natural, pessoas reais em contexto de trabalho, sem poses forçadas."
+      },
+      {
+        "title": "Neutra",
+        "text": "Tons frios e acinzentados, coerentes com a paleta neutra; sem saturação forte."
+      },
+      {
+        "title": "Composição limpa",
+        "text": "Um assunto principal, bastante espaço livre e fundo simples."
+      },
+      {
+        "title": "Detalhe do processo",
+        "text": "Mãos, quadros, telas e documentos contam o trabalho de consultoria."
+      }
     ],
-    "avoid": ["Banco de imagens genérico com sorrisos posados.", "Filtros fortes ou cores saturadas.", "Texto sobre áreas movimentadas da foto.", "Imagens geradas por IA sem indicação e revisão."],
+    "avoid": [
+      "Banco de imagens genérico com sorrisos posados.",
+      "Filtros fortes ou cores saturadas.",
+      "Texto sobre áreas movimentadas da foto.",
+      "Imagens geradas por IA sem indicação e revisão."
+    ],
     "status": "Sem fotos aprovadas ainda; o site usa ilustrações em tinta neutra."
   },
   "dataviz": {
@@ -64,36 +136,188 @@
     "eyebrow": "LOOP / CLEANSEA",
     "title": "Arquitetura operacional",
     "status": "Proposta",
-    "tabs": ["Arquitetura", "SSM", "Módulos"],
-    "actor": { "title": "Cliente / Consultor / Operador", "subtitle": "Acesso, diagnóstico, validação e aprovação" },
+    "tabs": [
+      "Arquitetura",
+      "SSM",
+      "Módulos"
+    ],
+    "actor": {
+      "title": "Cliente / Consultor / Operador",
+      "subtitle": "Acesso, diagnóstico, validação e aprovação"
+    },
     "groups": [
-      { "title": "LOOP Studio — apps/web", "tone": "sage", "icon": "monitor", "nodes": ["Workspace", "Formulários", "Mapas BPMN", "Simulações", "Comentários", "Aprovações"] },
-      { "title": "Backend integrado", "tone": "lavender", "icon": "server", "nodes": ["API / Domínio", "Autenticação", "Persistência", "Eventos / Jobs"] }
+      {
+        "title": "LOOP Studio — apps/web",
+        "tone": "sage",
+        "icon": "monitor",
+        "nodes": [
+          "Workspace",
+          "Formulários",
+          "Mapas BPMN",
+          "Simulações",
+          "Comentários",
+          "Aprovações"
+        ]
+      },
+      {
+        "title": "Backend integrado",
+        "tone": "lavender",
+        "icon": "server",
+        "nodes": [
+          "API / Domínio",
+          "Autenticação",
+          "Persistência",
+          "Eventos / Jobs"
+        ]
+      }
     ],
     "integrations": [
-      { "title": "GitHub", "icon": "git-branch" },
-      { "title": "Cloudflare", "icon": "cloud" },
-      { "title": "Dados", "icon": "database" }
+      {
+        "title": "GitHub",
+        "icon": "git-branch"
+      },
+      {
+        "title": "Cloudflare",
+        "icon": "cloud"
+      },
+      {
+        "title": "Dados",
+        "icon": "database"
+      }
     ],
     "ssm": [
-      { "title": "Situação problemática", "text": "Intake e formulários" },
-      { "title": "Rich picture", "text": "Mapa de atores e fluxos" },
-      { "title": "Definições-raiz", "text": "CATWOE por processo" },
-      { "title": "Modelo conceitual", "text": "Atividades necessárias" },
-      { "title": "Comparação", "text": "Modelo × realidade" },
-      { "title": "Mudanças viáveis", "text": "Proposta e aprovação" }
+      {
+        "title": "Situação problemática",
+        "text": "Intake e formulários"
+      },
+      {
+        "title": "Rich picture",
+        "text": "Mapa de atores e fluxos"
+      },
+      {
+        "title": "Definições-raiz",
+        "text": "CATWOE por processo"
+      },
+      {
+        "title": "Modelo conceitual",
+        "text": "Atividades necessárias"
+      },
+      {
+        "title": "Comparação",
+        "text": "Modelo × realidade"
+      },
+      {
+        "title": "Mudanças viáveis",
+        "text": "Proposta e aprovação"
+      }
     ],
     "modules": [
-      { "title": "Diagnóstico", "text": "Coleta, entrevistas e mapa atual." },
-      { "title": "Desenho", "text": "Processos futuros em BPMN e simulações." },
-      { "title": "Implantação", "text": "Rotinas, automações e integrações." },
-      { "title": "Acompanhamento", "text": "Indicadores e melhoria contínua." }
+      {
+        "title": "Diagnóstico",
+        "text": "Coleta, entrevistas e mapa atual."
+      },
+      {
+        "title": "Desenho",
+        "text": "Processos futuros em BPMN e simulações."
+      },
+      {
+        "title": "Implantação",
+        "text": "Rotinas, automações e integrações."
+      },
+      {
+        "title": "Acompanhamento",
+        "text": "Indicadores e melhoria contínua."
+      }
     ]
   },
   "sampleCharts": {
     "note": "Dados de exemplo para demonstrar os componentes.",
-    "monthly": { "title": "Horas economizadas por mês (exemplo)", "source": "Dados fictícios", "unit": "h", "labels": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"], "series": [{ "name": "Antes", "values": [120, 118, 121, 119, 117, 116] }, { "name": "Depois", "values": [120, 104, 92, 81, 74, 66] }] },
-    "share": { "title": "Tempo por etapa (exemplo)", "source": "Dados fictícios", "unit": "%", "items": [{ "name": "Intake", "value": 18 }, { "name": "Análise", "value": 32 }, { "name": "Aprovação", "value": 22 }, { "name": "Execução", "value": 28 }] },
-    "areas": { "title": "Projetos por área (exemplo)", "source": "Dados fictícios", "unit": "", "items": [{ "name": "Operações", "value": 14 }, { "name": "Dados", "value": 11 }, { "name": "Comercial", "value": 9 }, { "name": "Estratégia", "value": 7 }, { "name": "Jurídico", "value": 4 }] }
+    "monthly": {
+      "title": "Horas economizadas por mês (exemplo)",
+      "source": "Dados fictícios",
+      "unit": "h",
+      "labels": [
+        "Jan",
+        "Fev",
+        "Mar",
+        "Abr",
+        "Mai",
+        "Jun"
+      ],
+      "series": [
+        {
+          "name": "Antes",
+          "values": [
+            120,
+            118,
+            121,
+            119,
+            117,
+            116
+          ]
+        },
+        {
+          "name": "Depois",
+          "values": [
+            120,
+            104,
+            92,
+            81,
+            74,
+            66
+          ]
+        }
+      ]
+    },
+    "share": {
+      "title": "Tempo por etapa (exemplo)",
+      "source": "Dados fictícios",
+      "unit": "%",
+      "items": [
+        {
+          "name": "Intake",
+          "value": 18
+        },
+        {
+          "name": "Análise",
+          "value": 32
+        },
+        {
+          "name": "Aprovação",
+          "value": 22
+        },
+        {
+          "name": "Execução",
+          "value": 28
+        }
+      ]
+    },
+    "areas": {
+      "title": "Projetos por área (exemplo)",
+      "source": "Dados fictícios",
+      "unit": "",
+      "items": [
+        {
+          "name": "Operações",
+          "value": 14
+        },
+        {
+          "name": "Dados",
+          "value": 11
+        },
+        {
+          "name": "Comercial",
+          "value": 9
+        },
+        {
+          "name": "Estratégia",
+          "value": 7
+        },
+        {
+          "name": "Jurídico",
+          "value": 4
+        }
+      ]
+    }
   }
 }

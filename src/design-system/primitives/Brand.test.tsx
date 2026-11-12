@@ -69,3 +69,37 @@ describe("cn (regression: type-scale classes survive a colour class)", () => {
     expect(cn("text-step-3", "text-step-5")).toBe("text-step-5");
   });
 });
+
+describe("Type families (display · text · mono)", () => {
+  it("Heading display uses the display face in capitals, one weight", async () => {
+    const { Heading } = await import("./Typography");
+    const { render, screen } = await import("@testing-library/react");
+    render(<Heading level={1} display>Vendas virtuais</Heading>);
+    const h = screen.getByRole("heading", { level: 1 });
+    expect(h).toHaveClass("font-display", "uppercase", "font-normal");
+    expect(h).not.toHaveClass("font-medium");
+  });
+  it("Hero titles use the display face and only scale steps", async () => {
+    const { Hero } = await import("../composites/Hero");
+    const { render, screen } = await import("@testing-library/react");
+    render(<Hero title="Título" />);
+    const h = screen.getByRole("heading", { level: 1 });
+    expect(h).toHaveClass("font-display", "text-step-8");
+    expect(h.className).not.toMatch(/text-\[/);
+  });
+  it("TypeFamilies lists Anton, Inter and monospace from tokens", async () => {
+    const tokens = (await import("../tokens/tokens.json")).default;
+    const { TypeFamilies } = await import("../composites/BrandDocs");
+    const { render, screen } = await import("@testing-library/react");
+    expect(tokens.typography.families.display.name).toBe("Anton");
+    expect(tokens.scale.family.display).toMatch(/^var\(--font-anton\)/);
+    render(<TypeFamilies />);
+    for (const n of ["Anton", "Inter", "System monospace"]) expect(screen.getByText(n)).toBeInTheDocument();
+  });
+  it("badges (tags) use the monospace family", async () => {
+    const { Badge } = await import("./Badge");
+    const { render, screen } = await import("@testing-library/react");
+    render(<Badge>Proposta</Badge>);
+    expect(screen.getByText("Proposta")).toHaveClass("font-mono");
+  });
+});

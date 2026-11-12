@@ -1,0 +1,10 @@
+/* Tooltips */
+
+.tooltip {
+	transition: none;
+	animation: none;
+}
+.tooltip.mod-primary,
+.tooltip.mod-secondary {
+	animation:none; 
+}

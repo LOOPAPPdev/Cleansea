@@ -12,6 +12,7 @@
   --font-sans: var(--family-sans);
   --font-mono: var(--family-mono);
   --font-heading: var(--family-sans);
+  --font-display: var(--family-display);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

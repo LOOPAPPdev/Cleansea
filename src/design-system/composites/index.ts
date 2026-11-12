@@ -7,6 +7,8 @@ export { Breadcrumb, ComparisonTable, Faq, OrgGrid, PlanCards, Prose, StatTiles,
 export { SegmentedTabs, type SegmentedTab } from "./SegmentedTabs";
 export { ModulePanel, TierDiagram, type TierDiagramData, type TierGroup } from "./TierDiagram";
 export { AreaChart, BarChart, ChartFrame, ColumnChart, DonutChart, LineChart, MAX_SERIES, niceMax } from "./Charts";
-export { BrandValues, ColorScale, ContrastTable, DoDont, IconGrid, LogoUsage, ThemeGrid, TypeScale } from "./BrandDocs";
+export { BrandValues, ColorScale, ContrastTable, DoDont, IconGrid, LogoUsage, ThemeGrid, TypeFamilies, TypeScale } from "./BrandDocs";
 export { FoundationLayers, SchemePreview, schemeNames } from "./Foundation";
+export { MarkdownView, type MarkdownViewProps } from "./MarkdownView";
+export { ObsidianVars, MinimalSource } from "./Obsidian";
 export { SpecBlock } from "./SpecBlock";

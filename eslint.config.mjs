@@ -6,5 +6,7 @@ import nextTs from "eslint-config-next/typescript";
 export default defineConfig([
 	...nextVitals,
 	...nextTs,
-	globalIgnores([".next/**", ".open-next/**", "storybook-static/**", "test-results/**", "playwright-report/**", "node_modules/**", "next-env.d.ts", "cloudflare-env.d.ts", "env.d.ts"]),
+	// `{ node, ...props }` drops react-markdown's AST prop before spreading props onto DOM elements.
+	{ rules: { "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }] } },
+	globalIgnores(["vendor/**", ".wrangler/**", ".next/**", ".open-next/**", "storybook-static/**", "test-results/**", "playwright-report/**", "node_modules/**", "next-env.d.ts", "cloudflare-env.d.ts", "env.d.ts"]),
 ]);
